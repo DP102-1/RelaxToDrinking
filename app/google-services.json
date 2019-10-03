@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "55442025104",
+    "firebase_url": "https://dp102t01-relaxtodrinking.firebaseio.com",
+    "project_id": "dp102t01-relaxtodrinking",
+    "storage_bucket": "dp102t01-relaxtodrinking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55442025104:android:6c1b9b4bd2a08ee4e9c615",
+        "android_client_info": {
+          "package_name": "com.example.relaxtodrinking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55442025104-mjog73auvd5nvphjhhpqj9ksi3evi70v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0XY-qQ4fAuuJflSTpQhdxppJA73vowfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55442025104-mjog73auvd5nvphjhhpqj9ksi3evi70v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
