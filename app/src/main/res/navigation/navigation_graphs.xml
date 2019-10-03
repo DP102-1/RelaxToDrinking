@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graphs"
+    app:startDestination="@id/productListFragment">
+
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.example.relaxtodrinking.ProductListFragment"
+        android:label="fragment_product_list"
+        tools:layout="@layout/fragment_product_list" >
+        <action
+            android:id="@+id/action_productListFragment_to_productSpecificationFragment"
+            app:destination="@id/productSpecificationFragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_shoppingcartListFragment"
+            app:destination="@id/shoppingcartListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productSpecificationFragment"
+        android:name="com.example.relaxtodrinking.ProductSpecificationFragment"
+        android:label="fragment_product_specification"
+        tools:layout="@layout/fragment_product_specification" />
+    <fragment
+        android:id="@+id/shoppingcartListFragment"
+        android:name="com.example.relaxtodrinking.ShoppingcartListFragment"
+        android:label="fragment_shoppingcart_list"
+        tools:layout="@layout/fragment_shoppingcart_list" />
+</navigation>
