@@ -7,6 +7,52 @@
     android:background="@drawable/background"
     tools:context=".ProductSpecificationFragment">
 
+    <Button
+        android:id="@+id/btAddShoppingCart_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/add_shopping_cart"
+        android:text="加入購物車"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cbProductL_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        app:layout_constraintEnd_toEndOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintStart_toStartOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductLNT_ProductSpecification" />
+
+    <CheckBox
+        android:id="@+id/cbProductM_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/ivProductM_ProductSpecification"
+        app:layout_constraintStart_toStartOf="@+id/ivProductM_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductMNT_ProductSpecification" />
+
+    <EditText
+        android:id="@+id/etQuantity_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="2"
+
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/ivQuantityReduct_ProductSpecification"
+        app:layout_constraintStart_toEndOf="@+id/ivQuantityReduct_ProductSpecification"
+        app:layout_constraintTop_toTopOf="@+id/ivQuantityReduct_ProductSpecification" />
+
     <ImageView
         android:id="@+id/ivExit_ProductSpecification"
         android:layout_width="wrap_content"
@@ -18,14 +64,282 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/ivProductL_ProductSpecification"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:src="@drawable/product_l_big"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCapacity_ProductSpecification" />
+
+    <ImageView
+        android:id="@+id/ivProductM_ProductSpecification"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:src="@drawable/product_m_big"
+        app:layout_constraintBottom_toBottomOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintStart_toEndOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductL_ProductSpecification" />
+
+
+    <ImageView
+        android:id="@+id/ivQuantityAdd_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/product_add"
+        app:layout_constraintBottom_toBottomOf="@+id/etQuantity_ProductSpecification"
+        app:layout_constraintStart_toEndOf="@+id/etQuantity_ProductSpecification"
+        app:layout_constraintTop_toTopOf="@+id/etQuantity_ProductSpecification" />
+
+    <ImageView
+        android:id="@+id/ivQuantityReduct_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:src="@drawable/product_reduce"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantity_ProductSpecification" />
+
+    <RadioGroup
+        android:id="@+id/rgTemperature_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTemperature_ProductSpecification">
+
+        <RadioButton
+            android:id="@+id/rbTemperature1_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="正常冰"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbTemperature2_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="少冰"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbTemperature3_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="去冰"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbTemperature4_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="常溫"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbTemperature5_ProductSpecification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="熱飲"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rgSweetness_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSweetness_ProductSpecification">
+
+        <RadioButton
+            android:id="@+id/rbSweetness1_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="正常甜"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbSweetness2_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="少糖"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbSweetness3_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="半糖"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbSweetness4_ProductSpecification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="微糖"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rbSweetness5_ProductSpecification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawable="@drawable/radiobutton_product"
+            android:text="無糖"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </RadioGroup>
+
     <TextView
         android:id="@+id/tvProductName_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="商品名稱規格設定"
+        android:text="商品規格設定"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/ivExit_ProductSpecification"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTemperature_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="100dp"
+        android:text="冷熱飲"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCapacity_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="容量"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/tvTemperature_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/tvTemperature_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvSweetness_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="甜度"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/tvCapacity_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/tvCapacity_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvQuantity_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="數量"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/tvSweetness_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/tvSweetness_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvProductL_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="L"
+        app:layout_constraintBottom_toTopOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintEnd_toEndOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintStart_toStartOf="@+id/ivProductL_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvProductM_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="M"
+        app:layout_constraintBottom_toTopOf="@+id/ivProductM_ProductSpecification"
+        app:layout_constraintEnd_toEndOf="@+id/ivProductM_ProductSpecification"
+        app:layout_constraintStart_toStartOf="@+id/ivProductM_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvProductLNT_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NT$"
+        app:layout_constraintStart_toStartOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/ivProductL_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvProductMNT_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NT$"
+        app:layout_constraintStart_toStartOf="@+id/ivProductM_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/ivProductM_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvPriceL_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="大杯價格"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductLNT_ProductSpecification"
+        app:layout_constraintStart_toEndOf="@+id/tvProductLNT_ProductSpecification"
+        app:layout_constraintTop_toTopOf="@+id/tvProductLNT_ProductSpecification" />
+
+    <TextView
+        android:id="@+id/tvPriceM_ProductSpecification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中杯價格"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductMNT_ProductSpecification"
+        app:layout_constraintStart_toEndOf="@+id/tvProductMNT_ProductSpecification"
+        app:layout_constraintTop_toTopOf="@+id/tvProductMNT_ProductSpecification" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
