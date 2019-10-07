@@ -2,11 +2,9 @@ package com.example.relaxtodrinking;
 /***************************************************************/
 // 需要點擊類別按鈕改變文字顏色的功能
 // 類別的recyclerView做滑動延伸
-// 連結購物車沒做
-// 商品詳情沒做
 // 外觀美化
+// 點擊返回按鈕沒做
 /***************************************************************/
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -87,15 +85,23 @@ public class ProductListFragment extends Fragment {
         goShoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_productListFragment_to_shoppingcartListFragment);
             }
         });
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊購物車＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊返回按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        back = view.findViewById(R.id.ivBack_ProductList);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊返回按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
-
-
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
         Context context;

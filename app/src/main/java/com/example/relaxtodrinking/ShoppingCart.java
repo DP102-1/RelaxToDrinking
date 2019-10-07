@@ -5,7 +5,8 @@ public class ShoppingCart {
     private String pro_id;
     private String pro_name;
     private String pro_capacity;
-    private int pro_price;
+    private int pro_price_L;
+    private int pro_price_M;
     private int pro_quantity;
     private String pro_temperature;
     private String pro_sweetness;
@@ -42,12 +43,20 @@ public class ShoppingCart {
         this.pro_capacity = pro_capacity;
     }
 
-    public int getPro_price() {
-        return pro_price;
+    public int getPro_price_L() {
+        return pro_price_L;
     }
 
-    public void setPro_price(int pro_price) {
-        this.pro_price = pro_price;
+    public void setPro_price_L(int pro_price_L) {
+        this.pro_price_L = pro_price_L;
+    }
+
+    public int getPro_price_M() {
+        return pro_price_M;
+    }
+
+    public void setPro_price_M(int pro_price_M) {
+        this.pro_price_M = pro_price_M;
     }
 
     public int getPro_quantity() {
@@ -74,16 +83,19 @@ public class ShoppingCart {
         this.pro_sweetness = pro_sweetness;
     }
 
-    public ShoppingCart() {}
-
-    public ShoppingCart(String sc_item_id, String pro_id, String pro_name, String pro_capacity, int pro_price, int pro_quantity, String pro_temperature, String pro_sweetness) {
+    public ShoppingCart(String sc_item_id, String pro_id, String pro_name, String pro_capacity, int pro_price_L, int pro_price_M, int pro_quantity, String pro_temperature, String pro_sweetness) {
         this.sc_item_id = sc_item_id;
         this.pro_id = pro_id;
         this.pro_name = pro_name;
         this.pro_capacity = pro_capacity;
-        this.pro_price = pro_price;
+        this.pro_price_L = pro_price_L;
+        this.pro_price_M = pro_price_M;
         this.pro_quantity = pro_quantity;
         this.pro_temperature = pro_temperature;
         this.pro_sweetness = pro_sweetness;
     }
+
+    public ShoppingCart() {}
+
+
 }

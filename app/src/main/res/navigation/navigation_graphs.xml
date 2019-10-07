@@ -26,5 +26,9 @@
         android:id="@+id/shoppingcartListFragment"
         android:name="com.example.relaxtodrinking.ShoppingcartListFragment"
         android:label="fragment_shoppingcart_list"
-        tools:layout="@layout/fragment_shoppingcart_list" />
+        tools:layout="@layout/fragment_shoppingcart_list" >
+        <action
+            android:id="@+id/action_shoppingcartListFragment_to_productSpecificationFragment"
+            app:destination="@id/productSpecificationFragment" />
+    </fragment>
 </navigation>

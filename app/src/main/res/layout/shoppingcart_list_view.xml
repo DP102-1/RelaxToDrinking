@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btEdit_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/product_button"
+        android:text="編輯"
+        android:textColor="#FFEB3B"
+        app:layout_constraintBottom_toBottomOf="@+id/btDelete_ShoppingCart"
+        app:layout_constraintEnd_toStartOf="@+id/btDelete_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/btDelete_ShoppingCart" />
+
+    <Button
+        android:id="@+id/btDelete_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/product_button"
+        android:text="刪除"
+        android:textColor="#FFEB3B"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvProductName_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="商品名稱"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvQuantity_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="*數量"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductName_ShoppingCart"
+        app:layout_constraintStart_toEndOf="@+id/tvProductName_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/tvProductName_ShoppingCart" />
+
+    <TextView
+        android:id="@+id/tvCapacity_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="大小"
+        app:layout_constraintBottom_toTopOf="@+id/tvProductTotalNT_ShoppingCart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductName_ShoppingCart" />
+
+    <TextView
+        android:id="@+id/tvPrice_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="單價"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCapacity_ShoppingCart"
+        app:layout_constraintStart_toEndOf="@+id/tvCapacity_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/tvCapacity_ShoppingCart" />
+
+    <TextView
+        android:id="@+id/tvTemperature_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="溫度"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPrice_ShoppingCart"
+        app:layout_constraintStart_toEndOf="@+id/tvPrice_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/tvPrice_ShoppingCart" />
+
+    <TextView
+        android:id="@+id/tvSweetness_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="甜度"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTemperature_ShoppingCart"
+        app:layout_constraintStart_toEndOf="@+id/tvTemperature_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/tvTemperature_ShoppingCart" />
+
+    <TextView
+        android:id="@+id/tvProductTotalNT_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="$NT"
+        android:textColor="#3F51B5"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvProductTotal_ShoppingCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="0"
+        android:textColor="#3F51B5"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductTotalNT_ShoppingCart"
+        app:layout_constraintStart_toEndOf="@+id/tvProductTotalNT_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/tvProductTotalNT_ShoppingCart" />
+</androidx.constraintlayout.widget.ConstraintLayout>
