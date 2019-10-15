@@ -1,6 +1,8 @@
 package com.example.relaxtodrinking;
 
-public class OrderItem {
+import java.io.Serializable;
+
+public class OrderItem implements Serializable {
     private String order_id;
     private String sc_item_id;
     private String pro_id;

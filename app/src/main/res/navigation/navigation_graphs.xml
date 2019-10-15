@@ -31,4 +31,18 @@
             android:id="@+id/action_shoppingcartListFragment_to_productSpecificationFragment"
             app:destination="@id/productSpecificationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/productManagementFragment"
+        android:name="com.example.relaxtodrinking.ProductManagementFragment"
+        android:label="fragment_product_management"
+        tools:layout="@layout/fragment_product_management" >
+        <action
+            android:id="@+id/action_productManagementFragment_to_productInsertFragment"
+            app:destination="@id/productInsertFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productInsertFragment"
+        android:name="com.example.relaxtodrinking.ProductInsertFragment"
+        android:label="fragment_product_insert"
+        tools:layout="@layout/fragment_product_insert" />
 </navigation>

@@ -38,21 +38,6 @@
         app:layout_constraintStart_toStartOf="@+id/ivProductM_ProductSpecification"
         app:layout_constraintTop_toBottomOf="@+id/tvProductMNT_ProductSpecification" />
 
-    <EditText
-        android:id="@+id/etQuantity_ProductSpecification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:ems="10"
-        android:inputType="number"
-        android:maxLength="2"
-
-        android:text="1"
-        app:layout_constraintBottom_toBottomOf="@+id/ivQuantityReduct_ProductSpecification"
-        app:layout_constraintStart_toEndOf="@+id/ivQuantityReduct_ProductSpecification"
-        app:layout_constraintTop_toTopOf="@+id/ivQuantityReduct_ProductSpecification" />
-
     <ImageView
         android:id="@+id/ivExit_ProductSpecification"
         android:layout_width="wrap_content"
@@ -341,5 +326,21 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvProductMNT_ProductSpecification"
         app:layout_constraintStart_toEndOf="@+id/tvProductMNT_ProductSpecification"
         app:layout_constraintTop_toTopOf="@+id/tvProductMNT_ProductSpecification" />
+
+    <EditText
+        android:id="@+id/etQuantity_ProductSpecification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@null"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text="1"
+        android:textColor="#F44336"
+        app:layout_constraintBottom_toBottomOf="@+id/ivQuantityReduct_ProductSpecification"
+        app:layout_constraintStart_toEndOf="@+id/ivQuantityReduct_ProductSpecification"
+        app:layout_constraintTop_toTopOf="@+id/ivQuantityReduct_ProductSpecification" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

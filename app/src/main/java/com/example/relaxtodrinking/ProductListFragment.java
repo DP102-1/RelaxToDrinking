@@ -1,7 +1,6 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
 // 需要點擊類別按鈕改變文字顏色的功能
-// 類別的recyclerView做滑動延伸
 // 外觀美化
 // 點擊返回按鈕沒做
 /***************************************************************/
@@ -41,15 +40,16 @@ import java.util.List;
 
 public class ProductListFragment extends Fragment {
     private String TAG = "商品瀏覽";
-
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
 
-    private RecyclerView recyclerViewProduct, recyclerViewKind;
-    private ImageView back, goShoppingCart;
+    private RecyclerView rvKindList_ProductList, rvProductList_ProductList;
+    private ImageView ivGoShoppingCart_ProductList, ivBack_ProductList;
 
-    private String productKindUid = "0"; //"0"代表全部的類別
+    private String productKindId = "0"; //"0"代表全部的類別
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,19 +70,21 @@ public class ProductListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        recyclerViewKind = view.findViewById(R.id.rvKindList_ProductList);
-        recyclerViewKind.setLayoutManager(new GridLayoutManager(activity, 5));
+        rvKindList_ProductList = view.findViewById(R.id.rvKindList_ProductList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvKindList_ProductList.setLayoutManager(linearLayoutManager);
         showKindAll();
 
-        recyclerViewProduct = view.findViewById(R.id.rvProductList_ProductList);
-        recyclerViewProduct.setLayoutManager(new LinearLayoutManager(activity));
+        rvProductList_ProductList = view.findViewById(R.id.rvProductList_ProductList);
+        rvProductList_ProductList.setLayoutManager(new LinearLayoutManager(activity));
         showProductAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊購物車＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        goShoppingCart = view.findViewById(R.id.ivGoShoppingCart_ProductList);
-        goShoppingCart.setOnClickListener(new View.OnClickListener() {
+        ivGoShoppingCart_ProductList = view.findViewById(R.id.ivGoShoppingCart_ProductList);
+        ivGoShoppingCart_ProductList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_productListFragment_to_shoppingcartListFragment);
@@ -92,16 +94,18 @@ public class ProductListFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊購物車＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊返回按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        back = view.findViewById(R.id.ivBack_ProductList);
-        back.setOnClickListener(new View.OnClickListener() {
+        ivBack_ProductList = view.findViewById(R.id.ivBack_ProductList);
+        ivBack_ProductList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            /**
+            返回
+            **/
             }
         });
-
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊返回按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
         Context context;
@@ -118,16 +122,16 @@ public class ProductListFragment extends Fragment {
         }
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
-            private TextView pro_price_L, pro_price_M, pro_name;
-            private ImageView pro_picture, goProductSpecification;
+            private TextView tvPriceL_ProductList, tvPriceM_ProductList, tvProductName_ProductList;
+            private ImageView ivProduct_ProductList, ivGoProductSpecification_ProductList;
 
             public MyViewHolder(View ProductView) {
                 super(ProductView);
-                pro_price_L = ProductView.findViewById(R.id.tvPriceL_ProductList);
-                pro_price_M = ProductView.findViewById(R.id.tvPriceM_ProductList);
-                pro_name = ProductView.findViewById(R.id.tvProductName_ProductList);
-                pro_picture = ProductView.findViewById(R.id.ivProduct_ProductList);
-                goProductSpecification = ProductView.findViewById(R.id.ivGoProductSpecification_ProductList);
+                tvPriceL_ProductList = ProductView.findViewById(R.id.tvPriceL_ProductList);
+                tvPriceM_ProductList = ProductView.findViewById(R.id.tvPriceM_ProductList);
+                tvProductName_ProductList = ProductView.findViewById(R.id.tvProductName_ProductList);
+                ivProduct_ProductList = ProductView.findViewById(R.id.ivProduct_ProductList);
+                ivGoProductSpecification_ProductList = ProductView.findViewById(R.id.ivGoProductSpecification_ProductList);
             }
         }
 
@@ -137,22 +141,22 @@ public class ProductListFragment extends Fragment {
             View itemView = LayoutInflater.from(context).inflate(R.layout.product_list_view, parent, false);
             return new ProductAdapter.MyViewHolder(itemView);
         }
-
         @Override
         public void onBindViewHolder(@NonNull ProductAdapter.MyViewHolder holder, int position) {
             final Product product = products.get(position);
-            holder.pro_name.setText(product.getPro_name()); //抓商品名稱
-            holder.pro_price_L.setText(String.valueOf(product.getPro_price_L())); //抓商品中杯價格
-            holder.pro_price_M.setText(String.valueOf(product.getPro_price_M())); //抓商品大杯價格
+            holder.tvProductName_ProductList.setText(product.getPro_name()); //抓商品名稱
+            holder.tvPriceL_ProductList.setText(String.valueOf(product.getPro_price_L())); //抓商品中杯價格
+            holder.tvPriceM_ProductList.setText(String.valueOf(product.getPro_price_M())); //抓商品大杯價格
             if (product.getPro_picture() == null) { //抓商品圖片
-                holder.pro_picture.setImageResource(R.drawable.product_noimage);
+                holder.ivProduct_ProductList.setImageResource(R.drawable.product_noimage);
             } else {
-                showImage(holder.pro_picture, product.getPro_picture());
+                showImage(holder.ivProduct_ProductList, product.getPro_picture());
             }
-            holder.goProductSpecification.setOnClickListener(new View.OnClickListener() { //點擊商品規格細項設定
+            holder.ivGoProductSpecification_ProductList.setOnClickListener(new View.OnClickListener() { //點擊商品規格細項設定
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
+                    bundle.putString("fragment", TAG);
                     bundle.putString("pro_id", product.getPro_id());
                     bundle.putString("pro_name", product.getPro_name());
                     bundle.putInt("pro_price_M", product.getPro_price_M());
@@ -176,15 +180,15 @@ public class ProductListFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 products.add(document.toObject(Product.class));
                             }
-                            if (!productKindUid.equals("0")) { //如果為顯示全部就不執行這段
+                            if (!productKindId.equals("0")) { //如果為顯示全部就不執行這段
                                 for (int i = products.size() - 1; i >= 0; i--) { //刪除products集合不是"該類別id"的商品
                                     Product product = products.get(i);
-                                    if (!productKindUid.equals(product.getPro_kind_id())) {
+                                    if (!productKindId.equals(product.getPro_kind_id())) {
                                         products.remove(i);
                                     }
                                 }
                             }
-                            recyclerViewProduct.setAdapter(new ProductAdapter(activity, products));
+                            rvProductList_ProductList.setAdapter(new ProductAdapter(activity, products));
                         }
                     }
                 });
@@ -208,10 +212,10 @@ public class ProductListFragment extends Fragment {
         }
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
-            private TextView kind_name;
+            private TextView tvKindName_ProductList;
             public MyViewHolder(View KindView) {
                 super(KindView);
-                kind_name = KindView.findViewById(R.id.tvKindName_ProductList);
+                tvKindName_ProductList = KindView.findViewById(R.id.tvKindName_ProductList);
             }
         }
         @NonNull
@@ -224,11 +228,11 @@ public class ProductListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final KindAdapter.MyViewHolder holder, int position) {
             final ProductKind kind = kinds.get(position);
-            holder.kind_name.setText(kind.getKind_name()); //抓商品種類名稱
+            holder.tvKindName_ProductList.setText(kind.getKind_name()); //抓商品種類名稱
             holder.itemView.setOnClickListener(new View.OnClickListener() { //點擊商品類別來分類
                 @Override
                 public void onClick(View view) {
-                    productKindUid = kind.getKind_id();
+                    productKindId = kind.getKind_id();
                     showProductAll();
                 }
             });
@@ -249,7 +253,7 @@ public class ProductListFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 kinds.add(document.toObject(ProductKind.class));
                             }
-                            recyclerViewKind.setAdapter(new KindAdapter(activity, kinds));
+                            rvKindList_ProductList.setAdapter(new KindAdapter(activity, kinds));
                         }
                     }
                 });
@@ -276,5 +280,4 @@ public class ProductListFragment extends Fragment {
                 });
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
 }
