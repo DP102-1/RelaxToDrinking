@@ -46,15 +46,13 @@ import java.util.regex.Pattern;
 
 public class ProductManagementFragment extends Fragment {
     private String TAG = "商品管理";
-
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
 
     private RecyclerView rvProductList_ProductManagement;
-
-
-
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,15 +223,6 @@ public class ProductManagementFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 products.add(document.toObject(Product.class));
                             }
-
-//                            if (!productKindUid.equals("0")) { //如果為顯示全部就不執行這段
-//                                for (int i = products.size() - 1; i >= 0; i--) { //刪除products集合不是"該類別id"的商品
-//                                    Product product = products.get(i);
-//                                    if (!productKindUid.equals(product.getPro_kind_id())) {
-//                                        products.remove(i);
-//                                    }
-//                                }
-//                            }
                             rvProductList_ProductManagement.setAdapter(new ProductManagementFragment.ProductAdapter(activity, products));
                         }
                     }

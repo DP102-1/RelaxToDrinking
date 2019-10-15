@@ -2,72 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ivExit_ProductInsert"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ProductInsertFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/exit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTitle_ProductInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="商品新增"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/etProductName_ProductInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="395dp"
-        tools:text="品名" />
-
-    <Spinner
-        android:id="@+id/spProductKind_ProductInsert"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="371dp" />
-
-    <EditText
-        android:id="@+id/etProductPriceL_ProductInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="479dp"
-        tools:text="0" />
-
-    <EditText
-        android:id="@+id/etProductPriceM_ProductInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="533dp"
-        tools:text="0" />
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btTakePicture_ProductInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -76,6 +17,100 @@
         android:text="拍照"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivProductPicture_ProductInsert" />
+
+    <Button
+        android:id="@+id/btChoiceFromAlbum_ProductInsert"
+        android:layout_width="106dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:text="從相簿選擇..."
+        app:layout_constraintBottom_toBottomOf="@+id/btTakePicture_ProductInsert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btTakePicture_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/btTakePicture_ProductInsert" />
+
+    <Button
+        android:id="@+id/btProductInsert_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="確定新增"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btEditKind_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:text="分類設定..."
+        app:layout_constraintBottom_toBottomOf="@+id/spProductKind_ProductInsert"
+        app:layout_constraintStart_toEndOf="@+id/spProductKind_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/spProductKind_ProductInsert" />
+
+    <Button
+        android:id="@+id/btProductStatus_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:text="狀態"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductStatus_ProductInsert"
+        app:layout_constraintStart_toEndOf="@+id/tvProductStatus_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/tvProductStatus_ProductInsert" />
+
+    <EditText
+        android:id="@+id/etProductName_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductName_ProductInsert"
+        app:layout_constraintStart_toEndOf="@+id/tvProductName_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/tvProductName_ProductInsert"
+        tools:text="品名" />
+
+    <EditText
+        android:id="@+id/etProductPriceL_ProductInsert"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductPriceL_ProductInsert"
+        app:layout_constraintStart_toEndOf="@+id/tvProductPriceL_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/tvProductPriceL_ProductInsert"
+        tools:text="0" />
+
+    <EditText
+        android:id="@+id/etProductPriceM_ProductInsert"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductPriceM_ProductInsert"
+        app:layout_constraintStart_toEndOf="@+id/tvProductPriceM_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/tvProductPriceM_ProductInsert"
+        tools:text="0" />
+
+    <ImageView
+        android:id="@+id/ivExit_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivProductPicture_ProductInsert"
@@ -87,33 +122,79 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_ProductInsert" />
 
-    <Switch
-        android:id="@+id/switch1"
+    <Spinner
+        android:id="@+id/spProductKind_ProductInsert"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductKind_ProductInsert"
+        app:layout_constraintStart_toEndOf="@+id/tvProductKind_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/tvProductKind_ProductInsert" />
+
+    <TextView
+        android:id="@+id/tvTitle_ProductInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="608dp" />
+        android:layout_marginTop="16dp"
+        android:text="商品新增"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/ivExit_ProductInsert"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="106dp"
-        android:layout_height="46dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:text="從相簿選擇..."
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button" />
-
-    <Button
-        android:id="@+id/btProductInsert_ProductInsert"
+    <TextView
+        android:id="@+id/tvProductPriceM_ProductInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="確定新增"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:text="中杯價格(M)"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/etProductPriceL_ProductInsert"
+        app:layout_constraintStart_toEndOf="@+id/etProductPriceL_ProductInsert"
+        app:layout_constraintTop_toTopOf="@+id/etProductPriceL_ProductInsert" />
+
+    <TextView
+        android:id="@+id/tvProductPriceL_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="大杯價格(L)"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvProductStatus_ProductInsert"
+        app:layout_constraintStart_toStartOf="@+id/tvProductStatus_ProductInsert" />
+
+    <TextView
+        android:id="@+id/tvProductName_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="商品名稱"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvProductPriceL_ProductInsert"
+        app:layout_constraintStart_toStartOf="@+id/tvProductPriceL_ProductInsert" />
+
+    <TextView
+        android:id="@+id/tvProductKind_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="分類"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvProductName_ProductInsert"
+        app:layout_constraintStart_toStartOf="@+id/tvProductName_ProductInsert" />
+
+    <TextView
+        android:id="@+id/tvProductStatus_ProductInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="上架狀態"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btProductInsert_ProductInsert"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

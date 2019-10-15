@@ -55,23 +55,10 @@
         android:id="@+id/btInsert_ProductManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="新增商品"
         app:layout_constraintBottom_toBottomOf="@+id/searchView"
-        app:layout_constraintEnd_toStartOf="@+id/btAddKind_ProductManagement"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/searchView"
         app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/btAddKind_ProductManagement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="新增類別"
-        app:layout_constraintBottom_toBottomOf="@+id/btInsert_ProductManagement"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btInsert_ProductManagement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
