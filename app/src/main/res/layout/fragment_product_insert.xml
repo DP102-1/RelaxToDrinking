@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:text="狀態"
+        android:text="上架中"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductStatus_ProductInsert"
         app:layout_constraintStart_toEndOf="@+id/tvProductStatus_ProductInsert"
         app:layout_constraintTop_toTopOf="@+id/tvProductStatus_ProductInsert" />

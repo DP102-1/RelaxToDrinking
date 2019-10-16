@@ -238,30 +238,6 @@ public class ProductSpecificationFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝選擇購買數量＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         ivQuantityAdd_ProductSpecification = view.findViewById(R.id.ivQuantityAdd_ProductSpecification);
         ivQuantityReduct_ProductSpecification = view.findViewById(R.id.ivQuantityReduct_ProductSpecification);
-
-        //＝＝＝＝＝自行輸入＝＝＝＝＝//
-        etQuantity_ProductSpecification.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (isCorrectNumber(etQuantity_ProductSpecification.getText().toString())) {
-                    quantity = etQuantity_ProductSpecification.getText().toString();
-                } else {
-                    etQuantity_ProductSpecification.setText(quantity);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        //＝＝＝＝＝自行輸入＝＝＝＝＝//
-
         //＝＝＝＝＝增加＝＝＝＝＝//
         ivQuantityAdd_ProductSpecification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -332,22 +308,6 @@ public class ProductSpecificationFragment extends Fragment {
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
-
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷數字1~99＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private boolean isCorrectNumber(String quantity) {
-        if (quantity.length() <= 0) { //沒有輸入字串
-            Common.showToast(activity, "數量不能為空");
-            return false;
-        }
-        Pattern pattern = Pattern.compile("[0-9]*");
-        Matcher isNum = pattern.matcher(quantity);
-        if (!isNum.matches()) { //判別是否為數字
-            Common.showToast(activity, "數量只能為數字");
-            return false;
-        }
-        return Integer.valueOf(quantity) < 100 && Integer.valueOf(quantity) > 0; //判別是否為1~99
-    }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷數字1~99＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證使用者是否都有填寫內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private boolean isNullProductDate() {

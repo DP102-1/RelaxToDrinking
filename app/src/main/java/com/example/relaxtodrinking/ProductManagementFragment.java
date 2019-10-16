@@ -52,6 +52,7 @@ public class ProductManagementFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvProductList_ProductManagement;
+    private Button btInsert_ProductManagement;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +77,17 @@ public class ProductManagementFragment extends Fragment {
         rvProductList_ProductManagement.setLayoutManager(new LinearLayoutManager(activity));
         showProductAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增商品＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btInsert_ProductManagement = view.findViewById(R.id.btInsert_ProductManagement);
+                btInsert_ProductManagement.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Navigation.findNavController(view).navigate(R.id.action_productManagementFragment_to_productInsertFragment);
+                    }
+                });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增商品＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 
 
@@ -177,13 +189,6 @@ public class ProductManagementFragment extends Fragment {
                     db.collection("Product").document(product.getPro_id()).update("pro_name",holder.etProductName_ProductManagement.getText().toString());
 
                     //更新類別
-
-
-
-
-
-
-
                     showProductAll();
                 }
             });

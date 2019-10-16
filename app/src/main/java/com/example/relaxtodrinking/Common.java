@@ -7,9 +7,5 @@ public class Common {
     public static void showToast(Activity activity, String messageRes) {
         Toast.makeText(activity, messageRes, Toast.LENGTH_SHORT).show();
     }
-
-
-
-
 }
 
