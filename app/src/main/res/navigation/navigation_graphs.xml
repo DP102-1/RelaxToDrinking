@@ -45,4 +45,14 @@
         android:name="com.example.relaxtodrinking.ProductInsertFragment"
         android:label="fragment_product_insert"
         tools:layout="@layout/fragment_product_insert" />
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="com.example.relaxtodrinking.NewsListFragment"
+        android:label="fragment_news_list"
+        tools:layout="@layout/fragment_news_list" />
+    <fragment
+        android:id="@+id/newsManagementFragment"
+        android:name="com.example.relaxtodrinking.NewsManagementFragment"
+        android:label="fragment_news_management"
+        tools:layout="@layout/fragment_news_management" />
 </navigation>

@@ -34,11 +34,11 @@
         android:id="@+id/btProductInsert_ProductInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:text="確定新增"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btProductStatus_ProductInsert" />
 
     <Button
         android:id="@+id/btEditKind_ProductInsert"
@@ -159,31 +159,37 @@
         android:id="@+id/tvProductPriceL_ProductInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
         android:text="大杯價格(L)"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvProductStatus_ProductInsert"
-        app:layout_constraintStart_toStartOf="@+id/tvProductStatus_ProductInsert" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductName_ProductInsert" />
 
     <TextView
         android:id="@+id/tvProductName_ProductInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
         android:text="商品名稱"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvProductPriceL_ProductInsert"
-        app:layout_constraintStart_toStartOf="@+id/tvProductPriceL_ProductInsert" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductKind_ProductInsert" />
 
     <TextView
         android:id="@+id/tvProductKind_ProductInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
         android:text="分類"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvProductName_ProductInsert"
-        app:layout_constraintStart_toStartOf="@+id/tvProductName_ProductInsert" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btTakePicture_ProductInsert" />
 
     <TextView
         android:id="@+id/tvProductStatus_ProductInsert"
@@ -191,10 +197,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
         android:text="上架狀態"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btProductInsert_ProductInsert"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductPriceL_ProductInsert" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

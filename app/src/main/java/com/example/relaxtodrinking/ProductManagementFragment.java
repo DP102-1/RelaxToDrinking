@@ -1,7 +1,9 @@
 package com.example.relaxtodrinking;
 
 /***************************************************************/
-
+//相機功能
+//排序依類別功能...
+//
 /***************************************************************/
 
 import android.app.Activity;
@@ -24,9 +26,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +39,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,6 +61,11 @@ public class ProductManagementFragment extends Fragment {
 
     private RecyclerView rvProductList_ProductManagement;
     private Button btInsert_ProductManagement;
+    private ImageView ivBack_ProductManagement;
+    private SearchView svSearchProduct_ProductManagement;
+
+    private List<Product> products;
+    private List<ProductKind> kinds;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,6 +101,50 @@ public class ProductManagementFragment extends Fragment {
                     }
                 });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增商品＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝搜尋商品＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        svSearchProduct_ProductManagement = view.findViewById(R.id.svSearchProduct_ProductManagement);
+            svSearchProduct_ProductManagement.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    ProductAdapter adapter = (ProductAdapter) rvProductList_ProductManagement.getAdapter();
+                    if (adapter != null) {
+                        if (newText.isEmpty()) {
+                            adapter.setProducts(products);
+                        } else {
+                            List<Product> searchProducts = new ArrayList<>();
+                            for (Product product : products) {
+                                if (product.getPro_name().toUpperCase().contains(newText.toUpperCase())) {
+                                    searchProducts.add(product);
+                                }
+                            }
+                            adapter.setProducts(searchProducts);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+            });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝搜尋商品＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊返回按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivBack_ProductManagement = view.findViewById(R.id.ivBack_ProductManagement);
+        ivBack_ProductManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /**
+                 返回
+                 **/
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊返回按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 
 
@@ -95,6 +152,10 @@ public class ProductManagementFragment extends Fragment {
     private class ProductAdapter extends RecyclerView.Adapter<ProductManagementFragment.ProductAdapter.MyViewHolder> {
         Context context;
         List<Product> products;
+
+        public void setProducts(List<Product> products){
+            this.products = products;
+        }
 
         public ProductAdapter(Context context, List<Product> products) {
             this.context = context;
@@ -107,7 +168,7 @@ public class ProductManagementFragment extends Fragment {
         }
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
-            private TextView tvProductStatus_ProductManagement;
+            private TextView tvProductStatus_ProductManagement,tvTimeEdit_ProductManagement;
             private ImageView ivProduct_ProductManagement;
             private Spinner spProductKind_ProductManagement;
             private EditText etProductName_ProductManagement,etPriceL_ProductManagement,etPriceM_ProductManagement;
@@ -122,6 +183,8 @@ public class ProductManagementFragment extends Fragment {
                 etPriceM_ProductManagement = ProductView.findViewById(R.id.etPriceM_ProductManagement);
                 btUpdate_ProductManagement = ProductView.findViewById(R.id.btUpdate_ProductManagement);
                 btProductStatus_ProductManagement = ProductView.findViewById(R.id.btProductStatus_ProductManagement);
+                tvTimeEdit_ProductManagement = ProductView.findViewById(R.id.tvTimeEdit_ProductManagement);
+
             }
         }
 
@@ -155,8 +218,27 @@ public class ProductManagementFragment extends Fragment {
             holder.etProductName_ProductManagement.setText(product.getPro_name());//抓商品名稱
             holder.etPriceL_ProductManagement.setText(String.valueOf(product.getPro_price_L()));//抓商品大杯價格
             holder.etPriceM_ProductManagement.setText(String.valueOf(product.getPro_price_M()));//抓商品中杯價格
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            holder.tvTimeEdit_ProductManagement.setText(sdf.format(product.getPro_time()));
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊類別下拉式選單＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+            showKindAll(holder.spProductKind_ProductManagement,product.getPro_kind_id());
+            final String[] pro_kind_id = new String[1];
+            final String[] pro_kind_name = new String[1];
+            holder.spProductKind_ProductManagement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    pro_kind_id[0] = kinds.get(i).getKind_id();
+                    pro_kind_name[0] = kinds.get(i).getKind_name();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    Common.showToast(activity, "沒有資料被選擇");
+                }
+            });
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊類別下拉式選單＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品上下架＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品上下架狀態＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.btProductStatus_ProductManagement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -167,10 +249,12 @@ public class ProductManagementFragment extends Fragment {
                         db.collection("Product").document(product.getPro_id()).update("pro_status",1);
                         Toast.makeText(activity, "商品已上架", Toast.LENGTH_SHORT).show();
                     }
+                    db.collection("Product").document(product.getPro_id()).update("pro_time", new Date());
                     showProductAll();
                 }
             });
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品上下架＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品上下架狀態＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
 
             //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝儲存商品資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.btUpdate_ProductManagement.setOnClickListener(new View.OnClickListener() {
@@ -179,16 +263,18 @@ public class ProductManagementFragment extends Fragment {
                     String price_L = holder.etPriceL_ProductManagement.getText().toString(),
                            price_M = holder.etPriceM_ProductManagement.getText().toString();
                     if(isCorrectNumber(price_L) && isCorrectNumber (price_M)) {
-                        db.collection("Product").document(product.getPro_id()).update("pro_price_M", price_M);
-                        db.collection("Product").document(product.getPro_id()).update("pro_price_L", price_L);
+                        db.collection("Product").document(product.getPro_id()).update("pro_price_M", Integer.valueOf(price_M));
+                        db.collection("Product").document(product.getPro_id()).update("pro_price_L", Integer.valueOf(price_L));
                     }else
                     {
                         Toast.makeText(activity, "價格格式不正確", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     db.collection("Product").document(product.getPro_id()).update("pro_name",holder.etProductName_ProductManagement.getText().toString());
-
-                    //更新類別
+                    db.collection("Product").document(product.getPro_id()).update("pro_kind_id", pro_kind_id[0]);
+                    db.collection("Product").document(product.getPro_id()).update("pro_kind_name", pro_kind_name[0]);
+                    db.collection("Product").document(product.getPro_id()).update("pro_time", new Date());
+                    Common.showToast(activity,"修改成功");
                     showProductAll();
                 }
             });
@@ -198,33 +284,14 @@ public class ProductManagementFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入資料庫中的商品類別＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void loadingProductKind() {
-        db.collection("ProductKind").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            List<ProductKind> productKinds = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                productKinds.add(document.toObject(ProductKind.class));
-                            }
-
-                        }
-                    }
-                });
-    }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入資料庫中的商品類別＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
-
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showProductAll() {
-        db.collection("Product").get()
+        db.collection("Product").orderBy("pro_time", Query.Direction.DESCENDING).get()//降序
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        products = new ArrayList<>();
                         if (task.isSuccessful() && task.getResult() != null) {
-                            List<Product> products = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 products.add(document.toObject(Product.class));
                             }
@@ -234,6 +301,41 @@ public class ProductManagementFragment extends Fragment {
                 });
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品種類＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private void showKindAll(final Spinner spinner, final String productId) {
+        db.collection("ProductKind").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            kinds = new ArrayList<>(); //類別物件集合
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                kinds.add(document.toObject(ProductKind.class));
+                            }
+                            final List<String> kindNames = new ArrayList<>(); //類別名稱集合
+                            for (int i = 0; i < kinds.size(); i++) {
+                                kindNames.add(kinds.get(i).getKind_name());
+                            }
+                            kindNames.set(0, "未分類"); //強制把第一項(全部)顯示為未分類
+                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, kindNames);
+                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinner.setAdapter(arrayAdapter);
+                            for (int i = 0; i < kinds.size(); i++) { //比對商品類別
+                                if(kinds.get(i).getKind_id().equals(productId)) {
+                                    spinner.setSelection(i, true);
+                                    break;
+                                }else
+                                {
+                                    spinner.setSelection(0, true);
+                                }
+                            }
+                        }
+                    }
+                });
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品種類＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

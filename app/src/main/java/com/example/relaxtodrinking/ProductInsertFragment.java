@@ -49,6 +49,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,6 +68,7 @@ public class ProductInsertFragment extends Fragment {
     private FirebaseStorage storage;
     private File file;//暫存圖
     private Uri contentUri;//暫存圖路徑
+    private Uri cropUri;
 
     private Spinner spProductKind_ProductInsert;
     private Button btTakePicture_ProductInsert, btEditKind_ProductInsert, btChoiceFromAlbum_ProductInsert, btProductStatus_ProductInsert, btProductInsert_ProductInsert;
@@ -186,6 +188,7 @@ public class ProductInsertFragment extends Fragment {
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊上下架商品＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         etProductName_ProductInsert = view.findViewById(R.id.etProductName_ProductInsert);
         etProductPriceL_ProductInsert = view.findViewById(R.id.etProductPriceL_ProductInsert);
@@ -194,7 +197,7 @@ public class ProductInsertFragment extends Fragment {
         btProductInsert_ProductInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final Product product = new Product();
+                 final Product product = new Product();
                 if (!etProductName_ProductInsert.getText().toString().trim().equals("")) {
                     product.setPro_name(etProductName_ProductInsert.getText().toString().trim());
                 } else {
@@ -215,44 +218,31 @@ public class ProductInsertFragment extends Fragment {
                 product.setPro_kind_id(pro_kind_id);
                 product.setPro_kind_name(pro_kind_name);
                 product.setPro_status(pro_status);
-
+                product.setPro_time(new Date());
 
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
                 if (pictureTaken) {
-                    // document ID成為image path一部分，避免與其他圖檔名稱重複
                     final String imagePath = "image/product/" + product.getPro_id();
-                    storage.getReference().child(imagePath).putFile(contentUri)
+                    storage.getReference().child(imagePath).putFile(cropUri)
                             .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                     if (task.isSuccessful()) {
                                         Log.d(TAG, "上傳商品圖片成功");
                                         product.setPro_picture(imagePath);
+                                        insertProduct(product);
+                                        Navigation.findNavController(view).popBackStack();
                                     } else {
                                         Log.e(TAG, "上傳商品圖片失敗");
                                         Common.showToast(activity, "上傳商品圖片失敗");
                                     }
                                 }
                             });
+                }else {
+                    insertProduct(product);
                 }
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
 
-                //＝＝＝＝＝資料上傳至firebase＝＝＝＝＝//
-                db.collection("Product").document(product.getPro_id()).set(product)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "商品新增成功");
-                                    Common.showToast(activity, "商品新增成功");
-                                    Navigation.findNavController(view).popBackStack();
-                                } else {
-                                    Log.d(TAG, "商品新增失敗");
-                                    Common.showToast(activity, "商品新增失敗");
-                                }
-                            }
-                        });
-                //＝＝＝＝＝資料上傳至firebase＝＝＝＝＝//
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -308,16 +298,16 @@ public class ProductInsertFragment extends Fragment {
                     crop(intent.getData());
                     break;
                 case ACTION_CropPicture:
-                    Uri uri = intent.getData();
+                    cropUri = intent.getData();
                     Bitmap bitmap = null;
-                    if (uri != null) {
+                    if (cropUri != null) {
                         try {
                             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
                                 bitmap = BitmapFactory.decodeStream(
-                                        activity.getContentResolver().openInputStream(uri));
+                                        activity.getContentResolver().openInputStream(cropUri));
                             } else {
                                 ImageDecoder.Source source =
-                                        ImageDecoder.createSource(activity.getContentResolver(), uri);
+                                        ImageDecoder.createSource(activity.getContentResolver(), cropUri);
                                 bitmap = ImageDecoder.decodeBitmap(source);
                             }
                         } catch (IOException e) {
@@ -362,7 +352,7 @@ public class ProductInsertFragment extends Fragment {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         // 設定是否要回傳值
         intent.putExtra("return-data", true);
-        if (intent.resolveActivity(activity.getPackageManager()) != null) {// 開啟截圖activity
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
             startActivityForResult(intent, ACTION_CropPicture);
         } else {
             Common.showToast(activity,"找不到圖片裁切工具");
@@ -403,7 +393,26 @@ public class ProductInsertFragment extends Fragment {
             }
         }
     }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝圖片抓取成功顯示在頁面上＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證使用者是否同意使用相簿＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private void insertProduct(Product product) {
+        db.collection("Product").document(product.getPro_id()).set(product)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "商品新增成功");
+                            Common.showToast(activity, "商品新增成功");
+                        } else {
+                            Log.d(TAG, "商品新增失敗");
+                            Common.showToast(activity, "商品新增失敗");
+                        }
+                    }
+                });
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷數字正確性＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
