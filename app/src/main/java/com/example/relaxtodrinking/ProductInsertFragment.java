@@ -1,8 +1,8 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
 //相機拍照驗證問題
-//類別設定功能
 //新增者的員工id
+//新增分類後更新分類選單內容
 /***************************************************************/
 
 import android.Manifest;
@@ -22,7 +22,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -36,8 +35,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.relaxtodrinking.data.Product;
+import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +48,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.WatchEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -166,7 +167,8 @@ public class ProductInsertFragment extends Fragment {
         btEditKind_ProductInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent Intent = new Intent(activity, KindManagementActivity.class);
+                startActivity(Intent);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊類別設定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

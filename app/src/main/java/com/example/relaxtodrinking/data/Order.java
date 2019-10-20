@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.data;
 
 import java.util.Date;
 
@@ -12,7 +12,9 @@ public class Order {
     private int order_price;
     private int order_status;
     private Date order_date;
+    private String order_take_meal;
     private Date order_take_meal_time;
+
 
     public Order() {
     }
@@ -97,7 +99,15 @@ public class Order {
         this.order_take_meal_time = order_take_meal_time;
     }
 
-    public Order(String order_id, String emp_id, String user_id, String user_name, String user_phone, String user_address, int order_price, int order_status, Date order_date, Date order_take_meal_time) {
+    public String getOrder_take_meal() {
+        return order_take_meal;
+    }
+
+    public void setOrder_take_meal(String order_take_meal) {
+        this.order_take_meal = order_take_meal;
+    }
+
+    public Order(String order_id, String emp_id, String user_id, String user_name, String user_phone, String user_address, int order_price, int order_status, Date order_date, String order_take_meal, Date order_take_meal_time) {
         this.order_id = order_id;
         this.emp_id = emp_id;
         this.user_id = user_id;
@@ -107,6 +117,7 @@ public class Order {
         this.order_price = order_price;
         this.order_status = order_status;
         this.order_date = order_date;
+        this.order_take_meal = order_take_meal;
         this.order_take_meal_time = order_take_meal_time;
     }
 }

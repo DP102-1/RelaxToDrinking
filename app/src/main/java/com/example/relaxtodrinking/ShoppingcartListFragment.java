@@ -20,7 +20,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import com.example.relaxtodrinking.data.Order;
+import com.example.relaxtodrinking.data.OrderItem;
+import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -244,6 +246,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                 order.setUser_phone(user_phone);
                 order.setUser_address(user_address);
                 order.setOrder_price(total);
+                order.setOrder_take_meal(take_meal_mode);
                 order.setOrder_status(1);
                 db.collection("Order").document(order.getOrder_id()).set(order);
                 //＝＝＝＝＝＝處理訂單資訊＝＝＝＝＝//

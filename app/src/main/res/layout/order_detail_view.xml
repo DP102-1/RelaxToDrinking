@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvProductName_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#3F51B5"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="商品名稱" />
+
+    <TextView
+        android:id="@+id/tvQuantity_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductName_OrderDetail"
+        app:layout_constraintStart_toEndOf="@+id/tvProductName_OrderDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvProductName_OrderDetail"
+        tools:text="*數量" />
+
+    <TextView
+        android:id="@+id/tvCapacity_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvQuantity_OrderDetail"
+        app:layout_constraintStart_toEndOf="@+id/tvQuantity_OrderDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvQuantity_OrderDetail"
+        tools:text="大小" />
+
+    <TextView
+        android:id="@+id/tvSweetness_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTemperature_OrderDetail"
+        app:layout_constraintStart_toEndOf="@+id/tvTemperature_OrderDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvTemperature_OrderDetail"
+        tools:text="甜度" />
+
+    <TextView
+        android:id="@+id/tvTemperature_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPrice_OrderDetail"
+        app:layout_constraintStart_toEndOf="@+id/tvPrice_OrderDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvPrice_OrderDetail"
+        tools:text="溫度" />
+
+    <TextView
+        android:id="@+id/tvPrice_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCapacity_OrderDetail"
+        app:layout_constraintStart_toEndOf="@+id/tvCapacity_OrderDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvCapacity_OrderDetail"
+        tools:text="單價" />
+
+    <TextView
+        android:id="@+id/tvProductTotal_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:textColor="#009688"
+        android:textColorHint="#009688"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/tvProductTotalNT_OrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="$NT"
+        android:textColor="#009688"
+        android:textColorHint="#009688"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductTotal_OrderDetail"
+        app:layout_constraintEnd_toStartOf="@+id/tvProductTotal_OrderDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvProductTotal_OrderDetail" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.data;
 
 public class ShoppingCart {
     private String sc_item_id;

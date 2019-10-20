@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="用手機電話搜尋" />
+    <item android:title="用地址搜尋" />
+    <item android:title="用姓名搜尋" />
+    <item android:title="用電子郵件搜尋" />
+</menu>
