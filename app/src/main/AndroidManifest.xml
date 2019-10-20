@@ -40,6 +40,10 @@
             android:theme="@style/Theme.AppCompat.Dialog"
             android:name="com.example.relaxtodrinking.KindManagementActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:name="com.example.relaxtodrinking.OrderQRCodeActivity"
+            android:launchMode="singleTop" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

@@ -6,6 +6,7 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -91,9 +92,17 @@ public class OrderListFragment extends Fragment {
 
 
 
-
-
-
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單QRCode顯示＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btOrderQRCode_OrderList  = view.findViewById(R.id.btOrderQRCode_OrderList);
+        btOrderQRCode_OrderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent QRcodeIntent = new Intent(activity, OrderQRCodeActivity.class);
+                QRcodeIntent.putExtra("order_id", order.getOrder_id());
+                startActivity(QRcodeIntent);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單QRCode顯示＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

@@ -1,7 +1,7 @@
 package com.example.relaxtodrinking;
 
 /***************************************************************/
-//AIzaSyCGE1_Eno0zC3crRP4Dn80voM4KguHoOcw
+//
 /***************************************************************/
 
 import android.app.Activity;
@@ -25,8 +25,6 @@ public class StoreInformationFragment extends Fragment {
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
-
-
 
     private Store store = new Store();
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
