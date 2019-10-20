@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,9 @@ public class OrderListFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvOrderDetailList_OrderList;
+    private ImageView ivBack_OrderList;
+    private TextView tvTitle_OrderList;
+    private Button btOrderQRCode_OrderList,btEmployeePosition_OrderList,btOrderHistory_OrderList;
 
     private String order_id = "";
     private Order order = new Order();
@@ -78,6 +82,29 @@ public class OrderListFragment extends Fragment {
                 order = documentSnapshot.toObject(Order.class);
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivBack_OrderList = view.findViewById(R.id.ivBack_OrderList);
+        ivBack_OrderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //回上一頁
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單明細列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

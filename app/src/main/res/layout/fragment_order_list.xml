@@ -1,7 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderListFragment" />
+    tools:context=".OrderListFragment" >
+
+    <TextView
+        android:id="@+id/tvTitle_OrderList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="訂單資訊"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivBack_OrderList"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBack_OrderList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvOrderDetailList_OrderList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="73dp" />
+
+    <Button
+        android:id="@+id/btOrderQRCode_OrderList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="訂單QRCord"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="404dp" />
+
+    <Button
+        android:id="@+id/btEmployeePosition_OrderList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看外送員位置"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="462dp" />
+
+    <Button
+        android:id="@+id/btOrderHistory_OrderList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看歷史訂單"
+        tools:layout_editor_absoluteX="189dp"
+        tools:layout_editor_absoluteY="544dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

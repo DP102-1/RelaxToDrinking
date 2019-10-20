@@ -57,13 +57,13 @@ public class ProductSpecificationFragment extends Fragment {
     private RadioGroup rgSweetness_ProductSpecification, rgTemperature_ProductSpecification;
 
     private int proPriceM = 0, proPriceL = 0;
-    private String ScItemId,
-            proId = "",
-            proName = "",
-            temperature = "",
-            capacity = "L",
-            sweetness = "",
-            quantity = "1";
+    private String ScItemId;
+    private String proId = "";
+    private String proName = "";
+    private String temperature = "";
+    private String capacity = "L";
+    private String sweetness = "";
+    private String quantity = "1";
     private OrderItem orderItem;
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

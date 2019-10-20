@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderSearchFragment" />
+    android:background="@drawable/background"
+    tools:context=".OrderSearchFragment">
+
+    <ImageView
+        android:id="@+id/ivBack_OrderSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle_OrderSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="訂單歷史紀錄查詢"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivBack_OrderSearch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderSearch" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintTop_toTopOf="@+id/spinner" />
+
+    <Button
+        android:id="@+id/btEndDate_OrderSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="最終日期"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTo_OrderSearch"
+        app:layout_constraintStart_toEndOf="@+id/tvTo_OrderSearch"
+        app:layout_constraintTop_toTopOf="@+id/tvTo_OrderSearch" />
+
+    <TextView
+        android:id="@+id/tvTo_OrderSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="至"
+        app:layout_constraintBottom_toBottomOf="@+id/btStartDate_OrderSearch"
+        app:layout_constraintStart_toEndOf="@+id/btStartDate_OrderSearch"
+        app:layout_constraintTop_toTopOf="@+id/btStartDate_OrderSearch" />
+
+    <Button
+        android:id="@+id/btStartDate_OrderSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="起始日期"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDate_OrderSearch"
+        app:layout_constraintStart_toEndOf="@+id/tvDate_OrderSearch"
+        app:layout_constraintTop_toTopOf="@+id/tvDate_OrderSearch" />
+
+    <TextView
+        android:id="@+id/tvDate_OrderSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:text="訂單日期:"
+        app:layout_constraintStart_toStartOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvOrderHistory_OrderSearch"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate_OrderSearch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

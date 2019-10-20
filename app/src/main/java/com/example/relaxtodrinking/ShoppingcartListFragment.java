@@ -47,6 +47,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -216,7 +217,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                         //比較日期大小
                         String input = tvTime_ShoppingCart.getText().toString();
                         Date take_meal_time = null;
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINESE);
                         try {
                             take_meal_time = formatter.parse(input);
                         } catch (ParseException e) {

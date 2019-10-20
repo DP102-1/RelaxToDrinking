@@ -1,6 +1,6 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
-
+// 員工姓名問題
 
 /***************************************************************/
 
@@ -11,14 +11,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.example.relaxtodrinking.data.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,8 +33,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class OrderDetailFragment extends Fragment {
@@ -42,9 +49,13 @@ public class OrderDetailFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvOrderDetailList_OrderDetail;
+    private TextView tvOrderDate_OrderDetail, tvOrderTakeMeal_OrderDetail, tvOrderStatus_OrderDetail, tvOrderUserName_OrderDetail, tvOrderUserPhone_OrderDetail, tvOrderUserAddress_OrderDetail, tvOrderTakeMealTime_OrderDetail, tvOrderTotalPrice_OrderDetail, tvOrderEmployeeName_OrderDetail;
+    private ImageView ivExit_OrderDetail;
 
     private List<OrderItem> orderItems;
-    private String order_id="";
+    private String order_id = "";
+    private Order order;
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +64,16 @@ public class OrderDetailFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
     }
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋訂單資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private void loadOrderData() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            order_id = bundle.getString("order_id");
+        }
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋訂單資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,11 +84,63 @@ public class OrderDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        loadOrderData();
+        tvOrderDate_OrderDetail = view.findViewById(R.id.tvOrderDate_OrderDetail);
+        tvOrderTakeMeal_OrderDetail = view.findViewById(R.id.tvOrderTakeMeal_OrderDetail);
+        tvOrderStatus_OrderDetail = view.findViewById(R.id.tvOrderStatus_OrderDetail);
+        tvOrderUserName_OrderDetail = view.findViewById(R.id.tvOrderUserName_OrderDetail);
+        tvOrderUserPhone_OrderDetail = view.findViewById(R.id.tvOrderUserPhone_OrderDetail);
+        tvOrderUserAddress_OrderDetail = view.findViewById(R.id.tvOrderUserAddress_OrderDetail);
+        tvOrderTakeMealTime_OrderDetail = view.findViewById(R.id.tvOrderTakeMealTime_OrderDetail);
+        tvOrderTotalPrice_OrderDetail = view.findViewById(R.id.tvOrderTotalPrice_OrderDetail);
+        tvOrderEmployeeName_OrderDetail = view.findViewById(R.id.tvOrderEmployeeName_OrderDetail);
+
+        order = new Order();
+        db.collection("Order").document(order_id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                order = documentSnapshot.toObject(Order.class);
+                tvOrderDate_OrderDetail.setText(new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE).format(order.getOrder_date()));
+                tvOrderTakeMeal_OrderDetail.setText(order.getOrder_take_meal());
+                int order_status = order.getOrder_status();
+                switch (order_status) {
+                    case 0:
+                        tvOrderStatus_OrderDetail.setText("已完成");
+                    case 1:
+                        tvOrderStatus_OrderDetail.setText("未接單");
+                    case 2:
+                        tvOrderStatus_OrderDetail.setText("送貨中");
+                    default:
+                        tvOrderStatus_OrderDetail.setText("");
+                }
+                tvOrderUserName_OrderDetail.setText(order.getUser_name());
+                tvOrderUserPhone_OrderDetail.setText(order.getUser_phone());
+                tvOrderUserAddress_OrderDetail.setText(order.getUser_address());
+                tvOrderTakeMealTime_OrderDetail.setText(new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE).format(order.getOrder_take_meal_time()));
+                tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
+                tvOrderEmployeeName_OrderDetail.setText(order.getEmp_id());
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rvOrderDetailList_OrderDetail = view.findViewById(R.id.rvOrderDetailList_OrderDetail);
         rvOrderDetailList_OrderDetail.setLayoutManager(new LinearLayoutManager(activity));
         showOrderDetailAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivExit_OrderDetail = view.findViewById(R.id.ivExit_OrderDetail);
+        ivExit_OrderDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單明細列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -106,6 +179,7 @@ public class OrderDetailFragment extends Fragment {
             View itemView = LayoutInflater.from(context).inflate(R.layout.order_detail_view, parent, false);
             return new OrderDetailFragment.OrderItemAdapter.MyViewHolder(itemView);
         }
+
         @Override
         public void onBindViewHolder(@NonNull OrderDetailFragment.OrderItemAdapter.MyViewHolder holder, int position) {
             final OrderItem orderItem = orderItems.get(position);
@@ -127,7 +201,7 @@ public class OrderDetailFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示訂單明細列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderDetailAll() {
-        db.collection("OrderItem").whereEqualTo("order_id",order_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("OrderItem").whereEqualTo("order_id", order_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 orderItems = new ArrayList<>();

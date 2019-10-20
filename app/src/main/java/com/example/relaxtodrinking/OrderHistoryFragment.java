@@ -94,6 +94,7 @@ public class OrderHistoryFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivBack_OrderHistory = view.findViewById(R.id.ivBack_OrderHistory);
         ivBack_OrderHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,6 +162,7 @@ public class OrderHistoryFragment extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Order> orders = new ArrayList<>();
+                orders_history = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots)
                     orders.add(snapshot.toObject(Order.class));
                 for (Order order : orders) {
