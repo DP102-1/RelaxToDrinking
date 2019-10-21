@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.relaxtodrinking.data.Order;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,8 +28,10 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderManagementFragment extends Fragment {
     private String TAG = "訂單管理";
@@ -39,6 +43,7 @@ public class OrderManagementFragment extends Fragment {
 
     private RecyclerView rvOrderList_OrderManagement;
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private List<Order> orders;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
@@ -83,10 +88,17 @@ public class OrderManagementFragment extends Fragment {
         }
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
-            //       private TextView xx;
+            private TextView tvOrderNumber_OrderManagement, tvOrderDate_OrderManagement, tvUserName_OrderManagement, tvUserPhone_OrderManagement, tvUserAddress_OrderManagement, tvOrderStatus_OrderManagement;
+            private Button btOrderAccept_OrderManagement;
             public MyViewHolder(View OrderView) {
                 super(OrderView);
-//                xx = OrderView.findViewById(R.id.xx);
+                tvOrderNumber_OrderManagement = OrderView.findViewById(R.id.tvOrderNumber_OrderManagement);
+                tvOrderDate_OrderManagement = OrderView.findViewById(R.id.tvOrderDate_OrderManagement);
+                tvUserName_OrderManagement = OrderView.findViewById(R.id.tvUserName_OrderManagement);
+                tvUserPhone_OrderManagement = OrderView.findViewById(R.id.tvUserPhone_OrderManagement);
+                tvUserAddress_OrderManagement = OrderView.findViewById(R.id.tvUserAddress_OrderManagement);
+                tvOrderStatus_OrderManagement = OrderView.findViewById(R.id.tvOrderStatus_OrderManagement);
+                btOrderAccept_OrderManagement = OrderView.findViewById(R.id.btOrderAccept_OrderManagement);
             }
         }
 
@@ -96,11 +108,32 @@ public class OrderManagementFragment extends Fragment {
             View itemView = LayoutInflater.from(context).inflate(R.layout.order_management_view, parent, false);
             return new OrderManagementFragment.OrderAdapter.MyViewHolder(itemView);
         }
+
         @Override
         public void onBindViewHolder(@NonNull OrderManagementFragment.OrderAdapter.MyViewHolder holder, int position) {
             final Order order = orders.get(position);
+            holder.tvOrderNumber_OrderManagement.setText();
+            holder.tvOrderDate_OrderManagement.setText(sdf.format(order.getOrder_date()));
+            holder.tvUserName_OrderManagement.setText();
+            holder.tvUserPhone_OrderManagement.setText();
+            holder.tvUserAddress_OrderManagement.setText();
+            holder.btOrderAccept_OrderManagement.setText();
 
-         //   holder.tvProductName_OrderDetail.setText(orderItem.getPro_name());
+            holder.btOrderAccept_OrderManagement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳細資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳細資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

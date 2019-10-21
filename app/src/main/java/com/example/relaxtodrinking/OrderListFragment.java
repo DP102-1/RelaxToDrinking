@@ -7,6 +7,7 @@ package com.example.relaxtodrinking;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,8 +36,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class OrderListFragment extends Fragment {
@@ -48,9 +51,10 @@ public class OrderListFragment extends Fragment {
 
     private RecyclerView rvOrderDetailList_OrderList;
     private ImageView ivBack_OrderList;
-    private TextView tvTitle_OrderList;
-    private Button btOrderQRCode_OrderList,btEmployeePosition_OrderList,btOrderHistory_OrderList;
+    private TextView tvOrderDate_OrderList,tvOrderTakeMealTime_OrderList,tvOrderStatus_OrderList,tvOrderTotalPrice_OrderDetail,tvOrderTakeMeal_OrderList;
+    private Button btOrderQRCode_OrderList,btEmployeePosition_OrderList,btOrderHistory_OrderList,btOrderDetail_OrderList;
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private String order_id = "";
     private Order order = new Order();
     private List<OrderItem> orderItems;
@@ -77,6 +81,14 @@ public class OrderListFragment extends Fragment {
         rvOrderDetailList_OrderList.setLayoutManager(new LinearLayoutManager(activity));
         showOrderDetailAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        tvOrderDate_OrderList = view.findViewById(R.id.tvOrderDate_OrderList);
+        tvOrderTakeMealTime_OrderList = view.findViewById(R.id.tvOrderTakeMealTime_OrderList);
+        tvOrderStatus_OrderList = view.findViewById(R.id.tvOrderStatus_OrderList);
+        tvOrderTotalPrice_OrderDetail = view.findViewById(R.id.tvOrderTotalPrice_OrderDetail);
+        tvOrderTakeMeal_OrderList = view.findViewById(R.id.tvOrderTakeMeal_OrderList);
         db.collection("Order").document(order_id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -84,12 +96,26 @@ public class OrderListFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
+        tvOrderDate_OrderList.setText(sdf.format(order.getOrder_date()));
+        tvOrderTakeMealTime_OrderList.setText(sdf.format(order.getOrder_take_meal_time()));
+        int order_status = order.getOrder_status();
+        switch (order_status) {
+            case 0:
+                tvOrderStatus_OrderList.setText("已完成");
+                tvOrderStatus_OrderList.setTextColor(Color.BLUE);
+            case 1:
+                tvOrderStatus_OrderList.setText("未接單");
+                tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+            case 2:
+                tvOrderStatus_OrderList.setText("送貨中");
+                tvOrderStatus_OrderList.setTextColor(Color.RED);
+            default:
+                tvOrderStatus_OrderList.setText("");
+                tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+        }
+        tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
+        tvOrderTakeMeal_OrderList.setText(order.getOrder_take_meal());
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單QRCode顯示＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -103,6 +129,41 @@ public class OrderListFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單QRCode顯示＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btEmployeePosition_OrderList = view.findViewById(R.id.btEmployeePosition_OrderList);
+        btEmployeePosition_OrderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //外送員位置連結
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看歷史訂單＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btOrderHistory_OrderList = view.findViewById(R.id.btOrderHistory_OrderList);
+        btOrderHistory_OrderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_orderHistoryFragment);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看歷史訂單＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btOrderDetail_OrderList = view.findViewById(R.id.btOrderDetail_OrderList);
+        btOrderDetail_OrderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("order_id",order_id);
+                Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_orderDetailFragment,bundle);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

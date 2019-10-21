@@ -49,12 +49,14 @@ public class OrderDetailFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvOrderDetailList_OrderDetail;
-    private TextView tvOrderDate_OrderDetail, tvOrderTakeMeal_OrderDetail, tvOrderStatus_OrderDetail, tvOrderUserName_OrderDetail, tvOrderUserPhone_OrderDetail, tvOrderUserAddress_OrderDetail, tvOrderTakeMealTime_OrderDetail, tvOrderTotalPrice_OrderDetail, tvOrderEmployeeName_OrderDetail;
+    private TextView tvOrderDate_OrderDetail, tvOrderTakeMeal_OrderDetail, tvOrderStatus_OrderDetail, tvOrderUserName_OrderDetail, tvOrderUserPhone_OrderDetail, tvOrderUserAddress_OrderDetail, tvOrderTakeMealTime_OrderDetail, tvOrderTotalPrice_OrderDetail, tvOrderEmployeeName_OrderDetail,tvProductQuantity_OrderDetail;
     private ImageView ivExit_OrderDetail;
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private List<OrderItem> orderItems;
     private String order_id = "";
     private Order order;
+    private int pro_quantity = 0;
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
@@ -95,13 +97,14 @@ public class OrderDetailFragment extends Fragment {
         tvOrderTakeMealTime_OrderDetail = view.findViewById(R.id.tvOrderTakeMealTime_OrderDetail);
         tvOrderTotalPrice_OrderDetail = view.findViewById(R.id.tvOrderTotalPrice_OrderDetail);
         tvOrderEmployeeName_OrderDetail = view.findViewById(R.id.tvOrderEmployeeName_OrderDetail);
+        tvProductQuantity_OrderDetail = view.findViewById(R.id.tvProductQuantity_OrderDetail);
 
         order = new Order();
         db.collection("Order").document(order_id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 order = documentSnapshot.toObject(Order.class);
-                tvOrderDate_OrderDetail.setText(new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE).format(order.getOrder_date()));
+                tvOrderDate_OrderDetail.setText(sdf.format(order.getOrder_date()));
                 tvOrderTakeMeal_OrderDetail.setText(order.getOrder_take_meal());
                 int order_status = order.getOrder_status();
                 switch (order_status) {
@@ -117,9 +120,10 @@ public class OrderDetailFragment extends Fragment {
                 tvOrderUserName_OrderDetail.setText(order.getUser_name());
                 tvOrderUserPhone_OrderDetail.setText(order.getUser_phone());
                 tvOrderUserAddress_OrderDetail.setText(order.getUser_address());
-                tvOrderTakeMealTime_OrderDetail.setText(new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE).format(order.getOrder_take_meal_time()));
+                tvOrderTakeMealTime_OrderDetail.setText(sdf.format(order.getOrder_take_meal_time()));
                 tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
                 tvOrderEmployeeName_OrderDetail.setText(order.getEmp_id());
+                tvProductQuantity_OrderDetail.setText("共 "+String.valueOf(pro_quantity)+" 項商品");
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -205,9 +209,10 @@ public class OrderDetailFragment extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 orderItems = new ArrayList<>();
-                for (DocumentSnapshot snapshot : queryDocumentSnapshots)
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     orderItems.add(snapshot.toObject(OrderItem.class));
-
+                    pro_quantity++;
+                }
                 rvOrderDetailList_OrderDetail.setAdapter(new OrderDetailFragment.OrderItemAdapter(activity, orderItems));
             }
         });
