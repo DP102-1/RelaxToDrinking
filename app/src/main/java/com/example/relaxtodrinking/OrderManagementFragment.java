@@ -6,11 +6,13 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +47,7 @@ public class OrderManagementFragment extends Fragment {
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private List<Order> orders;
+    private int order_status;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,27 +113,67 @@ public class OrderManagementFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull OrderManagementFragment.OrderAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final OrderManagementFragment.OrderAdapter.MyViewHolder holder, int position) {
             final Order order = orders.get(position);
-            holder.tvOrderNumber_OrderManagement.setText();
+            holder.tvOrderNumber_OrderManagement.setText("#"+String.valueOf(position));
             holder.tvOrderDate_OrderManagement.setText(sdf.format(order.getOrder_date()));
-            holder.tvUserName_OrderManagement.setText();
-            holder.tvUserPhone_OrderManagement.setText();
-            holder.tvUserAddress_OrderManagement.setText();
-            holder.btOrderAccept_OrderManagement.setText();
-
+            holder.tvUserName_OrderManagement.setText(order.getUser_name());
+            holder.tvUserPhone_OrderManagement.setText(order.getUser_phone());
+            holder.tvUserAddress_OrderManagement.setText(order.getUser_address());
+            order_status = order.getOrder_status();
+            switch (order_status) {
+                case 0:
+                    holder.tvOrderStatus_OrderManagement.setText("已完成");
+                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.BLUE);
+                case 1:
+                    holder.tvOrderStatus_OrderManagement.setText("未接單");
+                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.GRAY);
+                case 2:
+                    holder.tvOrderStatus_OrderManagement.setText("送貨中");
+                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.RED);
+                default:
+                    holder.tvOrderStatus_OrderManagement.setText("");
+                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.GRAY);
+            }
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝接受訂單和查看外送人員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.btOrderAccept_OrderManagement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    switch (order_status) {
+                        case 0:
+                            Common.showToast(activity,"該訂單已完成");
+                            break;
+                        //＝＝＝＝＝接收訂單＝＝＝＝＝//
+                        case 1:
 
+
+
+
+                            holder.tvOrderStatus_OrderManagement.setText("送貨中");
+                            holder.tvOrderStatus_OrderManagement.setTextColor(Color.RED);
+                            order_status = 2;
+                            holder.btOrderAccept_OrderManagement.setText("查看外送員位置");
+                            break;
+                        //＝＝＝＝＝接收訂單＝＝＝＝＝//
+                        //＝＝＝＝＝查看外送員位置＝＝＝＝＝//
+                        case 2:
+
+                            break;
+                        //＝＝＝＝＝查看外送員位置＝＝＝＝＝//
+                        default:
+                            break;
+                    }
                 }
             });
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝接受訂單和查看外送人員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
             //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳細資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString("order_id",order.getOrder_id());
+                    Navigation.findNavController(view).navigate(R.id.action_orderManagementFragment_to_orderDetailFragment,bundle);
                 }
             });
             //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳細資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

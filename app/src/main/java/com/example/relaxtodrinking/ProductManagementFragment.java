@@ -67,6 +67,8 @@ public class ProductManagementFragment extends Fragment {
 
     private List<Product> products;
     private List<ProductKind> kinds;
+    private String pro_kind_id;
+    private String pro_kind_name;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -223,13 +225,11 @@ public class ProductManagementFragment extends Fragment {
             holder.tvTimeEdit_ProductManagement.setText(sdf.format(product.getPro_time()));
             //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊類別下拉式選單＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             showKindAll(holder.spProductKind_ProductManagement,product.getPro_kind_id());
-            final String[] pro_kind_id = new String[1];
-            final String[] pro_kind_name = new String[1];
             holder.spProductKind_ProductManagement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    pro_kind_id[0] = kinds.get(i).getKind_id();
-                    pro_kind_name[0] = kinds.get(i).getKind_name();
+                    pro_kind_id = kinds.get(i).getKind_id();
+                    pro_kind_name = kinds.get(i).getKind_name();
                 }
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
@@ -272,8 +272,8 @@ public class ProductManagementFragment extends Fragment {
                         return;
                     }
                     db.collection("Product").document(product.getPro_id()).update("pro_name",holder.etProductName_ProductManagement.getText().toString());
-                    db.collection("Product").document(product.getPro_id()).update("pro_kind_id", pro_kind_id[0]);
-                    db.collection("Product").document(product.getPro_id()).update("pro_kind_name", pro_kind_name[0]);
+                    db.collection("Product").document(product.getPro_id()).update("pro_kind_id", pro_kind_id);
+                    db.collection("Product").document(product.getPro_id()).update("pro_kind_name", pro_kind_name);
                     db.collection("Product").document(product.getPro_id()).update("pro_time", new Date());
                     Common.showToast(activity,"修改成功");
                     showProductAll();
