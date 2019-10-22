@@ -23,11 +23,11 @@
         android:text="訂單接收/管理"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/ivBack_OrderManagement"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivBack_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvDate_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="日期"
@@ -46,7 +46,7 @@
         tools:layout_editor_absoluteY="92dp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvEmployeetvDate_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="員工名稱"
@@ -62,11 +62,19 @@
         tools:layout_editor_absoluteY="162dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btOrderHistorytvDate_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="歷史訂單查詢"
         tools:layout_editor_absoluteX="281dp"
         tools:layout_editor_absoluteY="92dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="今日營收瀏覽"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="162dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

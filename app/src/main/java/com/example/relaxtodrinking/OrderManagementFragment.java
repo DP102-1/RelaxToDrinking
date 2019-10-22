@@ -74,7 +74,6 @@ public class OrderManagementFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     }
-
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private class OrderAdapter extends RecyclerView.Adapter<OrderManagementFragment.OrderAdapter.MyViewHolder> {
         Context context;
