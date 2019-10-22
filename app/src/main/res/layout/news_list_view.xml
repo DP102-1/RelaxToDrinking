@@ -13,8 +13,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNewsDate_NewsList"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage_NewsList"
         app:srcCompat="@drawable/no_image" />
 
     <TextView
@@ -29,4 +30,14 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMessage_NewsList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewsDate_NewsList"
+        tools:text="公告訊息公告訊息公告訊息公告訊息公告訊息公告訊息公告訊息公告訊息" />
 </androidx.constraintlayout.widget.ConstraintLayout>

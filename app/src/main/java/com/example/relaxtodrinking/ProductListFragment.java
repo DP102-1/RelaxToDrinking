@@ -171,7 +171,7 @@ public class ProductListFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showProductAll() {
-        db.collection("Product").get()
+        db.collection("Product").whereEqualTo("pro_status",1).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
