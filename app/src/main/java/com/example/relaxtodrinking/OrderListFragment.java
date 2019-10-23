@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.example.relaxtodrinking.data.Product;
+import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -51,13 +52,14 @@ public class OrderListFragment extends Fragment {
 
     private RecyclerView rvOrderDetailList_OrderList;
     private ImageView ivBack_OrderList;
-    private TextView tvOrderDate_OrderList,tvOrderTakeMealTime_OrderList,tvOrderStatus_OrderList,tvOrderTotalPrice_OrderDetail,tvOrderTakeMeal_OrderList;
-    private Button btOrderQRCode_OrderList,btEmployeePosition_OrderList,btOrderHistory_OrderList,btOrderDetail_OrderList;
+    private TextView tvOrderDate_OrderList, tvOrderTakeMealTime_OrderList, tvOrderStatus_OrderList, tvOrderTotalPrice_OrderDetail, tvOrderTakeMeal_OrderList;
+    private Button btOrderQRCode_OrderList, btEmployeePosition_OrderList, btOrderHistory_OrderList, btOrderDetail_OrderList;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private String order_id = "";
     private Order order = new Order();
     private List<OrderItem> orderItems;
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,11 +68,21 @@ public class OrderListFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         activity.setTitle("訂單瀏覽");
         return inflater.inflate(R.layout.fragment_order_list, container, false);
+    }
+
+    private void LondOrderID() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            order_id = bundle.getString("order_id");
+        } else {
+            order_id = "無訂單";
+        }
     }
 
     @Override
@@ -84,42 +96,52 @@ public class OrderListFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        LondOrderID();
         tvOrderDate_OrderList = view.findViewById(R.id.tvOrderDate_OrderList);
         tvOrderTakeMealTime_OrderList = view.findViewById(R.id.tvOrderTakeMealTime_OrderList);
         tvOrderStatus_OrderList = view.findViewById(R.id.tvOrderStatus_OrderList);
         tvOrderTotalPrice_OrderDetail = view.findViewById(R.id.tvOrderTotalPrice_OrderDetail);
         tvOrderTakeMeal_OrderList = view.findViewById(R.id.tvOrderTakeMeal_OrderList);
-        db.collection("Order").document(order_id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                order = documentSnapshot.toObject(Order.class);
-            }
-        });
 
-        tvOrderDate_OrderList.setText(sdf.format(order.getOrder_date()));
-        tvOrderTakeMealTime_OrderList.setText(sdf.format(order.getOrder_take_meal_time()));
-        int order_status = order.getOrder_status();
-        switch (order_status) {
-            case 0:
-                tvOrderStatus_OrderList.setText("已完成");
-                tvOrderStatus_OrderList.setTextColor(Color.BLUE);
-            case 1:
-                tvOrderStatus_OrderList.setText("未接單");
-                tvOrderStatus_OrderList.setTextColor(Color.GRAY);
-            case 2:
-                tvOrderStatus_OrderList.setText("送貨中");
-                tvOrderStatus_OrderList.setTextColor(Color.RED);
-            default:
-                tvOrderStatus_OrderList.setText("");
-                tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+        if (order_id.equals("無訂單")) //判別有沒有order_id
+        {
+            btOrderQRCode_OrderList.setEnabled(false);
+            btEmployeePosition_OrderList.setEnabled(false);
+            btOrderDetail_OrderList.setEnabled(false);
+        } else {
+            db.collection("Order").document(order_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot document = task.getResult();
+                    order = document.toObject(Order.class);
+                }
+            });
+
+            tvOrderDate_OrderList.setText(sdf.format(order.getOrder_date()));
+            tvOrderTakeMealTime_OrderList.setText(sdf.format(order.getOrder_take_meal_time()));
+            int order_status = order.getOrder_status();
+            switch (order_status) {
+                case 0:
+                    tvOrderStatus_OrderList.setText("已完成");
+                    tvOrderStatus_OrderList.setTextColor(Color.BLUE);
+                case 1:
+                    tvOrderStatus_OrderList.setText("未接單");
+                    tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+                case 2:
+                    tvOrderStatus_OrderList.setText("送貨中");
+                    tvOrderStatus_OrderList.setTextColor(Color.RED);
+                default:
+                    tvOrderStatus_OrderList.setText("");
+                    tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+            }
+            tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
+            tvOrderTakeMeal_OrderList.setText(order.getOrder_take_meal());
         }
-        tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
-        tvOrderTakeMeal_OrderList.setText(order.getOrder_take_meal());
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單QRCode顯示＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        btOrderQRCode_OrderList  = view.findViewById(R.id.btOrderQRCode_OrderList);
+        btOrderQRCode_OrderList = view.findViewById(R.id.btOrderQRCode_OrderList);
         btOrderQRCode_OrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,8 +181,8 @@ public class OrderListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("order_id",order_id);
-                Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_orderDetailFragment,bundle);
+                bundle.putString("order_id", order_id);
+                Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_orderDetailFragment, bundle);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -171,7 +193,7 @@ public class OrderListFragment extends Fragment {
         ivBack_OrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //回上一頁
+                Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_indexFragment);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -213,6 +235,7 @@ public class OrderListFragment extends Fragment {
             View itemView = LayoutInflater.from(context).inflate(R.layout.order_detail_view, parent, false);
             return new OrderListFragment.OrderItemAdapter.MyViewHolder(itemView);
         }
+
         @Override
         public void onBindViewHolder(@NonNull OrderListFragment.OrderItemAdapter.MyViewHolder holder, int position) {
             final OrderItem orderItem = orderItems.get(position);
@@ -235,7 +258,7 @@ public class OrderListFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示訂單明細列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderDetailAll() {
-        db.collection("OrderItem").whereEqualTo("order_id",order_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("OrderItem").whereEqualTo("order_id", order_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 orderItems = new ArrayList<>();

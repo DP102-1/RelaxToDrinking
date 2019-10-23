@@ -203,6 +203,7 @@ public class OrderDetailFragment extends Fragment {
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單明細列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示訂單明細列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderDetailAll() {
         db.collection("OrderItem").whereEqualTo("order_id", order_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

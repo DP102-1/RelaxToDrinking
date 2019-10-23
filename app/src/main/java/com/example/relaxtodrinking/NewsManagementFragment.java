@@ -64,6 +64,10 @@ public class NewsManagementFragment extends Fragment {
         db.collection("News").orderBy("news_date", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                newses = new ArrayList<>();
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                    newses.add(snapshot.toObject(News.class));
+                }
 
             }
         });

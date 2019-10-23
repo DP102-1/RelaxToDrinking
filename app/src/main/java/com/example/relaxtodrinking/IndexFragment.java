@@ -1,0 +1,128 @@
+package com.example.relaxtodrinking;
+/***************************************************************/
+//首頁最新消息輪播
+
+/***************************************************************/
+
+import android.app.Activity;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import com.example.relaxtodrinking.data.News;
+import com.example.relaxtodrinking.data.Order;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class IndexFragment extends Fragment {
+    private String TAG = "首頁";
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private Activity activity;
+    private FirebaseFirestore db;
+    private FirebaseStorage storage;
+
+    private Button btUser_Index,btProduct_Index,btOrder_Index,btStore_Index;
+    private ImageView ivNews_Index;
+
+    private String user_id = "";
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activity = getActivity();
+        db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        activity.setTitle("首頁");
+        return inflater.inflate(R.layout.fragment_index, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊會員專區＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btUser_Index = view.findViewById(R.id.btUser_Index);
+        btUser_Index.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_MembersOnlyFragment);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊會員專區＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊商品瀏覽＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btProduct_Index = view.findViewById(R.id.btProduct_Index);
+        btProduct_Index.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_productListFragment);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊商品瀏覽＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單紀錄＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btOrder_Index = view.findViewById(R.id.btOrder_Index);
+        btOrder_Index.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (user_id == null || user_id.equals(""))
+                {
+                    //請先登入
+                    //跳轉到登入頁面
+                }else
+                {
+                    String order_id = "無訂單";
+//                    db.collection("order").whereEqualTo("user_id",user_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<Order> orders = new ArrayList<>();
+//                            orders = queryDocumentSnapshots.toObjects(Order.class);
+//                            for (Order order :  orders){
+//                                if (order.getOrder_status() )
+//
+//                            }
+//                        }
+//                    });
+                    //判斷使用者手上有沒有未完成訂單
+                    Bundle bundle = new Bundle();
+                    bundle.getString("order_id",order_id);
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment,bundle);
+                }
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單紀錄＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btStore_Index = view.findViewById(R.id.btStore_Index);
+        btStore_Index.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_storeInformationFragment);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    }
+}

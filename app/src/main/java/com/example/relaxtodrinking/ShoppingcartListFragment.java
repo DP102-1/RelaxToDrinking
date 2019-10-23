@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -249,8 +250,16 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                 order.setOrder_price(total);
                 order.setOrder_take_meal(take_meal_mode);
                 order.setOrder_status(1);
-                db.collection("Order").document(order.getOrder_id()).set(order);
                 //＝＝＝＝＝＝處理訂單資訊＝＝＝＝＝//
+
+
+                //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
+                /******
+                 連結結帳系統
+                 ******/
+
+                db.collection("Order").document(order.getOrder_id()).set(order);
+                //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
 
                 //＝＝＝＝＝＝處理訂單明細＝＝＝＝＝//
                 for (OrderItem orderItem : orderItems)
@@ -261,10 +270,10 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                 preferences_shoppingCart = activity.getSharedPreferences("order_item", MODE_PRIVATE);
                 preferences_shoppingCart.edit().clear().apply();//清除偏好設定購物車的資料
                 //＝＝＝＝＝＝處理訂單明細＝＝＝＝＝//
-                /******
-                 連結結帳系統
-                 Navigation.findNavController(view).navigate(R.id.xxx);
-                 ******/
+
+                Bundle bundle = new Bundle();
+                bundle.getString("order_id",order.getOrder_id());
+                Navigation.findNavController(view).navigate(R.id.action_shoppingcartListFragment_to_orderListFragment,bundle);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊結帳按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

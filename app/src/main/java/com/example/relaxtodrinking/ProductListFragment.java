@@ -98,9 +98,7 @@ public class ProductListFragment extends Fragment {
         ivBack_ProductList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            /**
-            返回
-            **/
+                Navigation.findNavController(view).popBackStack();
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊返回按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
