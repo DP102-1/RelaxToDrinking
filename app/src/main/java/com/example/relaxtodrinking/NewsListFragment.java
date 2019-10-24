@@ -77,7 +77,7 @@ public class NewsListFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        ivBack_NewsList = view.findViewById(R.id.ivBack_StoreInformation);
+        ivBack_NewsList = view.findViewById(R.id.ivBack_NewsList);
         ivBack_NewsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

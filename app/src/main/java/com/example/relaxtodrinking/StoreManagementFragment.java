@@ -150,7 +150,7 @@ public class StoreManagementFragment extends Fragment {
                 }
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
                 if (pictureTaken) {
-                    final String imagePath = "image/store/logo.png";
+                    final String imagePath = "image/store/logo";
                     storage.getReference().child(imagePath).putFile(pick_picture_uri)
                             .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -263,31 +263,29 @@ public class StoreManagementFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case ACTION_ChoiceFromAlbum:
-                    Uri pick_picture_uri = intent.getData();
-                    Bitmap bitmap = null;
-                    if (pick_picture_uri != null) {
-                        try {
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-                                bitmap = BitmapFactory.decodeStream(
-                                        activity.getContentResolver().openInputStream(pick_picture_uri));
-                            } else {
-                                ImageDecoder.Source source =
-                                        ImageDecoder.createSource(activity.getContentResolver(), pick_picture_uri);
-                                bitmap = ImageDecoder.decodeBitmap(source);
-                            }
-                        } catch (IOException e) {
-                            Log.e(TAG, e.toString());
+            if (requestCode == ACTION_ChoiceFromAlbum) {
+                pick_picture_uri = intent.getData();
+                Bitmap bitmap = null;
+                if (pick_picture_uri != null) {
+                    try {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                            bitmap = BitmapFactory.decodeStream(
+                                    activity.getContentResolver().openInputStream(pick_picture_uri));
+                        } else {
+                            ImageDecoder.Source source =
+                                    ImageDecoder.createSource(activity.getContentResolver(), pick_picture_uri);
+                            bitmap = ImageDecoder.decodeBitmap(source);
                         }
+                    } catch (IOException e) {
+                        Log.e(TAG, e.toString());
                     }
-                    if (bitmap != null) {
-                        ivStoreLogo_StoreManagement.setImageBitmap(bitmap);
-                        pictureTaken = true;
-                    } else {
-                        ivStoreLogo_StoreManagement.setImageResource(R.drawable.no_image);
-                    }
-                    break;
+                }
+                if (bitmap != null) {
+                    ivStoreLogo_StoreManagement.setImageBitmap(bitmap);
+                    pictureTaken = true;
+                } else {
+                    ivStoreLogo_StoreManagement.setImageResource(R.drawable.no_image);
+                }
             }
         }
     }

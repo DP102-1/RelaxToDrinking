@@ -112,6 +112,7 @@ public class ProductSpecificationFragment extends Fragment {
         rgSweetness_ProductSpecification = view.findViewById(R.id.rgSweetness_ProductSpecification);
         etQuantity_ProductSpecification = view.findViewById(R.id.etQuantity_ProductSpecification);
         btAddShoppingCart_ProductSpecification = view.findViewById(R.id.btAddShoppingCart_ProductSpecification);
+
         if (orderItem != null) {
             proId = orderItem.getPro_id();
             proName = orderItem.getPro_name();

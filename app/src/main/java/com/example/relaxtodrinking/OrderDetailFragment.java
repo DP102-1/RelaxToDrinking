@@ -56,7 +56,6 @@ public class OrderDetailFragment extends Fragment {
     private List<OrderItem> orderItems;
     private String order_id = "";
     private Order order;
-    private int pro_quantity = 0;
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
@@ -110,12 +109,16 @@ public class OrderDetailFragment extends Fragment {
                 switch (order_status) {
                     case 0:
                         tvOrderStatus_OrderDetail.setText("已完成");
+                        break;
                     case 1:
                         tvOrderStatus_OrderDetail.setText("未接單");
+                        break;
                     case 2:
                         tvOrderStatus_OrderDetail.setText("送貨中");
+                        break;
                     default:
                         tvOrderStatus_OrderDetail.setText("");
+                        break;
                 }
                 tvOrderUserName_OrderDetail.setText(order.getUser_name());
                 tvOrderUserPhone_OrderDetail.setText(order.getUser_phone());
@@ -123,7 +126,6 @@ public class OrderDetailFragment extends Fragment {
                 tvOrderTakeMealTime_OrderDetail.setText(sdf.format(order.getOrder_take_meal_time()));
                 tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
                 tvOrderEmployeeName_OrderDetail.setText(order.getEmp_id());
-                tvProductQuantity_OrderDetail.setText("共 "+String.valueOf(pro_quantity)+" 項商品");
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -212,7 +214,7 @@ public class OrderDetailFragment extends Fragment {
                 orderItems = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     orderItems.add(snapshot.toObject(OrderItem.class));
-                    pro_quantity++;
+                    tvProductQuantity_OrderDetail.setText("共 "+String.valueOf(orderItems.size())+" 項商品");
                 }
                 rvOrderDetailList_OrderDetail.setAdapter(new OrderDetailFragment.OrderItemAdapter(activity, orderItems));
             }

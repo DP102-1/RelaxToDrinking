@@ -1,9 +1,8 @@
 package com.example.relaxtodrinking;
 
 /***************************************************************/
-//購物車清單更新顯示有問題
+//清空購物車功能
 //取餐時間小於系統時間
-//不同使用者看到的購物車內容相同的問題
 /***************************************************************/
 
 import android.app.Activity;
@@ -190,12 +189,16 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         btOrderIn_ShoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTakeMealMode("外送");
                 if (user_address.equals("")) {
                     //請使用者完善地址資料
                 } else {
                     showTakeMealMode("外送");
                     tvAddress_ShoppingCart.setText(user_address);
+                    new TimePickerDialog(
+                            activity,
+                            ShoppingcartListFragment.this,
+                            hour, minute, true)
+                            .show();
                 }
             }
         });
@@ -213,32 +216,29 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                     return;
                 }
                 Order order = new Order();
-                switch (take_meal_mode) {
-                    case "自取":
-                        //比較日期大小
-                        String input = tvTime_ShoppingCart.getText().toString();
-                        Date take_meal_time = null;
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINESE);
-                        try {
-                            take_meal_time = formatter.parse(input);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        if(take_meal_time.before(new Date()))
-                        {
-                            Common.showToast(activity,"取餐時間小於現在時間");
-                            return;
-                        }
-                        else
-                        {
-                            order.setOrder_take_meal_time(take_meal_time);
-                        }
-                        break;
-                    case "外送":
-                        break;
-                    default:
-                        Common.showToast(activity,"尚未選擇取餐方式");
+                if (take_meal_mode.equals("自取") || take_meal_mode.equals("外送")) {
+                    //比較日期大小
+                    String input = tvTime_ShoppingCart.getText().toString();
+                    Date take_meal_time = null;
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINESE);
+                    try {
+                        take_meal_time = formatter.parse(input);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if(take_meal_time.before(new Date()))
+                    {
+                        Common.showToast(activity,"取餐時間小於現在時間");
                         return;
+                    }
+                    else
+                    {
+                        order.setOrder_take_meal_time(take_meal_time);
+                    }
+                }else
+                {
+                    Common.showToast(activity,"尚未選擇取餐方式");
+                    return;
                 }
                 order.setOrder_id(db.collection("Order").document().getId());
                 order.setOrder_date(new Date());
@@ -257,7 +257,6 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                 /******
                  連結結帳系統
                  ******/
-
                 db.collection("Order").document(order.getOrder_id()).set(order);
                 //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
 
@@ -270,9 +269,8 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                 preferences_shoppingCart = activity.getSharedPreferences("order_item", MODE_PRIVATE);
                 preferences_shoppingCart.edit().clear().apply();//清除偏好設定購物車的資料
                 //＝＝＝＝＝＝處理訂單明細＝＝＝＝＝//
-
                 Bundle bundle = new Bundle();
-                bundle.getString("order_id",order.getOrder_id());
+                bundle.putString("order_id",order.getOrder_id());
                 Navigation.findNavController(view).navigate(R.id.action_shoppingcartListFragment_to_orderListFragment,bundle);
             }
         });
@@ -408,8 +406,8 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
             case "外送":
                 btYourSelfPickUp_ShoppingCart.setBackgroundColor(Color.GRAY);
                 btOrderIn_ShoppingCart.setBackgroundColor(Color.YELLOW);
-                tvTakeMeal_ShoppingCart.setVisibility(View.GONE);
-                tvTime_ShoppingCart.setVisibility(View.GONE);
+                tvTakeMeal_ShoppingCart.setVisibility(View.VISIBLE);
+                tvTime_ShoppingCart.setVisibility(View.VISIBLE);
                 tvArrived_ShoppingCart.setVisibility(View.VISIBLE);
                 tvAddress_ShoppingCart.setVisibility(View.VISIBLE);
                 break;

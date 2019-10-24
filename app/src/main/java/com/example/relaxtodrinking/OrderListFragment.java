@@ -91,57 +91,68 @@ public class OrderListFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rvOrderDetailList_OrderList = view.findViewById(R.id.rvOrderDetailList_OrderList);
         rvOrderDetailList_OrderList.setLayoutManager(new LinearLayoutManager(activity));
-        showOrderDetailAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         LondOrderID();
+        /*****/
+        order_id = "YrprhJvmVJANno0eq82F";
+        /*****/
         tvOrderDate_OrderList = view.findViewById(R.id.tvOrderDate_OrderList);
         tvOrderTakeMealTime_OrderList = view.findViewById(R.id.tvOrderTakeMealTime_OrderList);
         tvOrderStatus_OrderList = view.findViewById(R.id.tvOrderStatus_OrderList);
         tvOrderTotalPrice_OrderDetail = view.findViewById(R.id.tvOrderTotalPrice_OrderDetail);
         tvOrderTakeMeal_OrderList = view.findViewById(R.id.tvOrderTakeMeal_OrderList);
 
+        btOrderQRCode_OrderList = view.findViewById(R.id.btOrderQRCode_OrderList);
+        btEmployeePosition_OrderList = view.findViewById(R.id.btEmployeePosition_OrderList);
+        btOrderDetail_OrderList = view.findViewById(R.id.btOrderDetail_OrderList);
         if (order_id.equals("無訂單")) //判別有沒有order_id
         {
             btOrderQRCode_OrderList.setEnabled(false);
             btEmployeePosition_OrderList.setEnabled(false);
             btOrderDetail_OrderList.setEnabled(false);
+            tvOrderStatus_OrderList.setText("無進行中訂單");
         } else {
             db.collection("Order").document(order_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    DocumentSnapshot document = task.getResult();
-                    order = document.toObject(Order.class);
+                    if (task.getResult() != null) {
+                        DocumentSnapshot document = task.getResult();
+                        order = document.toObject(Order.class);
+                    }
+                    tvOrderDate_OrderList.setText(sdf.format(order.getOrder_date()));
+                    tvOrderTakeMealTime_OrderList.setText(sdf.format(order.getOrder_take_meal_time()));
+                    int order_status = order.getOrder_status();
+                    switch (order_status) {
+                        case 0:
+                            tvOrderStatus_OrderList.setText("已完成");
+                            tvOrderStatus_OrderList.setTextColor(Color.BLUE);
+                            break;
+                        case 1:
+                            tvOrderStatus_OrderList.setText("未接單");
+                            tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+                            break;
+                        case 2:
+                            tvOrderStatus_OrderList.setText("送貨中");
+                            tvOrderStatus_OrderList.setTextColor(Color.RED);
+                            break;
+                        default:
+                            tvOrderStatus_OrderList.setText("");
+                            tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+                            break;
+                    }
+                    tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
+                    tvOrderTakeMeal_OrderList.setText(order.getOrder_take_meal());
                 }
             });
-
-            tvOrderDate_OrderList.setText(sdf.format(order.getOrder_date()));
-            tvOrderTakeMealTime_OrderList.setText(sdf.format(order.getOrder_take_meal_time()));
-            int order_status = order.getOrder_status();
-            switch (order_status) {
-                case 0:
-                    tvOrderStatus_OrderList.setText("已完成");
-                    tvOrderStatus_OrderList.setTextColor(Color.BLUE);
-                case 1:
-                    tvOrderStatus_OrderList.setText("未接單");
-                    tvOrderStatus_OrderList.setTextColor(Color.GRAY);
-                case 2:
-                    tvOrderStatus_OrderList.setText("送貨中");
-                    tvOrderStatus_OrderList.setTextColor(Color.RED);
-                default:
-                    tvOrderStatus_OrderList.setText("");
-                    tvOrderStatus_OrderList.setTextColor(Color.GRAY);
-            }
-            tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
-            tvOrderTakeMeal_OrderList.setText(order.getOrder_take_meal());
+            showOrderDetailAll();
         }
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單QRCode顯示＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        btOrderQRCode_OrderList = view.findViewById(R.id.btOrderQRCode_OrderList);
         btOrderQRCode_OrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +165,6 @@ public class OrderListFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        btEmployeePosition_OrderList = view.findViewById(R.id.btEmployeePosition_OrderList);
         btEmployeePosition_OrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +186,6 @@ public class OrderListFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        btOrderDetail_OrderList = view.findViewById(R.id.btOrderDetail_OrderList);
         btOrderDetail_OrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

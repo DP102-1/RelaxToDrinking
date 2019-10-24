@@ -1,7 +1,8 @@
 package com.example.relaxtodrinking;
 
 /***************************************************************/
-//地圖執行緒卡到資料庫 心累
+//地圖框框美化
+//點電話撥打
 /***************************************************************/
 
 import android.app.Activity;
@@ -66,8 +67,8 @@ public class StoreInformationFragment extends Fragment {
     private ImageView ivBack_StoreInformation, ivStoreLogo_StoreInformation;
 
     private Store store = new Store();
-    private Double store_latitude;
-    private Double store_longitude;
+    private double store_latitude;
+    private double store_longitude;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
@@ -94,6 +95,9 @@ public class StoreInformationFragment extends Fragment {
         tvStorePhone_StoreInformation = view.findViewById(R.id.tvStorePhone_StoreInformation);
         ivStoreLogo_StoreInformation = view.findViewById(R.id.ivStoreLogo_StoreInformation);
 
+        mvStoreAddress_StoreInformation = view.findViewById(R.id.mvStoreAddress_StoreInformation);
+        mvStoreAddress_StoreInformation.onCreate(savedInstanceState);
+        mvStoreAddress_StoreInformation.onStart();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         db.collection("Store").document(Store_ID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -104,37 +108,33 @@ public class StoreInformationFragment extends Fragment {
                 tvStorePhone_StoreInformation.setText(store.getStore_phone());
                 store_latitude = store.getStore_latitude();
                 store_longitude = store.getStore_longitude();
+                Log.e(TAG,"(" + store.getStore_latitude() + ", " + store.getStore_longitude() + ")" );
                 if (store.getStore_picture() == null) { //抓商品圖片
                     ivStoreLogo_StoreInformation.setImageResource(R.drawable.no_image);
                 } else {
                     showImage(ivStoreLogo_StoreInformation, store.getStore_picture());
                 }
+                //＝＝＝＝＝地圖顯示店家位置＝＝＝＝＝//
+                mvStoreAddress_StoreInformation.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        mapStoreAddress_StoreInformation = googleMap;
+                        LatLng store_latlng = new LatLng(store_latitude, store_longitude);
+                        // 一開始將地圖移動至指定點
+                        if (store_latitude != 0.0 && store_longitude != 0.0) {
+                            moveMap(store_latlng);
+                            addMarker(store_latlng);
+                            // 自訂訊息視窗
+                            mapStoreAddress_StoreInformation.setInfoWindowAdapter(new MyInfoWindowAdapter(activity));
+                        } else {
+                            Common.showToast(activity, "找不到店家地址資訊");
+                        }
+                    }
+                });
+                //＝＝＝＝＝地圖顯示店家位置＝＝＝＝＝//
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
-
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝地圖顯示店家位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        mvStoreAddress_StoreInformation = view.findViewById(R.id.mvStoreAddress_StoreInformation);
-        mvStoreAddress_StoreInformation.onCreate(savedInstanceState);
-        mvStoreAddress_StoreInformation.onStart();
-        mvStoreAddress_StoreInformation.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                mapStoreAddress_StoreInformation = googleMap;
-                LatLng store_latlng = new LatLng(store_latitude, store_longitude);
-                // 一開始將地圖移動至指定點
-                if (store_latitude != null && store_longitude != null) {
-                    moveMap(store_latlng);
-                    addMarker(store_latlng);
-                    // 自訂訊息視窗
-                    mapStoreAddress_StoreInformation.setInfoWindowAdapter(new MyInfoWindowAdapter(activity));
-                } else {
-                    Common.showToast(activity, "222222222222");
-                }
-            }
-        });
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝地圖顯示店家位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -211,7 +211,7 @@ public class StoreInformationFragment extends Fragment {
 
             String title = marker.getTitle();
             TextView tvTitle = view.findViewById(R.id.tvMapAddress_StoreInformation);
-            tvTitle.setText(title);
+            tvTitle.setText(store.getStore_name());
 
             String snippet = marker.getSnippet();
             TextView tvSnippet = view.findViewById(R.id.tvMapInfo_StoreInformation);
@@ -219,7 +219,6 @@ public class StoreInformationFragment extends Fragment {
 
             return view;
         }
-
         @Override
         public View getInfoContents(Marker marker) {
             return null;

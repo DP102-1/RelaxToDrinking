@@ -88,12 +88,6 @@ public class NewsManagementFragment extends Fragment {
 
 
 
-
-
-
-
-
-
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         ivBack_NewsManagement = view.findViewById(R.id.ivBack_NewsManagement);
         ivBack_NewsManagement.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +97,6 @@ public class NewsManagementFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單明細列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

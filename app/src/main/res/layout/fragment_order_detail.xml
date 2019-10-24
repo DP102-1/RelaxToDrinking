@@ -100,8 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="外送人員"
-        app:layout_constraintTop_toBottomOf="@+id/tvTotal_OrderDetail"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="@+id/tvTotal_OrderDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvTotal_OrderDetail" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderDetailList_OrderDetail"

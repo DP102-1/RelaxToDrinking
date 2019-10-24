@@ -140,6 +140,18 @@
         <action
             android:id="@+id/action_indexFragment_to_newsListFragment"
             app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_productManagementFragment"
+            app:destination="@id/productManagementFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_storeManagementFragment"
+            app:destination="@id/storeManagementFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_newsManagementFragment"
+            app:destination="@id/newsManagementFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_orderManagementFragment"
+            app:destination="@id/orderManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeManagementFragment"

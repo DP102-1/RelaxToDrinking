@@ -41,10 +41,11 @@ public class IndexFragment extends Fragment {
     private Button btUser_Index,btProduct_Index,btOrder_Index,btStore_Index;
 
     /*********/
-    private ImageView ivNews_Index;
+    private ImageView ivNews_Index,imageView;
+    private Boolean x = false;
     /*********/
 
-    private String user_id = "";
+    private String user_id = "ALJVuIeu4UWRH4TSLghiz2gu7M32"; /**假資料**/
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +80,14 @@ public class IndexFragment extends Fragment {
         btProduct_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_productListFragment);
+                if (!x) {
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_productListFragment);
+                }else{
+                    /*******/
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_productManagementFragment);
+                    x = false;
+                    /*******/
+                }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊商品瀏覽＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -90,6 +98,15 @@ public class IndexFragment extends Fragment {
         btOrder_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /******/
+                if(x) {
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderManagementFragment);
+                    x = false;
+                    return;
+                }
+                /******/
+
+
                 if (user_id == null || user_id.equals(""))
                 {
                     //請先登入
@@ -110,7 +127,7 @@ public class IndexFragment extends Fragment {
 //                    });
                     //判斷使用者手上有沒有未完成訂單
                     Bundle bundle = new Bundle();
-                    bundle.getString("order_id",order_id);
+                    bundle.putString("order_id",order_id);
                     Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment,bundle);
                 }
             }
@@ -123,7 +140,15 @@ public class IndexFragment extends Fragment {
         btStore_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_storeInformationFragment);
+                if(!x) {
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_storeInformationFragment);
+                }else
+                {
+                    /******/
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_storeManagementFragment);
+                    x = false;
+                    /*****/
+                }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -135,7 +160,29 @@ public class IndexFragment extends Fragment {
         ivNews_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsListFragment);
+                if(!x) {
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsListFragment);
+                }else
+                {
+                    x = false;
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsManagementFragment);
+                }
+            }
+        });
+
+        imageView = view.findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!x) {
+                    x = true;
+                    imageView.setImageResource(R.drawable.map_pin);
+                }
+                else
+                {
+                    x = false;
+                    imageView.setImageResource(R.mipmap.ic_launcher);
+                }
             }
         });
         /*********/
