@@ -6,6 +6,8 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -37,11 +39,14 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,10 +60,10 @@ public class StoreInformationFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseStorage storage;
 
-    private TextView tvStoreName_StoreInformation,tvStoreAddress_StoreInformation,tvStorePhone_StoreInformation;
+    private TextView tvStoreName_StoreInformation, tvStoreAddress_StoreInformation, tvStorePhone_StoreInformation;
     private MapView mvStoreAddress_StoreInformation;
     private GoogleMap mapStoreAddress_StoreInformation;
-    private ImageView ivBack_StoreInformation;
+    private ImageView ivBack_StoreInformation, ivStoreLogo_StoreInformation;
 
     private Store store = new Store();
     private Double store_latitude;
@@ -87,6 +92,8 @@ public class StoreInformationFragment extends Fragment {
         tvStoreName_StoreInformation = view.findViewById(R.id.tvStoreName_StoreInformation);
         tvStoreAddress_StoreInformation = view.findViewById(R.id.tvStoreAddress_StoreInformation);
         tvStorePhone_StoreInformation = view.findViewById(R.id.tvStorePhone_StoreInformation);
+        ivStoreLogo_StoreInformation = view.findViewById(R.id.ivStoreLogo_StoreInformation);
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         db.collection("Store").document(Store_ID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -97,6 +104,11 @@ public class StoreInformationFragment extends Fragment {
                 tvStorePhone_StoreInformation.setText(store.getStore_phone());
                 store_latitude = store.getStore_latitude();
                 store_longitude = store.getStore_longitude();
+                if (store.getStore_picture() == null) { //抓商品圖片
+                    ivStoreLogo_StoreInformation.setImageResource(R.drawable.no_image);
+                } else {
+                    showImage(ivStoreLogo_StoreInformation, store.getStore_picture());
+                }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -104,23 +116,21 @@ public class StoreInformationFragment extends Fragment {
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝地圖顯示店家位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         mvStoreAddress_StoreInformation = view.findViewById(R.id.mvStoreAddress_StoreInformation);
-        // 呼叫MapView.onCreate()與onStart()才可正常顯示地圖
         mvStoreAddress_StoreInformation.onCreate(savedInstanceState);
         mvStoreAddress_StoreInformation.onStart();
         mvStoreAddress_StoreInformation.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mapStoreAddress_StoreInformation = googleMap;
+                LatLng store_latlng = new LatLng(store_latitude, store_longitude);
                 // 一開始將地圖移動至指定點
                 if (store_latitude != null && store_longitude != null) {
-                    LatLng store_latlng = new LatLng(store_latitude,store_longitude);
                     moveMap(store_latlng);
                     addMarker(store_latlng);
                     // 自訂訊息視窗
                     mapStoreAddress_StoreInformation.setInfoWindowAdapter(new MyInfoWindowAdapter(activity));
-                }else
-                {
-                    Common.showToast(activity,"1222222222222");
+                } else {
+                    Common.showToast(activity, "222222222222");
                 }
             }
         });
@@ -143,7 +153,7 @@ public class StoreInformationFragment extends Fragment {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
         Address address = reverseGeocode(latLng.latitude, latLng.longitude);
         if (address == null) {
-            Common.showToast(activity,"遺失店家位置");
+            Common.showToast(activity, "店家地址無法判別,請重新輸入");
             return;
         }
         // 取得道路名稱當做標題
@@ -216,4 +226,25 @@ public class StoreInformationFragment extends Fragment {
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝店家定位點內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private void showImage(final ImageView imageView, final String path) {
+        final int ONE_MEGABYTE = 1024 * 1024;
+        StorageReference imageRef = storage.getReference().child(path);
+        imageRef.getBytes(ONE_MEGABYTE)
+                .addOnCompleteListener(new OnCompleteListener<byte[]>() {
+                    @Override
+                    public void onComplete(@NonNull Task<byte[]> task) {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            byte[] bytes = task.getResult();
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            imageView.setImageBitmap(bitmap);
+                        } else {
+                            Log.e(TAG, "圖片載入失敗");
+                        }
+                    }
+                });
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 }

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -48,6 +49,7 @@ public class NewsManagementFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvNewsList_NewsManagement;
+    private ImageView ivBack_NewsManagement,ivNewsPicture_NewsManagement;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private List<News> newses;
@@ -87,6 +89,20 @@ public class NewsManagementFragment extends Fragment {
 
 
 
+
+
+
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivBack_NewsManagement = view.findViewById(R.id.ivBack_NewsManagement);
+        ivBack_NewsManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     }
 

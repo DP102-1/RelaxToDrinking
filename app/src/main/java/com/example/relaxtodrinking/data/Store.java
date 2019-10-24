@@ -7,6 +7,14 @@ public class Store {
     private String store_phone;
     private Double store_longitude;
     private Double store_latitude;
+    private String store_picture;
+
+    public String getStore_picture() {
+        return store_picture;
+    }
+    public void setStore_picture(String store_picture) {
+        this.store_picture = store_picture;
+    }
 
     public String getStore_id() {
         return store_id;
@@ -56,13 +64,14 @@ public class Store {
         this.store_latitude = store_latitude;
     }
 
-    public Store(String store_id, String store_name, String store_address, String store_phone, Double store_longitude, Double store_latitude) {
+    public Store(String store_id,String store_picture, String store_name, String store_address, String store_phone, Double store_longitude, Double store_latitude) {
         this.store_id = store_id;
         this.store_name = store_name;
         this.store_address = store_address;
         this.store_phone = store_phone;
         this.store_longitude = store_longitude;
         this.store_latitude = store_latitude;
+        this.store_picture = store_picture;
     }
 
     public Store() { }

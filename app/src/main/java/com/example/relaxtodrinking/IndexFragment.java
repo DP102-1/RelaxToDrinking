@@ -39,7 +39,10 @@ public class IndexFragment extends Fragment {
     private FirebaseStorage storage;
 
     private Button btUser_Index,btProduct_Index,btOrder_Index,btStore_Index;
+
+    /*********/
     private ImageView ivNews_Index;
+    /*********/
 
     private String user_id = "";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -124,5 +127,18 @@ public class IndexFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        /*********/
+        ivNews_Index = view.findViewById(R.id.ivNews_Index);
+        ivNews_Index.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsListFragment);
+            }
+        });
+        /*********/
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 }

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,6 +48,7 @@ public class NewsListFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvNewsList_NewsList;
+    private ImageView ivBack_NewsList;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     @Override
@@ -72,8 +74,18 @@ public class NewsListFragment extends Fragment {
         rvNewsList_NewsList.setLayoutManager(new LinearLayoutManager(activity));
         showNewsAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    }
 
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivBack_NewsList = view.findViewById(R.id.ivBack_StoreInformation);
+        ivBack_NewsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝最新消息內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private class NewsAdapter extends RecyclerView.Adapter<NewsListFragment.NewsAdapter.MyViewHolder> {
         Context context;
