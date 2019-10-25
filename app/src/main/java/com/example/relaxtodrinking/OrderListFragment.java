@@ -97,7 +97,7 @@ public class OrderListFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         LondOrderID();
         /*****/
-        order_id = "YrprhJvmVJANno0eq82F";
+        //order_id = "YrprhJvmVJANno0eq82F";
         /*****/
         tvOrderDate_OrderList = view.findViewById(R.id.tvOrderDate_OrderList);
         tvOrderTakeMealTime_OrderList = view.findViewById(R.id.tvOrderTakeMealTime_OrderList);
@@ -273,7 +273,6 @@ public class OrderListFragment extends Fragment {
                 orderItems = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots)
                     orderItems.add(snapshot.toObject(OrderItem.class));
-
                 rvOrderDetailList_OrderList.setAdapter(new OrderListFragment.OrderItemAdapter(activity, orderItems));
             }
         });

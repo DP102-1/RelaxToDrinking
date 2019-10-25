@@ -57,8 +57,9 @@ public class OrderHistoryFragment extends Fragment {
     private RecyclerView rvOrderHistory_OrderHistory;
     private ImageView ivBack_OrderHistory;
 
-    private List<Order> orders_history; //order_status不是0的話(已完成)不會進到這個集合
+    private List<Order> orders;
     private String user_id = "";
+
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
@@ -71,7 +72,7 @@ public class OrderHistoryFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋使用者資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void loadUserData() {
         preferences_user = activity.getSharedPreferences("user", MODE_PRIVATE);
-        user_id = preferences_user.getString("user","ALJVuIeu4UWRH4TSLghiz2gu7M32" );//假資料
+        user_id = preferences_user.getString("user_id","" );//假資料
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋使用者資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
@@ -87,6 +88,9 @@ public class OrderHistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         loadUserData();
+        /*********/
+        user_id = "ALJVuIeu4UWRH4TSLghiz2gu7M32";
+        /*********/
         rvOrderHistory_OrderHistory = view.findViewById(R.id.rvOrderHistory_OrderHistory);
         rvOrderHistory_OrderHistory.setLayoutManager(new LinearLayoutManager(activity));
         showOrderAll();
@@ -158,20 +162,13 @@ public class OrderHistoryFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示使用者歷史訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderAll() {
-        db.collection("Order").orderBy("order_date", Query.Direction.DESCENDING).whereEqualTo("user_id", user_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("Order").orderBy("order_date", Query.Direction.DESCENDING).whereEqualTo("order_status",0).whereEqualTo("user_id", user_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Order> orders = new ArrayList<>();
-                orders_history = new ArrayList<>();
+                orders = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots)
                     orders.add(snapshot.toObject(Order.class));
-                for (Order order : orders) {
-                    if(order.getOrder_status() == 0)
-                    {
-                        orders_history.add(order);
-                    }
-                }
-                rvOrderHistory_OrderHistory.setAdapter(new OrderHistoryFragment.OrderAdapter(activity, orders_history));
+                rvOrderHistory_OrderHistory.setAdapter(new OrderHistoryFragment.OrderAdapter(activity, orders));
             }
         });
     }

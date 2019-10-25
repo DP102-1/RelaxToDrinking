@@ -91,6 +91,12 @@ public class ProductInsertFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        showKindAll();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         activity.setTitle("商品新增");
@@ -102,7 +108,7 @@ public class ProductInsertFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ivProductPicture_ProductInsert = view.findViewById(R.id.ivProductPicture_ProductInsert);
         spProductKind_ProductInsert = view.findViewById(R.id.spProductKind_ProductInsert);
-        showKindAll();
+//        showKindAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊拍照＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btTakePicture_ProductInsert = view.findViewById(R.id.btTakePicture_ProductInsert);
         btTakePicture_ProductInsert.setOnClickListener(new View.OnClickListener() {

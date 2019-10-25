@@ -1,7 +1,7 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
 //首頁最新消息輪播
-
+//複合搜尋不能下orderby降序的問題
 /***************************************************************/
 
 import android.app.Activity;
@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,14 @@ import android.widget.ImageView;
 
 import com.example.relaxtodrinking.data.News;
 import com.example.relaxtodrinking.data.Order;
+import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -43,9 +47,9 @@ public class IndexFragment extends Fragment {
     /*********/
     private ImageView ivNews_Index,imageView;
     private Boolean x = false;
+    private String user_id = "ALJVuIeu4UWRH4TSLghiz2gu7M32";
     /*********/
-
-    private String user_id = "ALJVuIeu4UWRH4TSLghiz2gu7M32"; /**假資料**/
+    private String order_id = "無訂單";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +101,7 @@ public class IndexFragment extends Fragment {
         btOrder_Index = view.findViewById(R.id.btOrder_Index);
         btOrder_Index.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 /******/
                 if(x) {
                     Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderManagementFragment);
@@ -113,22 +117,32 @@ public class IndexFragment extends Fragment {
                     //跳轉到登入頁面
                 }else
                 {
-                    String order_id = "無訂單";
-//                    db.collection("order").whereEqualTo("user_id",user_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                            List<Order> orders = new ArrayList<>();
-//                            orders = queryDocumentSnapshots.toObjects(Order.class);
-//                            for (Order order :  orders){
-//                                if (order.getOrder_status() )
-//
-//                            }
-//                        }
-//                    });
-                    //判斷使用者手上有沒有未完成訂單
-                    Bundle bundle = new Bundle();
-                    bundle.putString("order_id",order_id);
-                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment,bundle);
+                    db.collection("Order").whereGreaterThan("order_status",0).whereEqualTo("user_id",user_id).get()//先取沒完成的訂單
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            List<Order> orders = new ArrayList<>();
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    orders.add(document.toObject(Order.class));
+                                }
+                                if  (orders.size() != 0) {
+                                    Order order = orders.get(0);
+                                    order_id = order.getOrder_id();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("order_id", order_id);
+                                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment, bundle);
+                                }
+                                else
+                                {
+                                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment);
+                                }
+                            }else
+                            {
+                                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment);
+                            }
+                        }
+                    });
                 }
             }
         });

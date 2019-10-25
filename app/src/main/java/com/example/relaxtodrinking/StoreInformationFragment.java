@@ -109,7 +109,7 @@ public class StoreInformationFragment extends Fragment {
                 store_latitude = store.getStore_latitude();
                 store_longitude = store.getStore_longitude();
                 Log.e(TAG,"(" + store.getStore_latitude() + ", " + store.getStore_longitude() + ")" );
-                if (store.getStore_picture() == null) { //抓商品圖片
+                if (store.getStore_picture() == null) {
                     ivStoreLogo_StoreInformation.setImageResource(R.drawable.no_image);
                 } else {
                     showImage(ivStoreLogo_StoreInformation, store.getStore_picture());

@@ -15,12 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,10 +51,14 @@ public class NewsManagementFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvNewsList_NewsManagement;
-    private ImageView ivBack_NewsManagement,ivNewsPicture_NewsManagement;
+    private ImageView ivBack_NewsManagement, ivNewsPicture_NewsManagement;
+    private TextView tvNewsDate_NewsManagement, tvNewsMessage_NewsManagement;
+    private Button btInsert_NewsManagement,btEdit_NewsManagement,btSend_NewsManagement;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
+    private SimpleDateFormat sdf_list = new SimpleDateFormat("yyyy年MM月d日", Locale.CHINESE);
     private List<News> newses;
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,20 +67,7 @@ public class NewsManagementFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
     }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋第一筆最新的消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void loadFirstNewsData() {
-        db.collection("News").orderBy("news_date", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                newses = new ArrayList<>();
-                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
-                    newses.add(snapshot.toObject(News.class));
-                }
 
-            }
-        });
-    }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋第一筆最新的消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity.setTitle("最新消息管理");
@@ -84,8 +77,47 @@ public class NewsManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ivNewsPicture_NewsManagement = view.findViewById(R.id.ivNewsPicture_NewsManagement);
+        tvNewsDate_NewsManagement = view.findViewById(R.id.tvNewsDate_NewsManagement);
+        tvNewsMessage_NewsManagement = view.findViewById(R.id.tvNewsMessage_NewsManagement);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        rvNewsList_NewsManagement = view.findViewById(R.id.rvNewsList_NewsManagement);
+        rvNewsList_NewsManagement.setLayoutManager(new LinearLayoutManager(activity));
+        showNewsAll();
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btInsert_NewsManagement= view.findViewById(R.id.btInsert_NewsManagement);
+        btInsert_NewsManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊修改最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btEdit_NewsManagement= view.findViewById(R.id.btEdit_NewsManagement);
+        btEdit_NewsManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊修改最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊發送通知＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btSend_NewsManagement= view.findViewById(R.id.btSend_NewsManagement);
+        btSend_NewsManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊發送通知＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -115,30 +147,37 @@ public class NewsManagementFragment extends Fragment {
         }
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
-           private TextView tvNewsDate_NewsList;
-           private ImageView ivNewsPicture_NewsList;
+            private TextView tvDateList_NewsManagement;
 
             public MyViewHolder(View NewsItemView) {
                 super(NewsItemView);
-                tvNewsDate_NewsList = NewsItemView.findViewById(R.id.tvNewsDate_NewsList);
-                ivNewsPicture_NewsList = NewsItemView.findViewById(R.id.ivNewsPicture_NewsList);
+                tvDateList_NewsManagement = NewsItemView.findViewById(R.id.tvDateList_NewsManagement);
             }
         }
+
         @NonNull
         @Override
         public NewsManagementFragment.NewsItemAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(context).inflate(R.layout.news_list_view, parent, false);
+            View itemView = LayoutInflater.from(context).inflate(R.layout.news_management_view, parent, false);
             return new NewsManagementFragment.NewsItemAdapter.MyViewHolder(itemView);
         }
+
         @Override
         public void onBindViewHolder(@NonNull NewsManagementFragment.NewsItemAdapter.MyViewHolder holder, int position) {
             final News news = newses.get(position);
-           holder.tvNewsDate_NewsList.setText(sdf.format(news.getNews_date()));
-            if (news.getNews_picture() == null) {
-                holder.ivNewsPicture_NewsList.setImageResource(R.drawable.no_image);
-            } else {
-                showImage(holder.ivNewsPicture_NewsList, news.getNews_picture());
-            }
+            holder.tvDateList_NewsManagement.setText(sdf_list.format(news.getNews_date()));
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        tvNewsDate_NewsManagement.setText(sdf.format(news.getNews_date()));
+                        tvNewsMessage_NewsManagement.setText(news.getNews_message());
+                        if (news.getNews_picture() == null) {
+                            ivNewsPicture_NewsManagement.setImageResource(R.drawable.no_image);
+                        } else {
+                            showImage(ivNewsPicture_NewsManagement, news.getNews_picture());
+                        }
+                }
+            });
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單明細列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -150,9 +189,21 @@ public class NewsManagementFragment extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 newses = new ArrayList<>();
-                for (DocumentSnapshot snapshot : queryDocumentSnapshots)
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     newses.add(snapshot.toObject(News.class));
-
+                }
+                //＝＝＝＝＝取得第一筆資料並顯示＝＝＝＝＝//
+                if (newses.size() != 0) {
+                    News news = newses.get(0);
+                    tvNewsDate_NewsManagement.setText(sdf.format(news.getNews_date()));
+                    tvNewsMessage_NewsManagement.setText(news.getNews_message());
+                    if (news.getNews_picture() == null) {
+                        ivNewsPicture_NewsManagement.setImageResource(R.drawable.no_image);
+                    } else {
+                        showImage(ivNewsPicture_NewsManagement, news.getNews_picture());
+                    }
+                }
+                //＝＝＝＝＝取得第一筆資料並顯示＝＝＝＝＝//
                 rvNewsList_NewsManagement.setAdapter(new NewsManagementFragment.NewsItemAdapter(activity, newses));
             }
         });
