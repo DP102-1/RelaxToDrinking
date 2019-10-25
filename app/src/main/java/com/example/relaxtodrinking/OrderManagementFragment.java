@@ -125,7 +125,7 @@ public class OrderManagementFragment extends Fragment {
                     holder.tvOrderStatus_OrderManagement.setText("已完成");
                     holder.tvOrderStatus_OrderManagement.setTextColor(Color.BLUE);
                 case 1:
-                    holder.tvOrderStatus_OrderManagement.setText("未接單");
+                    holder.tvOrderStatus_OrderManagement.setText("未出貨");
                     holder.tvOrderStatus_OrderManagement.setTextColor(Color.GRAY);
                 case 2:
                     holder.tvOrderStatus_OrderManagement.setText("送貨中");

@@ -5,26 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".OrderManagementFragment" >
+    tools:context=".OrderManagementFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvOrderList_OrderManagement"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTitle_OrderManagement"
+    <Button
+        android:id="@+id/btOrderHistory_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="訂單接收/管理"
-        android:textSize="30sp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="歷史訂單查詢"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBack_OrderManagement"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderManagement" />
+
+    <Button
+        android:id="@+id/btRevenue_OrderManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="今日營收瀏覽"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btOrderHistory_OrderManagement"
+        app:layout_constraintTop_toBottomOf="@+id/btOrderHistory_OrderManagement" />
 
     <ImageView
         android:id="@+id/ivBack_OrderManagement"
@@ -38,43 +42,86 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvTitle_OrderManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="訂單接收/管理"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivBack_OrderManagement"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/tvDate_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="日期"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="92dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:text="現在時間"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderManagement" />
 
     <TextView
-        android:id="@+id/tvEmployeetvDate_OrderManagement"
+        android:id="@+id/tvFinish_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="員工名稱"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="125dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="今日已完成訂單數"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="162dp" />
+        app:layout_constraintStart_toStartOf="@+id/tvNotFinish_OrderManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotFinish_OrderManagement" />
 
-    <Button
-        android:id="@+id/btOrderHistorytvDate_OrderManagement"
+    <TextView
+        android:id="@+id/tvNotFinish_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="歷史訂單查詢"
-        tools:layout_editor_absoluteX="281dp"
-        tools:layout_editor_absoluteY="92dp" />
+        android:layout_marginTop="16dp"
+        android:text="今日未完成訂單數"
+        app:layout_constraintStart_toStartOf="@+id/tvDate_OrderManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate_OrderManagement" />
 
-    <Button
-        android:id="@+id/button2"
+    <TextView
+        android:id="@+id/tvOrderDate_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="今日營收瀏覽"
-        tools:layout_editor_absoluteX="245dp"
-        tools:layout_editor_absoluteY="162dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDate_OrderManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvDate_OrderManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvDate_OrderManagement"
+        tools:text="日期" />
+
+    <TextView
+        android:id="@+id/tvOrderNotFinish_OrderManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNotFinish_OrderManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvNotFinish_OrderManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvNotFinish_OrderManagement"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/tvOrderFinish_OrderManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFinish_OrderManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvFinish_OrderManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvFinish_OrderManagement"
+        tools:text="0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvOrderList_OrderManagement"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFinish_OrderManagement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

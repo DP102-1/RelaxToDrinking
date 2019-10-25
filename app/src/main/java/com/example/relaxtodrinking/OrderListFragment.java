@@ -131,7 +131,7 @@ public class OrderListFragment extends Fragment {
                             tvOrderStatus_OrderList.setTextColor(Color.BLUE);
                             break;
                         case 1:
-                            tvOrderStatus_OrderList.setText("未接單");
+                            tvOrderStatus_OrderList.setText("未出貨");
                             tvOrderStatus_OrderList.setTextColor(Color.GRAY);
                             break;
                         case 2:

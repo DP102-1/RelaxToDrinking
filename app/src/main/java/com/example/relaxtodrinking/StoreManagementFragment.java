@@ -148,6 +148,7 @@ public class StoreManagementFragment extends Fragment {
                     store.setStore_latitude(address.getLatitude());
                     store.setStore_longitude(address.getLongitude());
                 }
+                store.setStore_picture("image/store/logo");
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
                 if (pictureTaken) {
                     final String imagePath = "image/store/logo";
@@ -157,9 +158,7 @@ public class StoreManagementFragment extends Fragment {
                                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                     if (task.isSuccessful()) {
                                         Log.d(TAG, "上傳店家LOGO成功");
-                                        store.setStore_picture(imagePath);
                                         insertStore(store);
-                                        Navigation.findNavController(view).popBackStack();
                                     } else {
                                         Log.e(TAG, "上傳店家LOGO失敗");
                                         Common.showToast(activity, "上傳店家LOGO失敗");
@@ -169,6 +168,7 @@ public class StoreManagementFragment extends Fragment {
                 }else {
                     insertStore(store);
                 }
+                Navigation.findNavController(view).popBackStack();
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
             }
         });

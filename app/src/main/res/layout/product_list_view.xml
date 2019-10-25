@@ -46,42 +46,43 @@
         android:id="@+id/ivProductL_ProductList"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ivProductM_ProductList"
-        app:layout_constraintTop_toBottomOf="@+id/ivProductM_ProductList"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPriceL_ProductList"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceL_ProductList"
+        app:layout_constraintTop_toTopOf="@+id/tvPriceL_ProductList"
         app:srcCompat="@drawable/product_l" />
 
     <ImageView
         android:id="@+id/ivProductM_ProductList"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/tvProductName_ProductList"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPriceM_ProductList"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceM_ProductList"
+        app:layout_constraintTop_toTopOf="@+id/tvPriceM_ProductList"
         app:srcCompat="@drawable/product_m" />
 
     <TextView
         android:id="@+id/tvPriceL_ProductList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="16dp"
         android:text="大杯價格"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivProductL_ProductList"
-        app:layout_constraintStart_toEndOf="@+id/ivProductL_ProductList"
-        app:layout_constraintTop_toTopOf="@+id/ivProductL_ProductList" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivGoProductSpecification_ProductList" />
 
     <TextView
         android:id="@+id/tvPriceM_ProductList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:text="中杯價格"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivProductM_ProductList"
-        app:layout_constraintStart_toEndOf="@+id/ivProductM_ProductList"
-        app:layout_constraintTop_toTopOf="@+id/ivProductM_ProductList" />
+        app:layout_constraintEnd_toStartOf="@+id/ivGoProductSpecification_ProductList"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
