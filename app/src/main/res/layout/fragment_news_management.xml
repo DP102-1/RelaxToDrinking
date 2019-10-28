@@ -9,8 +9,10 @@
 
     <Button
         android:id="@+id/btSend_NewsManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:background="@drawable/kind_button"
         android:text="發送通知"
         app:layout_constraintBottom_toBottomOf="@+id/btEdit_NewsManagement"
         app:layout_constraintStart_toEndOf="@+id/btEdit_NewsManagement"
@@ -18,19 +20,23 @@
 
     <Button
         android:id="@+id/btInsert_NewsManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/kind_button"
+        android:textSize="12sp"
         android:text="新增最新消息"
         app:layout_constraintStart_toEndOf="@+id/rvNewsList_NewsManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_NewsManagement" />
 
     <Button
         android:id="@+id/btEdit_NewsManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:background="@drawable/kind_button"
         android:text="修改最新消息"
         app:layout_constraintBottom_toBottomOf="@+id/btInsert_NewsManagement"
         app:layout_constraintStart_toEndOf="@+id/btInsert_NewsManagement"
@@ -40,9 +46,9 @@
         android:id="@+id/ivBack_NewsManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,6 +57,11 @@
         android:id="@+id/ivNewsPicture_NewsManagement"
         android:layout_width="0dp"
         android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/no_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,11 +71,13 @@
         android:id="@+id/tvTitle_NewsManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="最新消息管理"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBack_NewsManagement"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -84,8 +97,10 @@
         android:id="@+id/tvDate_NewsManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
         android:text="日期"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/btInsert_NewsManagement"
         app:layout_constraintTop_toBottomOf="@+id/btInsert_NewsManagement" />
 
@@ -94,7 +109,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="#000000"
         android:text="最新消息內容"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tvDate_NewsManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvDate_NewsManagement" />
 
@@ -102,7 +119,10 @@
         android:id="@+id/rvNewsList_NewsManagement"
         android:layout_width="100dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/ivNewsPicture_NewsManagement"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBack_NewsManagement" />

@@ -11,9 +11,9 @@
         android:id="@+id/ivExit_ShoppingCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:src="@drawable/exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,34 +22,38 @@
         android:id="@+id/tvTitle_ShoppingCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="購物車"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/ivExit_ShoppingCart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btYourSelfPickUp_ShoppingCart"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
         android:layout_marginTop="16dp"
+        android:textSize="18sp"
         android:text="自取"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_ShoppingCart" />
 
     <Button
         android:id="@+id/btOrderIn_ShoppingCart"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:textSize="18sp"
         android:text="外送"
-        app:layout_constraintBottom_toBottomOf="@+id/btYourSelfPickUp_ShoppingCart"
-        app:layout_constraintStart_toEndOf="@+id/btYourSelfPickUp_ShoppingCart"
-        app:layout_constraintTop_toTopOf="@+id/btYourSelfPickUp_ShoppingCart" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_ShoppingCart" />
 
     <TextView
         android:id="@+id/tvShoppingCartTotal_ShoppingCart"
@@ -57,9 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="訂購總金額"
-        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btYourSelfPickUp_ShoppingCart" />
 
@@ -69,9 +74,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
         android:text="訂購總數量"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvShoppingCartTotal_ShoppingCart" />
 
@@ -81,9 +87,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
         android:text="取餐時間"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvQuantity_ShoppingCart" />
 
@@ -93,9 +100,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
         android:text="送達地址"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTakeMeal_ShoppingCart" />
 
@@ -103,65 +111,71 @@
         android:id="@+id/tvTotal_ShoppingCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:textColor="#000000"
         android:text="0"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btOrderIn_ShoppingCart" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTotalNT_ShoppingCart"
+        app:layout_constraintEnd_toEndOf="@+id/tvCup_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/tvTotalNT_ShoppingCart" />
 
     <TextView
         android:id="@+id/tvCup_ShoppingCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="#000000"
         android:text="0杯"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvQuantity_ShoppingCart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTotal_ShoppingCart" />
+        app:layout_constraintTop_toBottomOf="@+id/tvShoppingCartTotal_ShoppingCart" />
 
     <TextView
         android:id="@+id/tvTime_ShoppingCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:textColor="#000000"
         android:text="時間"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCup_ShoppingCart" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvArrived_ShoppingCart"
+        app:layout_constraintEnd_toEndOf="@+id/tvCup_ShoppingCart"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantity_ShoppingCart" />
 
     <TextView
         android:id="@+id/tvAddress_ShoppingCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:textColor="#000000"
         android:text="地址"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime_ShoppingCart" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvArrived_ShoppingCart"
+        app:layout_constraintEnd_toEndOf="@+id/tvTime_ShoppingCart"
+        app:layout_constraintTop_toTopOf="@+id/tvArrived_ShoppingCart" />
 
     <TextView
         android:id="@+id/tvTotalNT_ShoppingCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginLeft="180dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:textColor="#000000"
         android:text="＄NT"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvShoppingCartTotal_ShoppingCart"
-        app:layout_constraintStart_toEndOf="@+id/tvShoppingCartTotal_ShoppingCart"
+        app:layout_constraintEnd_toStartOf="@+id/tvTotal_ShoppingCart"
         app:layout_constraintTop_toTopOf="@+id/tvShoppingCartTotal_ShoppingCart" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvShoppingCartList_ShoppingCart"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btCheckOut_ShoppingCart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,17 +187,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="24dp"
         android:text="訂單詳細"
-        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btYourSelfPickUp_ShoppingCart" />
+        app:layout_constraintTop_toBottomOf="@+id/tvArrived_ShoppingCart" />
 
     <Button
         android:id="@+id/btCheckOut_ShoppingCart"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:background="@drawable/kind_button"
         android:text="結帳"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -195,8 +213,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:textColor="#000000"
         android:text="共 0 筆"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvShoppingCartList_ShoppingCart"
         app:layout_constraintStart_toEndOf="@+id/tvShoppingCartList_ShoppingCart"
         app:layout_constraintTop_toTopOf="@+id/tvShoppingCartList_ShoppingCart" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

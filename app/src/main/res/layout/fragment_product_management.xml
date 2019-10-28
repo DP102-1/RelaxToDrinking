@@ -12,19 +12,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
         android:text="商品管理"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBack_ProductManagement"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivBack_ProductManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,18 +34,26 @@
     <SearchView
         android:id="@+id/svSearchProduct_ProductManagement"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/product_search"
         android:queryHint="商品名稱..."
         app:layout_constraintEnd_toStartOf="@+id/btInsert_ProductManagement"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rvProductList_ProductManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_ProductManagement" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProductList_ProductManagement"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,12 +63,14 @@
 
     <Button
         android:id="@+id/btInsert_ProductManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/kind_button"
         android:text="新增商品"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/svSearchProduct_ProductManagement"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/svSearchProduct_ProductManagement"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="@+id/rvProductList_ProductManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_ProductManagement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

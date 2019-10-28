@@ -9,10 +9,11 @@
 
     <Button
         android:id="@+id/btAddShoppingCart_ProductSpecification"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:drawableLeft="@drawable/add_shopping_cart"
+        android:background="@drawable/kind_button"
         android:text="加入購物車"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,9 +43,9 @@
         android:id="@+id/ivExit_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:src="@drawable/exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,11 +54,12 @@
         android:id="@+id/ivProductL_ProductSpecification"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="64dp"
         android:src="@drawable/product_l_big"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCapacity_ProductSpecification" />
+        app:layout_constraintStart_toEndOf="@+id/tvCapacity_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/rgTemperature_ProductSpecification" />
 
     <ImageView
         android:id="@+id/ivProductM_ProductSpecification"
@@ -88,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginLeft="48dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/product_reduce"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvQuantity_ProductSpecification" />
@@ -96,10 +99,9 @@
         android:id="@+id/rgTemperature_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvTemperature_ProductSpecification"
         app:layout_constraintTop_toBottomOf="@+id/tvTemperature_ProductSpecification">
 
         <RadioButton
@@ -116,7 +118,7 @@
             android:id="@+id/rbTemperature2_ProductSpecification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="少冰"
@@ -127,7 +129,7 @@
             android:id="@+id/rbTemperature3_ProductSpecification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="去冰"
@@ -138,7 +140,7 @@
             android:id="@+id/rbTemperature4_ProductSpecification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="常溫"
@@ -149,7 +151,7 @@
             android:id="@+id/rbTemperature5_ProductSpecification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="熱飲"
@@ -161,10 +163,9 @@
         android:id="@+id/rgSweetness_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvSweetness_ProductSpecification"
         app:layout_constraintTop_toBottomOf="@+id/tvSweetness_ProductSpecification">
 
         <RadioButton
@@ -181,7 +182,7 @@
             android:id="@+id/rbSweetness2_ProductSpecification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="少糖"
@@ -192,7 +193,7 @@
             android:id="@+id/rbSweetness3_ProductSpecification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="半糖"
@@ -203,7 +204,7 @@
             android:id="@+id/rbSweetness4_ProductSpecification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="微糖"
@@ -214,7 +215,7 @@
             android:id="@+id/rbSweetness5_ProductSpecification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/colorPrimaryDark"
             android:drawable="@drawable/radiobutton_product"
             android:text="無糖"
@@ -226,10 +227,12 @@
         android:id="@+id/tvProductName_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="商品規格設定"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/ivExit_ProductSpecification"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -237,48 +240,53 @@
         android:id="@+id/tvTemperature_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
         android:text="冷熱飲"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvProductName_ProductSpecification" />
 
     <TextView
         android:id="@+id/tvCapacity_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
         android:text="容量"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/tvTemperature_ProductSpecification"
-        app:layout_constraintTop_toBottomOf="@+id/tvTemperature_ProductSpecification" />
+        app:layout_constraintStart_toStartOf="@+id/rgTemperature_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/rgTemperature_ProductSpecification" />
 
     <TextView
         android:id="@+id/tvSweetness_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
         android:text="甜度"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/tvCapacity_ProductSpecification"
-        app:layout_constraintTop_toBottomOf="@+id/tvCapacity_ProductSpecification" />
+        app:layout_constraintTop_toBottomOf="@+id/cbProductL_ProductSpecification" />
 
     <TextView
         android:id="@+id/tvQuantity_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
         android:text="數量"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/tvSweetness_ProductSpecification"
-        app:layout_constraintTop_toBottomOf="@+id/tvSweetness_ProductSpecification" />
+        app:layout_constraintTop_toBottomOf="@+id/rgSweetness_ProductSpecification" />
 
     <TextView
         android:id="@+id/tvProductL_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
         android:text="L"
         app:layout_constraintBottom_toTopOf="@+id/ivProductL_ProductSpecification"
         app:layout_constraintEnd_toEndOf="@+id/ivProductL_ProductSpecification"
@@ -288,6 +296,7 @@
         android:id="@+id/tvProductM_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
         android:text="M"
         app:layout_constraintBottom_toTopOf="@+id/ivProductM_ProductSpecification"
         app:layout_constraintEnd_toEndOf="@+id/ivProductM_ProductSpecification"
@@ -297,48 +306,61 @@
         android:id="@+id/tvProductLNT_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
         android:text="NT$"
-        app:layout_constraintStart_toStartOf="@+id/ivProductL_ProductSpecification"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceL_ProductSpecification"
         app:layout_constraintTop_toBottomOf="@+id/ivProductL_ProductSpecification" />
 
     <TextView
         android:id="@+id/tvProductMNT_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
         android:text="NT$"
-        app:layout_constraintStart_toStartOf="@+id/ivProductM_ProductSpecification"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceM_ProductSpecification"
         app:layout_constraintTop_toBottomOf="@+id/ivProductM_ProductSpecification" />
 
     <TextView
         android:id="@+id/tvPriceL_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:textColor="#000000"
         android:text="大杯價格"
-        app:layout_constraintBottom_toBottomOf="@+id/tvProductLNT_ProductSpecification"
-        app:layout_constraintStart_toEndOf="@+id/tvProductLNT_ProductSpecification"
-        app:layout_constraintTop_toTopOf="@+id/tvProductLNT_ProductSpecification" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/ivProductL_ProductSpecification"
+        app:layout_constraintTop_toBottomOf="@+id/ivProductL_ProductSpecification" />
 
     <TextView
         android:id="@+id/tvPriceM_ProductSpecification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:textColor="#000000"
         android:text="中杯價格"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductMNT_ProductSpecification"
-        app:layout_constraintStart_toEndOf="@+id/tvProductMNT_ProductSpecification"
+        app:layout_constraintStart_toStartOf="@+id/ivProductM_ProductSpecification"
         app:layout_constraintTop_toTopOf="@+id/tvProductMNT_ProductSpecification" />
 
     <EditText
         android:id="@+id/etQuantity_ProductSpecification"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:background="@null"
         android:ems="10"
         android:enabled="false"
+        android:gravity="center"
         android:inputType="textPersonName"
         android:text="1"
         android:textColor="#F44336"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ivQuantityReduct_ProductSpecification"
         app:layout_constraintStart_toEndOf="@+id/ivQuantityReduct_ProductSpecification"
         app:layout_constraintTop_toTopOf="@+id/ivQuantityReduct_ProductSpecification" />

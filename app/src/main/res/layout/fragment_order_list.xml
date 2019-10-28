@@ -9,54 +9,53 @@
 
     <Button
         android:id="@+id/btOrderQRCode_OrderList"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/kind_button"
         android:text="訂單QRCord"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderList" />
 
     <Button
         android:id="@+id/btEmployeePosition_OrderList"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:background="@drawable/kind_button"
         android:text="查看外送員位置"
+        app:layout_constraintEnd_toStartOf="@+id/btOrderHistory_OrderList"
         app:layout_constraintStart_toEndOf="@+id/btOrderQRCode_OrderList"
         app:layout_constraintTop_toTopOf="@+id/btOrderQRCode_OrderList" />
 
     <Button
         android:id="@+id/btOrderHistory_OrderList"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:background="@drawable/kind_button"
         android:text="查看歷史訂單"
         app:layout_constraintBottom_toBottomOf="@+id/btEmployeePosition_OrderList"
-        app:layout_constraintStart_toEndOf="@+id/btEmployeePosition_OrderList"
+        app:layout_constraintEnd_toEndOf="@+id/rvOrderDetailList_OrderList"
         app:layout_constraintTop_toTopOf="@+id/btEmployeePosition_OrderList" />
 
     <Button
         android:id="@+id/btOrderDetail_OrderList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:background="@drawable/kind_button"
         android:text="訂單詳情..."
         app:layout_constraintBottom_toBottomOf="@+id/tvOrderStatus_OrderList"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btOrderHistory_OrderList"
         app:layout_constraintTop_toTopOf="@+id/tvOrderStatus_OrderList" />
 
     <ImageView
         android:id="@+id/ivBack_OrderList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,21 +64,20 @@
         android:id="@+id/tvTitle_OrderList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="訂單資訊"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBack_OrderList"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvOrderTakeMeal_OrderList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate_OrderList"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btOrderHistory_OrderList"
         app:layout_constraintTop_toTopOf="@+id/tvOrderDate_OrderList"
         tools:text="狀態" />
 
@@ -91,6 +89,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="訂單日期"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btOrderQRCode_OrderList" />
 
@@ -98,8 +97,9 @@
         android:id="@+id/tvTime_OrderList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="取餐時間"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tvDate_OrderList"
         app:layout_constraintTop_toBottomOf="@+id/tvDate_OrderList" />
 
@@ -107,8 +107,9 @@
         android:id="@+id/tvStatus_OrderList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="訂單狀態"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tvTime_OrderList"
         app:layout_constraintTop_toBottomOf="@+id/tvTime_OrderList" />
 
@@ -118,6 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvDate_OrderList"
         app:layout_constraintStart_toEndOf="@+id/tvDate_OrderList"
         app:layout_constraintTop_toTopOf="@+id/tvDate_OrderList"
@@ -129,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvTime_OrderList"
         app:layout_constraintStart_toEndOf="@+id/tvTime_OrderList"
         app:layout_constraintTop_toTopOf="@+id/tvTime_OrderList"
@@ -140,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvStatus_OrderList"
         app:layout_constraintStart_toEndOf="@+id/tvStatus_OrderList"
         app:layout_constraintTop_toTopOf="@+id/tvStatus_OrderList"
@@ -149,8 +153,9 @@
         android:id="@+id/tvTotal_OrderDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="訂單總價"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tvStatus_OrderList"
         app:layout_constraintTop_toBottomOf="@+id/tvStatus_OrderList" />
 
@@ -160,6 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvTotal_OrderDetail"
         app:layout_constraintStart_toEndOf="@+id/tvTotal_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvTotal_OrderDetail"
@@ -169,7 +175,12 @@
         android:id="@+id/rvOrderDetailList_OrderList"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,14 +188,14 @@
 
     <TextView
         android:id="@+id/tvHint_OrderList"
-        android:layout_width="350dp"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lines="2"
         android:text="外送時請預約取餐櫃臺，如欲修改訂單請洽免爽飲 店舖櫃檯或撥打店家專線。"
         android:textColor="#F44336"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rvOrderDetailList_OrderList"
+        app:layout_constraintStart_toStartOf="@+id/rvOrderDetailList_OrderList"
         app:layout_constraintTop_toBottomOf="@+id/tvTotal_OrderDetail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

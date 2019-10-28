@@ -8,65 +8,57 @@
 
     <TextView
         android:id="@+id/tvOrderStatus_OrderManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:textColor="#000000"
         android:text="訂單狀態"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btOrderAccept_OrderManagement"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.537" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvOrderNumber_OrderManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvUserPhone_OrderManagement" />
 
     <TextView
         android:id="@+id/tvOrderDate_OrderManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#000000"
         android:text="訂單時間"
-        android:textColor="#673AB7"
-        android:textSize="10sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber_OrderManagement" />
+        app:layout_constraintEnd_toEndOf="@+id/tvOrderStatus_OrderManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderStatus_OrderManagement" />
 
     <TextView
         android:id="@+id/tvUserPhone_OrderManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:text="客戶電話"
         android:textColor="#F44336"
-        android:textSize="10sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvUserName_OrderManagement"
         app:layout_constraintStart_toEndOf="@+id/tvUserName_OrderManagement"
         app:layout_constraintTop_toTopOf="@+id/tvUserName_OrderManagement" />
 
     <TextView
         android:id="@+id/tvUserName_OrderManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
+        android:textColor="#000000"
         android:text="客戶姓名"
-        android:textColor="#3F51B5"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/tvOrderNumber_OrderManagement"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderNumber_OrderManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber_OrderManagement" />
 
     <TextView
         android:id="@+id/tvOrderNumber_OrderManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:textColor="#000000"
         android:text="訂單編號"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,28 +66,31 @@
 
     <TextView
         android:id="@+id/tvUserAddress_OrderManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:lines="2"
         android:maxLines="3"
         android:minLines="1"
+        android:textColor="#000000"
         android:text="客戶地址"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvOrderNumber_OrderManagement"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvOrderDate_OrderManagement"
+        app:layout_constraintStart_toStartOf="@+id/tvUserName_OrderManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvUserName_OrderManagement" />
 
     <Button
         android:id="@+id/btOrderAccept_OrderManagement"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="接收訂單"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="接收\n訂單"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate_OrderManagement"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tvOrderNumber_OrderManagement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
