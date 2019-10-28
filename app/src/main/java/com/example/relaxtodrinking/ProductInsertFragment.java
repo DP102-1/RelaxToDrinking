@@ -102,7 +102,6 @@ public class ProductInsertFragment extends Fragment {
         activity.setTitle("商品新增");
         return inflater.inflate(R.layout.fragment_product_insert, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

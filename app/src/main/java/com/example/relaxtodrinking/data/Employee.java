@@ -69,7 +69,7 @@ public class Employee {
         this.user_id = user_id;
     }
 
-    public String getEmp_email() {
+    public String getEmp_email(String s) {
         return emp_email;
     }
 

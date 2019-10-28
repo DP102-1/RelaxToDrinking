@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graphs"
-    app:startDestination="@id/indexFragment">
+    app:startDestination="@id/employeeInsertFragment">
 
     <fragment
         android:id="@+id/productListFragment"
@@ -158,4 +158,18 @@
         android:name="com.example.relaxtodrinking.StoreManagementFragment"
         android:label="fragment_store_management"
         tools:layout="@layout/fragment_store_management" />
+    <fragment
+        android:id="@+id/employeeManagementFragment"
+        android:name="com.example.relaxtodrinking.EmployeeManagementFragment"
+        android:label="fragment_employee_management"
+        tools:layout="@layout/fragment_employee_management" >
+        <action
+            android:id="@+id/action_employeeManagementFragment_to_employeeInsertFragment"
+            app:destination="@id/employeeInsertFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeInsertFragment"
+        android:name="com.example.relaxtodrinking.EmployeeInsertFragment"
+        android:label="fragment_employee_insert"
+        tools:layout="@layout/fragment_employee_insert" />
 </navigation>
