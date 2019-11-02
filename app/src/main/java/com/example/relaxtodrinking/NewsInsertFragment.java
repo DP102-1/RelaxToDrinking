@@ -12,8 +12,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.relaxtodrinking.data.News;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,9 +37,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -53,16 +59,18 @@ public class NewsInsertFragment extends Fragment {
 
     private TextView tvTitle_NewsInsert,tvNewsDate_NewsInsert;
     private EditText etNewsMessage_NewsInsert;
-    private ImageView ivNewsPicture_NewsInsert;
+    private ImageView ivNewsPicture_NewsInsert,ivExit_NewsInsert;
     private Button btChoiceFromAlbum_NewsInsert,btSubmit_NewsInsert;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
+    private Boolean pictureTaken = false;
+    private Uri pick_picture_uri;
     private News news;
     private String action = "";
     private String news_id = "";
     private String news_date = "";
     private String news_message = "";
-    private String news_picture = "";
+    private String news_picture;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
@@ -98,15 +106,100 @@ public class NewsInsertFragment extends Fragment {
                 news_date = bundle.getString("news_date");
                 news_message = bundle.getString("news_message");
                 news_picture = bundle.getString("news_picture");
-            } else {
-
+                tvTitle_NewsInsert.setText("消息修改");
+                btSubmit_NewsInsert.setText("確定修改");
+            }
+            else
+            {
+                tvTitle_NewsInsert.setText("消息新增");
+                tvTitle_NewsInsert.setText("確定新增");
+                news_date = sdf.format(new Date());
             }
         }
-
-
-
+        tvNewsDate_NewsInsert.setText(news_date);
+        etNewsMessage_NewsInsert.setText(news_message);
+        if (news_picture.equals("")) { //抓商品圖片
+            ivNewsPicture_NewsInsert.setImageResource(R.drawable.no_image);
+        } else {
+            showImage(ivNewsPicture_NewsInsert, news_picture);
+        }
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝抓取bundle的值並顯示在頁面＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btSubmit_NewsInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                news = new News();
+                if (news_id.equals(""))
+                {
+                    news.setNews_id(db.collection("News").document().getId());
+                }else
+                {
+                    news.setNews_id(news_id);
+                }
+                try {
+                    news.setNews_date(sdf.parse(news_date));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                news.setNews_message(etNewsMessage_NewsInsert.getText().toString());
+                //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
+                if (pictureTaken) {
+                    final String imagePath = "image/store/"+news.getNews_id();
+                    storage.getReference().child(imagePath).putFile(pick_picture_uri)
+                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "上傳最新消息圖片成功");
+                                        news.setNews_picture(imagePath);
+                                        insertNews(news);
+                                    } else {
+                                        Log.e(TAG, "上傳最新消息圖片失敗");
+                                        Common.showToast(activity, "上傳最新消息圖片失敗");
+                                    }
+                                }
+                            });
+                }else {
+                    news.setNews_picture(news_picture);
+                    insertNews(news);
+                }
+                Navigation.findNavController(view).popBackStack();
+                //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊挑選相簿圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btChoiceFromAlbum_NewsInsert = view.findViewById(R.id.btChoiceFromAlbum_NewsInsert);
+        btChoiceFromAlbum_NewsInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                if (intent.resolveActivity(activity.getPackageManager()) != null) {
+                    startActivityForResult(intent, ACTION_ChoiceFromAlbum);
+                } else {
+                    Common.showToast(activity, "找不到相簿");
+                }
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊挑選相簿圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivExit_NewsInsert = view.findViewById(R.id.ivExit_NewsInsert);
+        ivExit_NewsInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showImage(final ImageView imageView, final String path) {
         final int ONE_MEGABYTE = 1024 * 1024;
@@ -185,10 +278,10 @@ public class NewsInsertFragment extends Fragment {
                     }
                 }
                 if (bitmap != null) {
-                    ivStoreLogo_StoreManagement.setImageBitmap(bitmap);
+                    ivNewsPicture_NewsInsert.setImageBitmap(bitmap);
                     pictureTaken = true;
                 } else {
-                    ivStoreLogo_StoreManagement.setImageResource(R.drawable.no_image);
+                    ivNewsPicture_NewsInsert.setImageResource(R.drawable.no_image);
                 }
             }
         }
@@ -198,16 +291,23 @@ public class NewsInsertFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void insertNews(News news) {
-        db.collection("News").document(Store_ID).set(news)
+        db.collection("News").document(news.getNews_id()).set(news)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "店家訊息修改成功");
-                            Common.showToast(activity, "店家訊息修改成功");
+                            if (action.equals("修改"))
+                            {
+                                Log.d(TAG, "店家訊息修改成功");
+                                Common.showToast(activity, "店家訊息修改成功");
+                            }else
+                            {
+                                Log.d(TAG, "店家訊息新增成功");
+                                Common.showToast(activity, "店家訊息新增成功");
+                            }
                         } else {
-                            Log.d(TAG, "店家訊息修改失敗");
-                            Common.showToast(activity, "店家訊息修改失敗");
+                            Log.d(TAG, "最新消息操作失敗");
+                            Common.showToast(activity, "最新消息操作失敗");
                         }
                     }
                 });
