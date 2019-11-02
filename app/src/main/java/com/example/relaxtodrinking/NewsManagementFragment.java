@@ -6,18 +6,18 @@ package com.example.relaxtodrinking;
 /***************************************************************/
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +26,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.relaxtodrinking.data.News;
-import com.example.relaxtodrinking.data.OrderItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,12 +50,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class NewsManagementFragment extends Fragment {
     private String TAG = "最新消息管理";
+    private final static int NOTIFICATION_ID = 0;
+    private final static String NOTIFICATION_CHANNEL_ID = "最新消息通知";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
+    private NotificationManager notificationManager;
+
 
     private RecyclerView rvNewsList_NewsManagement;
     private ImageView ivBack_NewsManagement, ivNewsPicture_NewsManagement;
@@ -58,6 +71,10 @@ public class NewsManagementFragment extends Fragment {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private SimpleDateFormat sdf_list = new SimpleDateFormat("yyyy年MM月d日", Locale.CHINESE);
     private List<News> newses;
+    private String news_id;
+    private String news_date;
+    private String news_message;
+    private String news_picture;
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
@@ -92,7 +109,9 @@ public class NewsManagementFragment extends Fragment {
         btInsert_NewsManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("action","新增");
+                Navigation.findNavController(view).navigate(R.id.action_newsManagementFragment_to_newsInsertFragment,bundle);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊新增最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -103,7 +122,13 @@ public class NewsManagementFragment extends Fragment {
         btEdit_NewsManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("action","修改");
+                bundle.putString("news_id",news_id);
+                bundle.putString("news_date",news_date);
+                bundle.putString("news_message",news_message);
+                bundle.putString("news_picture",news_picture);
+                Navigation.findNavController(view).navigate(R.id.action_newsManagementFragment_to_newsInsertFragment,bundle);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊修改最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -114,7 +139,42 @@ public class NewsManagementFragment extends Fragment {
         btSend_NewsManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notificationManager = (NotificationManager) activity.getSystemService(NOTIFICATION_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    // 重要性越高，提示(打擾)user方式就越明確，設為IMPORTANCE_HIGH會懸浮通知並發出聲音
+                    NotificationChannel notificationChannel = new NotificationChannel(
+                            NOTIFICATION_CHANNEL_ID,
+                            "MyNotificationChannel",
+                            NotificationManager.IMPORTANCE_HIGH);
+                    // 如果裝置有支援，開啟指示燈
+                    notificationChannel.enableLights(true);
+                    // 設定指示燈顏色
+                    notificationChannel.setLightColor(Color.RED);
+                    // 開啟震動
+                    notificationChannel.enableVibration(true);
+                    // 設定震動頻率
+                    notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
 
+                Intent intent = new Intent(activity, NewsListFragment.class);
+                Bitmap icon = BitmapFactory.decodeResource(view.getResources(),R.drawable.add_drink);
+                Bitmap largeIcon = ((BitmapDrawable)ivNewsPicture_NewsManagement.getDrawable()).getBitmap();
+                NotificationCompat.BigPictureStyle bitStyle = new NotificationCompat.BigPictureStyle();
+                bitStyle.bigPicture(largeIcon);
+                PendingIntent pendingIntent = PendingIntent.getActivity(
+                        activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                Notification notification = new NotificationCompat.Builder(activity, NOTIFICATION_CHANNEL_ID)
+                        .setSmallIcon(android.R.drawable.ic_dialog_email)
+                        .setContentTitle("免爽飲茶飲")
+                        .setContentText(news_message)
+                        .setAutoCancel(true)
+                        .setColor(Color.BLUE)
+                        .setStyle(bitStyle)
+                        .setLargeIcon(icon)
+                        .setContentIntent(pendingIntent) // 若無開啟頁面可不寫
+                        .build();
+                notificationManager.notify(NOTIFICATION_ID, notification);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊發送通知＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -169,12 +229,16 @@ public class NewsManagementFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        tvNewsDate_NewsManagement.setText(sdf.format(news.getNews_date()));
-                        tvNewsMessage_NewsManagement.setText(news.getNews_message());
-                        if (news.getNews_picture() == null) {
+                        news_id = news.getNews_id();
+                        news_date = sdf.format(news.getNews_date());
+                        news_message = news.getNews_message();
+                        news_picture = news.getNews_picture();
+                        tvNewsDate_NewsManagement.setText(news_date);
+                        tvNewsMessage_NewsManagement.setText(news_message);
+                        if (news_picture == null) {
                             ivNewsPicture_NewsManagement.setImageResource(R.drawable.no_image);
                         } else {
-                            showImage(ivNewsPicture_NewsManagement, news.getNews_picture());
+                            showImage(ivNewsPicture_NewsManagement, news_picture);
                         }
                 }
             });
@@ -195,12 +259,16 @@ public class NewsManagementFragment extends Fragment {
                 //＝＝＝＝＝取得第一筆資料並顯示＝＝＝＝＝//
                 if (newses.size() != 0) {
                     News news = newses.get(0);
-                    tvNewsDate_NewsManagement.setText(sdf.format(news.getNews_date()));
-                    tvNewsMessage_NewsManagement.setText(news.getNews_message());
-                    if (news.getNews_picture() == null) {
+                    news_id = news.getNews_id();
+                    news_date = sdf.format(news.getNews_date());
+                    news_message = news.getNews_message();
+                    news_picture = news.getNews_picture();
+                    tvNewsDate_NewsManagement.setText(news_date);
+                    tvNewsMessage_NewsManagement.setText(news_message);
+                    if (news_picture == null) {
                         ivNewsPicture_NewsManagement.setImageResource(R.drawable.no_image);
                     } else {
-                        showImage(ivNewsPicture_NewsManagement, news.getNews_picture());
+                        showImage(ivNewsPicture_NewsManagement, news_picture);
                     }
                 }
                 //＝＝＝＝＝取得第一筆資料並顯示＝＝＝＝＝//

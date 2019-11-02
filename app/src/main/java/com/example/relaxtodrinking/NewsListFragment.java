@@ -10,6 +10,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,13 +23,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.relaxtodrinking.data.News;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -103,11 +102,12 @@ public class NewsListFragment extends Fragment {
         }
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
-            private TextView tvNewsDate_NewsList ;
+            private TextView tvNewsDate_NewsList,tvMessage_NewsList;
             private ImageView ivNewsPicture_NewsList;
             public MyViewHolder(View NewsView) {
                 super(NewsView);
                 tvNewsDate_NewsList = NewsView.findViewById(R.id.tvNewsDate_NewsList);
+                tvMessage_NewsList = NewsView.findViewById(R.id.tvMessage_NewsList);
                 ivNewsPicture_NewsList = NewsView.findViewById(R.id.ivNewsPicture_NewsList);
             }
         }
@@ -124,6 +124,7 @@ public class NewsListFragment extends Fragment {
             Date newsDate = news.getNews_date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINESE);
             holder.tvNewsDate_NewsList.setText(sdf.format(newsDate)); //抓消息日期
+            holder.tvMessage_NewsList.setText(news.getNews_message());
             if (news.getNews_picture() == null) { //抓消息圖片
                 holder.ivNewsPicture_NewsList.setImageResource(R.drawable.no_image);
             } else {

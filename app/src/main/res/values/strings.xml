@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">RelaxToDrinking</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- 填上TapPay Portal上註冊的資料 -->
+    <!-- 開發者 > 應用程式 -->
+    <string name="TapPay_AppID">15088</string>
+    <string name="TapPay_AppKey">app_OdeBd5uyUTuFEHy0USYnck36UD1UrXfamS42X3VFBb8rLiNHkabO9aqmraM0</string>
+
+    <!-- 帳戶資訊 -->
+    <string name="TapPay_PartnerKey">partner_75nx1NZef7mYzhjHNl3e47zWUtiuU8wOLyEagGvFjFvsBbIruVTwRqhM</string>
+
+    <!-- 商家管理 -->
+    <string name="TapPay_MerchantName">TW_TAISHIN</string>
+    <string name="TapPay_MerchantID">wq156666_TAISHIN</string>
+    <string name="textCannotUseGPay">Cannot use Google Pay</string>
+    <string name="textCanceled">Canceled by the user.</string>
 </resources>

@@ -9,12 +9,6 @@ package com.example.relaxtodrinking;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +20,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.relaxtodrinking.data.OrderItem;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -89,6 +88,15 @@ public class ProductSpecificationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvProductName_ProductSpecification = view.findViewById(R.id.tvProductName_ProductSpecification);
+        tvPriceL_ProductSpecification = view.findViewById(R.id.tvPriceL_ProductSpecification);
+        tvPriceM_ProductSpecification = view.findViewById(R.id.tvPriceM_ProductSpecification);
+        rgTemperature_ProductSpecification = view.findViewById(R.id.rgTemperature_ProductSpecification);
+        cbProductL_ProductSpecification = view.findViewById(R.id.cbProductL_ProductSpecification);
+        cbProductM_ProductSpecification = view.findViewById(R.id.cbProductM_ProductSpecification);
+        rgSweetness_ProductSpecification = view.findViewById(R.id.rgSweetness_ProductSpecification);
+        etQuantity_ProductSpecification = view.findViewById(R.id.etQuantity_ProductSpecification);
+        btAddShoppingCart_ProductSpecification = view.findViewById(R.id.btAddShoppingCart_ProductSpecification);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝抓取bundle的值並顯示在頁面＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -102,16 +110,6 @@ public class ProductSpecificationFragment extends Fragment {
                 proPriceM = bundle.getInt("pro_price_M");
             }
         }
-
-        tvProductName_ProductSpecification = view.findViewById(R.id.tvProductName_ProductSpecification);
-        tvPriceL_ProductSpecification = view.findViewById(R.id.tvPriceL_ProductSpecification);
-        tvPriceM_ProductSpecification = view.findViewById(R.id.tvPriceM_ProductSpecification);
-        rgTemperature_ProductSpecification = view.findViewById(R.id.rgTemperature_ProductSpecification);
-        cbProductL_ProductSpecification = view.findViewById(R.id.cbProductL_ProductSpecification);
-        cbProductM_ProductSpecification = view.findViewById(R.id.cbProductM_ProductSpecification);
-        rgSweetness_ProductSpecification = view.findViewById(R.id.rgSweetness_ProductSpecification);
-        etQuantity_ProductSpecification = view.findViewById(R.id.etQuantity_ProductSpecification);
-        btAddShoppingCart_ProductSpecification = view.findViewById(R.id.btAddShoppingCart_ProductSpecification);
 
         if (orderItem != null) {
             proId = orderItem.getPro_id();
