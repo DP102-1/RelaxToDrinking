@@ -6,28 +6,23 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.relaxtodrinking.data.News;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.example.relaxtodrinking.data.Order;
-import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,22 +36,36 @@ public class IndexFragment extends Fragment {
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
+    private FirebaseAuth auth;
 
     private Button btUser_Index,btProduct_Index,btOrder_Index,btStore_Index;
 
     /*********/
     private ImageView ivNews_Index,imageView;
     private Boolean x = false;
-    private String user_id = "ALJVuIeu4UWRH4TSLghiz2gu7M32";
     /*********/
+    private String user_id = "";
     private String order_id = "無訂單";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            user_id = user.getUid();
+        }
+        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,7 +82,13 @@ public class IndexFragment extends Fragment {
         btUser_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_MembersOnlyFragment);
+                if (user_id == null || user_id.equals("")) {
+                    Common.showToast(activity,"請先登入");
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_userLoginFragment);
+                }else
+                {
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_userManagementFragment);
+                }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊會員專區＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

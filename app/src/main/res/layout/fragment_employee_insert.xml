@@ -137,7 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="員工資料"
+        android:text="員工新增"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/ivExit_EmployeeInsert"
         app:layout_constraintStart_toStartOf="parent"

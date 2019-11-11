@@ -8,6 +8,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +21,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.relaxtodrinking.data.Order;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,6 +44,9 @@ public class OrderManagementFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvOrderList_OrderManagement;
+    private TextView tvOrderDate_OrderManagement,tvOrderNotFinish_OrderManagement,tvOrderFinish_OrderManagement;
+    private Button btOrderHistory_OrderManagement,btRevenue_OrderManagement;
+    private ImageView ivBack_OrderManagement;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
     private List<Order> orders;
@@ -67,12 +70,27 @@ public class OrderManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rvOrderList_OrderManagement = view.findViewById(R.id.rvOrderList_OrderManagement);
         rvOrderList_OrderManagement.setLayoutManager(new LinearLayoutManager(activity));
         showOrderAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊歷史訂單查詢＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊歷史訂單查詢＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊今日營收瀏覽＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊今日營收瀏覽＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private class OrderAdapter extends RecyclerView.Adapter<OrderManagementFragment.OrderAdapter.MyViewHolder> {
@@ -114,7 +132,7 @@ public class OrderManagementFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final OrderManagementFragment.OrderAdapter.MyViewHolder holder, int position) {
             final Order order = orders.get(position);
-            holder.tvOrderNumber_OrderManagement.setText("#"+String.valueOf(position));
+            holder.tvOrderNumber_OrderManagement.setText("#"+String.valueOf(position+1));
             holder.tvOrderDate_OrderManagement.setText(sdf.format(order.getOrder_date()));
             holder.tvUserName_OrderManagement.setText(order.getUser_name());
             holder.tvUserPhone_OrderManagement.setText(order.getUser_phone());
@@ -182,13 +200,20 @@ public class OrderManagementFragment extends Fragment {
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示未完成的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void showOrderAll() {
-        db.collection("Order").orderBy("order_date", Query.Direction.DESCENDING).whereEqualTo("order_status", STATUS_Order).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    private void showOrderAll() { //今天 未完成的訂單
+        db.collection("Order").orderBy("order_date", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 orders = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots)
                     orders.add(snapshot.toObject(Order.class));
+                for (int i = orders.size()-1 ; i >= 0 ; i--)
+                {
+                    if (orders.get(i).getOrder_status() == 0)
+                    {
+                        orders.remove(i);
+                    }
+                }
                 rvOrderList_OrderManagement.setAdapter(new OrderManagementFragment.OrderAdapter(activity, orders));
             }
         });

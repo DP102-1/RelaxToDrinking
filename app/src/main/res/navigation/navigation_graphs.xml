@@ -152,6 +152,12 @@
         <action
             android:id="@+id/action_indexFragment_to_orderManagementFragment"
             app:destination="@id/orderManagementFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_userLoginFragment"
+            app:destination="@id/userLoginFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_userManagementFragment"
+            app:destination="@id/userManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeManagementFragment"
@@ -172,4 +178,69 @@
         android:name="com.example.relaxtodrinking.EmployeeInsertFragment"
         android:label="fragment_employee_insert"
         tools:layout="@layout/fragment_employee_insert" />
+    <fragment
+        android:id="@+id/userLoginFragment"
+        android:name="com.example.relaxtodrinking.UserLoginFragment"
+        android:label="fragment_user_login"
+        tools:layout="@layout/fragment_user_login" >
+        <action
+            android:id="@+id/action_userLoginFragment_to_userForgetPasswordFragment"
+            app:destination="@id/userForgetPasswordFragment" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_userSignInFragment"
+            app:destination="@id/userSignInFragment" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_userManagementFragment"
+            app:destination="@id/userManagementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userManagementFragment"
+        android:name="com.example.relaxtodrinking.UserManagementFragment"
+        android:label="fragment_user_management"
+        tools:layout="@layout/fragment_user_management" >
+        <action
+            android:id="@+id/action_userManagementFragment_to_storeInformationFragment"
+            app:destination="@id/storeInformationFragment" />
+        <action
+            android:id="@+id/action_userManagementFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+        <action
+            android:id="@+id/action_userManagementFragment_to_orderHistoryFragment"
+            app:destination="@id/orderHistoryFragment" />
+        <action
+            android:id="@+id/action_userManagementFragment_to_userEditInfoFragment"
+            app:destination="@id/userEditInfoFragment" />
+        <action
+            android:id="@+id/action_userManagementFragment_to_userEditPasswordFragment"
+            app:destination="@id/userEditPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userSignInFragment"
+        android:name="com.example.relaxtodrinking.UserSignInFragment"
+        android:label="fragment_user_sign_in"
+        tools:layout="@layout/fragment_user_sign_in" >
+        <action
+            android:id="@+id/action_userSignInFragment_to_indexFragment"
+            app:destination="@id/indexFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userSearchFragment"
+        android:name="com.example.relaxtodrinking.UserSearchFragment"
+        android:label="fragment_user_search"
+        tools:layout="@layout/fragment_user_search" />
+    <fragment
+        android:id="@+id/userForgetPasswordFragment"
+        android:name="com.example.relaxtodrinking.UserForgetPasswordFragment"
+        android:label="fragment_user_forget_password"
+        tools:layout="@layout/fragment_user_forget_password" />
+    <fragment
+        android:id="@+id/userEditInfoFragment"
+        android:name="com.example.relaxtodrinking.UserEditInfoFragment"
+        android:label="fragment_user_edit_info"
+        tools:layout="@layout/fragment_user_edit_info" />
+    <fragment
+        android:id="@+id/userEditPasswordFragment"
+        android:name="com.example.relaxtodrinking.UserEditPasswordFragment"
+        android:label="fragment_user_edit_password"
+        tools:layout="@layout/fragment_user_edit_password" />
 </navigation>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        tools:context=".UserSignInFragment">
+
+        <EditText
+            android:id="@+id/etPhone_UserSignIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="請輸入手機號碼"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toStartOf="@+id/ivPhone_UserSignIn"
+            app:layout_constraintStart_toStartOf="@+id/etName_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etName_UserSignIn" />
+
+        <TextView
+            android:id="@+id/tvDataTitle_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="64dp"
+            android:text="基本資料(選填)"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword_UserSignIn" />
+
+        <EditText
+            android:id="@+id/etName_UserSignIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="請輸入姓名"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toStartOf="@+id/ivName_UserSignIn"
+            app:layout_constraintStart_toStartOf="@+id/tvDataTitle_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/tvDataTitle_UserSignIn" />
+
+        <EditText
+            android:id="@+id/etAddress_UserSignIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="請輸入地址"
+            android:inputType="textPostalAddress"
+            app:layout_constraintEnd_toStartOf="@+id/ivAddress_UserSignIn"
+            app:layout_constraintStart_toStartOf="@+id/etPhone_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etPhone_UserSignIn" />
+
+        <EditText
+            android:id="@+id/etEmail_UserSignIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="請輸入信箱"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toStartOf="@+id/ivEmail_UserSignIn"
+            app:layout_constraintStart_toStartOf="@+id/tvAdminTitle_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/tvAdminTitle_UserSignIn" />
+
+        <EditText
+            android:id="@+id/etPassword_UserSignIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="請輸入密碼"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toStartOf="@+id/ivPassword_UserSignIn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/etEmail_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail_UserSignIn" />
+
+        <TextView
+            android:id="@+id/tvAdminTitle_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="64dp"
+            android:text="帳號密碼"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle_UserSignIn" />
+
+        <ImageView
+            android:id="@+id/ivExit_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/exit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="會員註冊"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/ivExit_UserSignIn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btSubmit_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="確定新增"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAddress_UserSignIn" />
+
+        <ImageView
+            android:id="@+id/ivEmail_UserSignIn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etEmail_UserSignIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etEmail_UserSignIn" />
+
+        <ImageView
+            android:id="@+id/ivPassword_UserSignIn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etPassword_UserSignIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etPassword_UserSignIn" />
+
+        <ImageView
+            android:id="@+id/ivName_UserSignIn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etName_UserSignIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etName_UserSignIn" />
+
+        <ImageView
+            android:id="@+id/ivPhone_UserSignIn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etPhone_UserSignIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etPhone_UserSignIn" />
+
+        <ImageView
+            android:id="@+id/ivAddress_UserSignIn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etAddress_UserSignIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etAddress_UserSignIn" />
+
+        <TextView
+            android:id="@+id/tvErrorEmail_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="信箱尚未輸入"
+            android:textColor="#E91E63"
+            app:layout_constraintStart_toStartOf="@+id/etEmail_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail_UserSignIn"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvErrorPassword_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密碼尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etPassword_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword_UserSignIn" />
+
+        <TextView
+            android:id="@+id/tvErrorName_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etName_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etName_UserSignIn" />
+
+        <TextView
+            android:id="@+id/tvErrorPhone_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="電話尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etPhone_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etPhone_UserSignIn" />
+
+        <TextView
+            android:id="@+id/tvErrorAddress_UserSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etAddress_UserSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/etAddress_UserSignIn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+    

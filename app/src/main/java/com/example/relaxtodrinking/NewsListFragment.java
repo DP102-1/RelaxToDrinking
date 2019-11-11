@@ -59,6 +59,7 @@ public class NewsListFragment extends Fragment {
         storage = FirebaseStorage.getInstance();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

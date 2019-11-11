@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserLoginFragment" >
+
+    <TextView
+        android:id="@+id/tvTitle_UserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="會員登入"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/ivExit_UserLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivExit_UserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etAccount_UserLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvAccount_UserLogin"
+        app:layout_constraintTop_toBottomOf="@+id/tvAccount_UserLogin" />
+
+    <EditText
+        android:id="@+id/etPassword_UserLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvPassword_UserLogin"
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword_UserLogin" />
+
+    <Button
+        android:id="@+id/btSubmit_UserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="登入"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword_UserLogin" />
+
+    <TextView
+        android:id="@+id/tvSignIn_UserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="32dp"
+        android:text="註冊"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btSubmit_UserLogin" />
+
+    <TextView
+        android:id="@+id/tvForgetPassword_UserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:text="忘記密碼"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSignIn_UserLogin"
+        app:layout_constraintStart_toEndOf="@+id/tvSignIn_UserLogin"
+        app:layout_constraintTop_toTopOf="@+id/tvSignIn_UserLogin" />
+
+    <TextView
+        android:id="@+id/tvAccount_UserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:text="帳號(E-mail)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo_UserLogin" />
+
+    <TextView
+        android:id="@+id/tvPassword_UserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="密碼"
+        app:layout_constraintStart_toStartOf="@+id/etAccount_UserLogin"
+        app:layout_constraintTop_toBottomOf="@+id/etAccount_UserLogin" />
+
+    <ImageView
+        android:id="@+id/ivLogo_UserLogin"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/no_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_UserLogin" />
+</androidx.constraintlayout.widget.ConstraintLayout>

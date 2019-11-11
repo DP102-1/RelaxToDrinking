@@ -8,15 +8,8 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +18,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EmployeeInsertFragment extends Fragment {
@@ -121,10 +118,12 @@ public class EmployeeInsertFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證密碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證密碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證姓名＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證姓名＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
@@ -167,6 +166,4 @@ public class EmployeeInsertFragment extends Fragment {
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
-
-
 }

@@ -1,5 +1,7 @@
 package com.example.relaxtodrinking;
-
+/***************************************************************/
+//
+/***************************************************************/
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,10 +17,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 
-public class EmployeeManagementFragment extends Fragment {
+public class UserForgetPasswordFragment extends Fragment {
+    private String TAG = "忘記密碼";
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
     @Override
@@ -32,13 +39,12 @@ public class EmployeeManagementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("員工管理");
-        return inflater.inflate(R.layout.fragment_employee_management, container, false);
+        activity.setTitle("忘記密碼");
+        return inflater.inflate(R.layout.fragment_user_forget_password, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 }

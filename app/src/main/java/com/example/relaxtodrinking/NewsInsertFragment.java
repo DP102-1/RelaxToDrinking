@@ -1,8 +1,7 @@
 package com.example.relaxtodrinking;
 
 /***************************************************************/
-
-
+//新增無法及時顯示
 /***************************************************************/
 
 import android.Manifest;
@@ -112,13 +111,13 @@ public class NewsInsertFragment extends Fragment {
             else
             {
                 tvTitle_NewsInsert.setText("消息新增");
-                tvTitle_NewsInsert.setText("確定新增");
+                btSubmit_NewsInsert.setText("確定新增");
                 news_date = sdf.format(new Date());
             }
         }
         tvNewsDate_NewsInsert.setText(news_date);
         etNewsMessage_NewsInsert.setText(news_message);
-        if (news_picture.equals("")) { //抓商品圖片
+        if (news_picture == null) { //抓商品圖片
             ivNewsPicture_NewsInsert.setImageResource(R.drawable.no_image);
         } else {
             showImage(ivNewsPicture_NewsInsert, news_picture);
@@ -146,7 +145,7 @@ public class NewsInsertFragment extends Fragment {
                 news.setNews_message(etNewsMessage_NewsInsert.getText().toString());
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
                 if (pictureTaken) {
-                    final String imagePath = "image/store/"+news.getNews_id();
+                    final String imagePath = "image/news/"+news.getNews_id();
                     storage.getReference().child(imagePath).putFile(pick_picture_uri)
                             .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
