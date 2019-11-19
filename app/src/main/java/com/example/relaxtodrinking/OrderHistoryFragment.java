@@ -1,13 +1,17 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
-
+//
 
 /***************************************************************/
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,35 +20,20 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.relaxtodrinking.data.Order;
-import com.example.relaxtodrinking.data.OrderItem;
-import com.example.relaxtodrinking.data.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class OrderHistoryFragment extends Fragment {
     private String TAG = "歷史訂單紀錄";
@@ -52,15 +41,13 @@ public class OrderHistoryFragment extends Fragment {
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
-    private SharedPreferences preferences_user;
+    private FirebaseAuth auth;
 
     private RecyclerView rvOrderHistory_OrderHistory;
     private ImageView ivBack_OrderHistory;
 
     private List<Order> orders;
     private String user_id = "";
-
-
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,13 +55,21 @@ public class OrderHistoryFragment extends Fragment {
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋使用者資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void loadUserData() {
-        preferences_user = activity.getSharedPreferences("user", MODE_PRIVATE);
-        user_id = preferences_user.getString("user_id","" );//假資料
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            user_id = user.getUid();
+        }else{
+            user_id = "";
+        }
+        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
     }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋使用者資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,10 +82,6 @@ public class OrderHistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        loadUserData();
-        /*********/
-        user_id = "ALJVuIeu4UWRH4TSLghiz2gu7M32";
-        /*********/
         rvOrderHistory_OrderHistory = view.findViewById(R.id.rvOrderHistory_OrderHistory);
         rvOrderHistory_OrderHistory.setLayoutManager(new LinearLayoutManager(activity));
         showOrderAll();

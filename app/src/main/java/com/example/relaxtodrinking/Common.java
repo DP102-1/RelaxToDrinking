@@ -19,5 +19,6 @@ public class Common {
             , TPDCard.CardType.JCB
             , TPDCard.CardType.AmericanExpress
     };
+
 }
 

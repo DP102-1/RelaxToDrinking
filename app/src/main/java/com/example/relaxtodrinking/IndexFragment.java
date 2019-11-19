@@ -55,6 +55,8 @@ public class IndexFragment extends Fragment {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             user_id = user.getUid();
+        }else{
+            user_id = "";
         }
         //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
     }
@@ -128,8 +130,8 @@ public class IndexFragment extends Fragment {
 
                 if (user_id == null || user_id.equals(""))
                 {
-                    //請先登入
-                    //跳轉到登入頁面
+                    Common.showToast(activity,"請先登入");
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_userLoginFragment);
                 }else
                 {
                     db.collection("Order").whereGreaterThan("order_status",0).whereEqualTo("user_id",user_id).get()//先取沒完成的訂單

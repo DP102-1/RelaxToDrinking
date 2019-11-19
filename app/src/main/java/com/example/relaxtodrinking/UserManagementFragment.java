@@ -32,6 +32,7 @@ public class UserManagementFragment extends Fragment {
     private ImageView ivBack_UserManagement;
     private Button btUserEditPassword_UserManagement,btUserEditInfo_UserManagement,btOrderList_UserManagement,btOrderHistory_UserManagement,btStoreInfomation_UserManagement,btLoginOut_UserManagement;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
