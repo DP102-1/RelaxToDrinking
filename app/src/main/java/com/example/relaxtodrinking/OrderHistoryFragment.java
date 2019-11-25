@@ -7,6 +7,7 @@ package com.example.relaxtodrinking;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,20 +58,6 @@ public class OrderHistoryFragment extends Fragment {
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-            user_id = user.getUid();
-        }else{
-            user_id = "";
-        }
-        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +68,17 @@ public class OrderHistoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            user_id = user.getUid();
+            Log.e(TAG,user.getUid());
+        }else{
+            user_id = "";
+        }
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rvOrderHistory_OrderHistory = view.findViewById(R.id.rvOrderHistory_OrderHistory);
         rvOrderHistory_OrderHistory.setLayoutManager(new LinearLayoutManager(activity));
@@ -159,6 +157,7 @@ public class OrderHistoryFragment extends Fragment {
                 orders = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots)
                     orders.add(snapshot.toObject(Order.class));
+                Log.e(TAG,"有" + orders.size()+"^"+user_id);
                 rvOrderHistory_OrderHistory.setAdapter(new OrderHistoryFragment.OrderAdapter(activity, orders));
             }
         });

@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.user;
 /***************************************************************/
 
 
@@ -13,12 +13,11 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.qrcode.Contents;
 import com.example.relaxtodrinking.qrcode.QRCodeEncoder;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
-
-import static android.content.ContentValues.TAG;
 
 public class OrderQRCodeActivity extends AppCompatActivity {
     private String TAG = "訂單QRCode";

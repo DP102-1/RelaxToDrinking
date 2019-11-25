@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.user;
 /***************************************************************/
 
 /***************************************************************/
@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.relaxtodrinking.Common;
+import com.example.relaxtodrinking.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,8 +41,7 @@ public class UserEditPasswordFragment extends Fragment {
     private EditText etNewPassword_UserEditPassword, etNewPasswordAgain_UserEditPassword;
     private Button btSubmit_UserEditPassword;
 
-    private Boolean isErrorPassword = true;
-
+    private Boolean isErrorPassword = true,isErrorPasswordAgain = true;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onStart() {
@@ -78,6 +79,10 @@ public class UserEditPasswordFragment extends Fragment {
         }
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入使用者資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證舊密碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證舊密碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證新密碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         etNewPassword_UserEditPassword = view.findViewById(R.id.etNewPassword_UserEditPassword);
@@ -107,19 +112,21 @@ public class UserEditPasswordFragment extends Fragment {
         etNewPasswordAgain_UserEditPassword = view.findViewById(R.id.etNewPasswordAgain_UserEditPassword);
         tvErrorPasswordAgain_UserEditPassword = view.findViewById(R.id.tvErrorPasswordAgain_UserEditPassword);
         etNewPasswordAgain_UserEditPassword = view.findViewById(R.id.etNewPasswordAgain_UserEditPassword);
-
+        ivNewPasswordAgain_UserEditPassword = view.findViewById(R.id.ivNewPasswordAgain_UserEditPassword);
         etNewPasswordAgain_UserEditPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (!etNewPassword_UserEditPassword.getText().toString().trim().equals(etNewPasswordAgain_UserEditPassword.getText().toString().trim())) {
-                    tvErrorPasswordAgain_UserEditPassword.setVisibility(View.VISIBLE);
-                    tvErrorPasswordAgain_UserEditPassword.setText("輸入的密碼不一致");
-                    ivNewPasswordAgain_UserEditPassword.setVisibility(View.VISIBLE);
-                    isErrorPassword = true;
-                } else {
-                    tvErrorPasswordAgain_UserEditPassword.setVisibility(View.GONE);
-                    ivNewPasswordAgain_UserEditPassword.setVisibility(View.GONE);
-                    isErrorPassword = false;
+                if(!b) {
+                    if (!etNewPassword_UserEditPassword.getText().toString().trim().equals(etNewPasswordAgain_UserEditPassword.getText().toString().trim())) {
+                        tvErrorPasswordAgain_UserEditPassword.setVisibility(View.VISIBLE);
+                        tvErrorPasswordAgain_UserEditPassword.setText("輸入的密碼不一致");
+                        ivNewPasswordAgain_UserEditPassword.setVisibility(View.VISIBLE);
+                        isErrorPasswordAgain = true;
+                    } else {
+                        tvErrorPasswordAgain_UserEditPassword.setVisibility(View.GONE);
+                        ivNewPasswordAgain_UserEditPassword.setVisibility(View.GONE);
+                        isErrorPasswordAgain = false;
+                    }
                 }
             }
         });
@@ -130,9 +137,10 @@ public class UserEditPasswordFragment extends Fragment {
         btSubmit_UserEditPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isErrorPassword) {
-                    auth.confirmPasswordReset("OK",etNewPassword_UserEditPassword.getText().toString().trim());
+                if (isAllNotError()) {
+                    auth.getCurrentUser().updatePassword(etNewPassword_UserEditPassword.getText().toString().trim());
                     auth.signOut();
+                    Navigation.findNavController(view).navigate(R.id.action_userEditPasswordFragment_to_indexFragment);
                     Common.showToast(activity, "密碼修改成功,請重新登入");
                 }else
                 {
@@ -153,4 +161,9 @@ public class UserEditPasswordFragment extends Fragment {
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private boolean isAllNotError() {
+        return !isErrorPassword && !isErrorPasswordAgain;
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 }

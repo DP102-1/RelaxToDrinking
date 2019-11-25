@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/productListFragment"
-        android:name="com.example.relaxtodrinking.ProductListFragment"
+        android:name="com.example.relaxtodrinking.user.ProductListFragment"
         android:label="fragment_product_list"
         tools:layout="@layout/fragment_product_list" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/productSpecificationFragment"
-        android:name="com.example.relaxtodrinking.ProductSpecificationFragment"
+        android:name="com.example.relaxtodrinking.user.ProductSpecificationFragment"
         android:label="fragment_product_specification"
         tools:layout="@layout/fragment_product_specification" />
     <fragment
         android:id="@+id/shoppingcartListFragment"
-        android:name="com.example.relaxtodrinking.ShoppingcartListFragment"
+        android:name="com.example.relaxtodrinking.user.ShoppingcartListFragment"
         android:label="fragment_shoppingcart_list"
         tools:layout="@layout/fragment_shoppingcart_list"
         app:startDestination="@id/action_shoppingcartListFragment_to_orderListFragment">
@@ -51,7 +51,7 @@
         tools:layout="@layout/fragment_product_insert" />
     <fragment
         android:id="@+id/newsListFragment"
-        android:name="com.example.relaxtodrinking.NewsListFragment"
+        android:name="com.example.relaxtodrinking.user.NewsListFragment"
         android:label="fragment_news_list"
         tools:layout="@layout/fragment_news_list" />
     <fragment
@@ -65,12 +65,12 @@
     </fragment>
     <fragment
         android:id="@+id/storeInformationFragment"
-        android:name="com.example.relaxtodrinking.StoreInformationFragment"
+        android:name="com.example.relaxtodrinking.user.StoreInformationFragment"
         android:label="fragment_store_information"
         tools:layout="@layout/fragment_store_information" />
     <fragment
         android:id="@+id/orderListFragment"
-        android:name="com.example.relaxtodrinking.OrderListFragment"
+        android:name="com.example.relaxtodrinking.user.OrderListFragment"
         android:label="fragment_order_list"
         tools:layout="@layout/fragment_order_list" >
         <action
@@ -140,18 +140,6 @@
         <action
             android:id="@+id/action_indexFragment_to_newsListFragment"
             app:destination="@id/newsListFragment" />
-        <action
-            android:id="@+id/action_indexFragment_to_productManagementFragment"
-            app:destination="@id/productManagementFragment" />
-        <action
-            android:id="@+id/action_indexFragment_to_storeManagementFragment"
-            app:destination="@id/storeManagementFragment" />
-        <action
-            android:id="@+id/action_indexFragment_to_newsManagementFragment"
-            app:destination="@id/newsManagementFragment" />
-        <action
-            android:id="@+id/action_indexFragment_to_orderManagementFragment"
-            app:destination="@id/orderManagementFragment" />
         <action
             android:id="@+id/action_indexFragment_to_userLoginFragment"
             app:destination="@id/userLoginFragment" />
@@ -235,17 +223,40 @@
         tools:layout="@layout/fragment_user_forget_password" />
     <fragment
         android:id="@+id/userEditInfoFragment"
-        android:name="com.example.relaxtodrinking.UserEditInfoFragment"
+        android:name="com.example.relaxtodrinking.user.UserEditInfoFragment"
         android:label="fragment_user_edit_info"
         tools:layout="@layout/fragment_user_edit_info" />
     <fragment
         android:id="@+id/userEditPasswordFragment"
-        android:name="com.example.relaxtodrinking.UserEditPasswordFragment"
+        android:name="com.example.relaxtodrinking.user.UserEditPasswordFragment"
         android:label="fragment_user_edit_password"
-        tools:layout="@layout/fragment_user_edit_password" />
+        tools:layout="@layout/fragment_user_edit_password" >
+        <action
+            android:id="@+id/action_userEditPasswordFragment_to_indexFragment"
+            app:destination="@id/indexFragment" />
+    </fragment>
     <fragment
         android:id="@+id/managementListFragment"
         android:name="com.example.relaxtodrinking.ManagementListFragment"
         android:label="fragment_management_list"
-        tools:layout="@layout/fragment_management_list" />
+        tools:layout="@layout/fragment_management_list" >
+        <action
+            android:id="@+id/action_managementListFragment_to_newsManagementFragment"
+            app:destination="@id/newsManagementFragment" />
+        <action
+            android:id="@+id/action_managementListFragment_to_storeManagementFragment"
+            app:destination="@id/storeManagementFragment" />
+        <action
+            android:id="@+id/action_managementListFragment_to_productManagementFragment"
+            app:destination="@id/productManagementFragment" />
+        <action
+            android:id="@+id/action_managementListFragment_to_orderManagementFragment"
+            app:destination="@id/orderManagementFragment" />
+        <action
+            android:id="@+id/action_managementListFragment_to_employeeManagementFragment"
+            app:destination="@id/employeeManagementFragment" />
+        <action
+            android:id="@+id/action_managementListFragment_to_userSearchFragment"
+            app:destination="@id/userSearchFragment" />
+    </fragment>
 </navigation>

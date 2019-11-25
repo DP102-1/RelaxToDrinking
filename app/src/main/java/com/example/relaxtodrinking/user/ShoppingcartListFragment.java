@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.user;
 
 /***************************************************************/
 //清空購物車功能
@@ -30,6 +30,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.relaxtodrinking.Common;
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.example.relaxtodrinking.data.User;
@@ -109,6 +111,8 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+//        prepareGooglePay();
+
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝偏好設定載入使用者資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void saveShoppingCartData() {
@@ -279,7 +283,6 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
 
 
                 //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
-
                 // 跳出user資訊視窗讓user確認，確認後會呼叫onActivityResult()
                 tpdGooglePay.requestPayment(TransactionInfo.newBuilder()
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
@@ -299,8 +302,6 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                         15088,
                         "app_OdeBd5uyUTuFEHy0USYnck36UD1UrXfamS42X3VFBb8rLiNHkabO9aqmraM0",
                         TPDServerType.Sandbox);
-                prepareGooglePay();
-
                 db.collection("Order").document(order.getOrder_id()).set(order);
                 //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
 

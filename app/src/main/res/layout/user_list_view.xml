@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvName_UserSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="使用者名稱" />
+
+    <TextView
+        android:id="@+id/tvPhone_UserSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName_UserSearch"
+        app:layout_constraintStart_toEndOf="@+id/tvName_UserSearch"
+        app:layout_constraintTop_toTopOf="@+id/tvName_UserSearch"
+        tools:text="使用者手機號碼" />
+
+    <TextView
+        android:id="@+id/tvAddress_UserSearch"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvName_UserSearch"
+        app:layout_constraintTop_toBottomOf="@+id/tvName_UserSearch"
+        tools:text="使用者地址" />
+
+    <TextView
+        android:id="@+id/tvEmail_UserSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPhone_UserSearch"
+        app:layout_constraintStart_toEndOf="@+id/tvPhone_UserSearch"
+        app:layout_constraintTop_toTopOf="@+id/tvPhone_UserSearch"
+        tools:text="使用者信箱" />
+
+    <TextView
+        android:id="@+id/tvTime_UserSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSignInTime_UserSearch"
+        app:layout_constraintStart_toEndOf="@+id/tvSignInTime_UserSearch"
+        app:layout_constraintTop_toTopOf="@+id/tvSignInTime_UserSearch"
+        tools:text="註冊時間" />
+
+    <TextView
+        android:id="@+id/tvSignInTime_UserSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="註冊時間:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvAddress_UserSearch"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress_UserSearch" />
+</androidx.constraintlayout.widget.ConstraintLayout>

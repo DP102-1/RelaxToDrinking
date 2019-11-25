@@ -34,8 +34,9 @@
         android:layout_marginTop="16dp"
         android:text="商品管理"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btOrderList_ManagementList" />
+        app:layout_constraintTop_toBottomOf="@+id/btUserSearch_ManagementList" />
 
     <Button
         android:id="@+id/btNewsList_ManagementList"
@@ -79,4 +80,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btStoreManagement_ManagementList" />
+
+    <Button
+        android:id="@+id/btUserSearch_ManagementList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="會員查詢"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btOrderList_ManagementList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

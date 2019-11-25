@@ -1,14 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserEditInfoFragment">
+    tools:context=".user.UserEditInfoFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvErrorAddress_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地址尚未輸入"
+        android:textColor="#E91E63"
+        app:layout_constraintStart_toStartOf="@+id/etAddress_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/etAddress_UserEditInfo"
+        tools:visibility="gone" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/ivPhone_UserEditInfo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/format_error_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/etPhone_UserEditInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etPhone_UserEditInfo"
+        tools:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivAddress_UserEditInfo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/format_error_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/etAddress_UserEditInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etAddress_UserEditInfo"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvTitle_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="修改個人資料"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivBack_UserEditInfo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBack_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEmail_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_UserEditInfo"
+        tools:text="電子郵件" />
+
+    <TextView
+        android:id="@+id/tvAddress_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="地址"
+        app:layout_constraintStart_toStartOf="@+id/etPhone_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/etPhone_UserEditInfo" />
+
+    <TextView
+        android:id="@+id/tvName_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="姓名"
+        app:layout_constraintStart_toStartOf="@+id/tvEmail_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail_UserEditInfo" />
+
+    <TextView
+        android:id="@+id/tvPhone_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="手機號碼"
+        app:layout_constraintStart_toStartOf="@+id/etName_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/etName_UserEditInfo" />
+
+    <Button
+        android:id="@+id/btSubmit_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="確定修改"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAddress_UserEditInfo" />
+
+    <EditText
+        android:id="@+id/etName_UserEditInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="請輸入姓名"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/ivName_UserEditInfo"
+        app:layout_constraintStart_toStartOf="@+id/tvName_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/tvName_UserEditInfo" />
+
+    <EditText
+        android:id="@+id/etPhone_UserEditInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="請輸入手機號碼"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/ivPhone_UserEditInfo"
+        app:layout_constraintStart_toStartOf="@+id/tvPhone_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/tvPhone_UserEditInfo" />
+
+
+    <EditText
+        android:id="@+id/etAddress_UserEditInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="請輸入地址"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/ivAddress_UserEditInfo"
+        app:layout_constraintStart_toStartOf="@+id/tvAddress_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress_UserEditInfo" />
+
+    <ImageView
+        android:id="@+id/ivName_UserEditInfo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/format_error_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/etName_UserEditInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etName_UserEditInfo"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvErrorName_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="姓名尚未輸入"
+        android:textColor="#E91E63"
+        app:layout_constraintStart_toStartOf="@+id/etName_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/etName_UserEditInfo"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvErrorPhone_UserEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手機號碼尚未輸入"
+        android:textColor="#E91E63"
+        app:layout_constraintStart_toStartOf="@+id/etPhone_UserEditInfo"
+        app:layout_constraintTop_toBottomOf="@+id/etPhone_UserEditInfo"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

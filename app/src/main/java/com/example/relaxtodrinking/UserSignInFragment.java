@@ -5,7 +5,6 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,7 @@ public class UserSignInFragment extends Fragment {
     private EditText etEmail_UserSignIn,etPassword_UserSignIn,etName_UserSignIn,etPhone_UserSignIn,etAddress_UserSignIn;
     private Button btSubmit_UserSignIn;
 
-    private Boolean isErrorEmail = true,isErrorPassword = true,isErrorPhone = false;
+    private Boolean isErrorEmail = true,isErrorPassword = true,isErrorPhone = true,isErrorName = true,isErrorAddress = true;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,6 +124,23 @@ public class UserSignInFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證姓名＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etName_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (etName_UserSignIn.getText().toString().isEmpty()) {
+                        tvErrorName_UserSignIn.setVisibility(View.VISIBLE);
+                        tvErrorName_UserSignIn.setText("姓名不得為空");
+                        ivName_UserSignIn.setVisibility(View.VISIBLE);
+                        isErrorName = true;
+                    } else {
+                        tvErrorName_UserSignIn.setVisibility(View.GONE);
+                        ivName_UserSignIn.setVisibility(View.GONE);
+                        isErrorName = false;
+                    }
+                }
+            }
+        });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證姓名＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
@@ -132,7 +148,7 @@ public class UserSignInFragment extends Fragment {
         etPhone_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (etPhone_UserSignIn.getText().toString().trim().equals(""))
+                if (etPhone_UserSignIn.getText().toString().isEmpty())
                 {
                     isErrorPhone = false;
                     return;
@@ -156,7 +172,25 @@ public class UserSignInFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證地址＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etAddress_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (etAddress_UserSignIn.getText().toString().isEmpty()) {
+                        tvErrorAddress_UserSignIn.setVisibility(View.VISIBLE);
+                        tvErrorAddress_UserSignIn.setText("地址不得為空");
+                        ivAddress_UserSignIn.setVisibility(View.VISIBLE);
+                        isErrorAddress = true;
+                    } else {
+                        tvErrorAddress_UserSignIn.setVisibility(View.GONE);
+                        ivAddress_UserSignIn.setVisibility(View.GONE);
+                        isErrorAddress = false;
+                    }
+                }
+            }
+        });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證地址＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定新增＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btSubmit_UserSignIn = view.findViewById(R.id.btSubmit_UserSignIn);
@@ -192,7 +226,7 @@ public class UserSignInFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void signInUser(String email, String password) {
         /* 利用user輸入的email與password建立新的帳號 */
-        auth.setLanguageCode("zh-Hant");
+        auth.setLanguageCode("zh-TW");
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -209,27 +243,12 @@ public class UserSignInFragment extends Fragment {
                                 user.setUser_name(name);
                                 user.setUser_address(address);
                                 user.setUser_phone(phone);
-                                insertUser(user);
+                                db.collection("User").document(user.getUser_id()).set(user);
                             }
                         } else {
                             Exception exception = task.getException();
-                            String message = exception == null ? "登入失敗" : exception.getLocalizedMessage();
+                            String message = exception == null ? "註冊失敗" : exception.getLocalizedMessage();
                             Common.showToast(activity, message);
-                        }
-                    }
-                });
-    }
-
-    private void insertUser(User user) {
-        db.collection("User").document(user.getUser_id()).set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "會員基本資料新增成功");
-
-                        } else {
-                            Log.d(TAG, "會員基本資料新增失敗");
                         }
                     }
                 });
@@ -238,12 +257,7 @@ public class UserSignInFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private boolean isAllNotError(){
-        if (!isErrorEmail && !isErrorPassword && !isErrorPhone)
-        {
-            return true;
-        }else {
-            return false;
-        }
+        return !isErrorEmail && !isErrorPassword && !isErrorPhone && !isErrorName && !isErrorAddress;
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 }

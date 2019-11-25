@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.user;
 /***************************************************************/
 
 
@@ -9,6 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,20 +24,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
-import com.example.relaxtodrinking.data.Product;
-import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -49,6 +50,7 @@ public class OrderListFragment extends Fragment {
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
+    private FirebaseAuth auth;
 
     private RecyclerView rvOrderDetailList_OrderList;
     private ImageView ivBack_OrderList;
@@ -56,7 +58,8 @@ public class OrderListFragment extends Fragment {
     private Button btOrderQRCode_OrderList, btEmployeePosition_OrderList, btOrderHistory_OrderList, btOrderDetail_OrderList;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
-    private String order_id = "";
+    private String order_id = "無訂單";
+    private String user_id = "";
     private Order order = new Order();
     private List<OrderItem> orderItems;
 
@@ -67,8 +70,8 @@ public class OrderListFragment extends Fragment {
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,18 +79,20 @@ public class OrderListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_order_list, container, false);
     }
 
-    private void LondOrderID() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            order_id = bundle.getString("order_id");
-        } else {
-            order_id = "無訂單";
-        }
-    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            user_id = user.getUid();
+            Log.e(TAG, user.getUid());
+        } else {
+            user_id = "";
+        }
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rvOrderDetailList_OrderList = view.findViewById(R.id.rvOrderDetailList_OrderList);
         rvOrderDetailList_OrderList.setLayoutManager(new LinearLayoutManager(activity));
@@ -95,10 +100,6 @@ public class OrderListFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        LondOrderID();
-        /*****/
-        //order_id = "YrprhJvmVJANno0eq82F";
-        /*****/
         tvOrderDate_OrderList = view.findViewById(R.id.tvOrderDate_OrderList);
         tvOrderTakeMealTime_OrderList = view.findViewById(R.id.tvOrderTakeMealTime_OrderList);
         tvOrderStatus_OrderList = view.findViewById(R.id.tvOrderStatus_OrderList);
@@ -108,47 +109,69 @@ public class OrderListFragment extends Fragment {
         btOrderQRCode_OrderList = view.findViewById(R.id.btOrderQRCode_OrderList);
         btEmployeePosition_OrderList = view.findViewById(R.id.btEmployeePosition_OrderList);
         btOrderDetail_OrderList = view.findViewById(R.id.btOrderDetail_OrderList);
-        if (order_id.equals("無訂單")) //判別有沒有order_id
-        {
-            btOrderQRCode_OrderList.setEnabled(false);
-            btEmployeePosition_OrderList.setEnabled(false);
-            btOrderDetail_OrderList.setEnabled(false);
-            tvOrderStatus_OrderList.setText("無進行中訂單");
-        } else {
-            db.collection("Order").document(order_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.getResult() != null) {
-                        DocumentSnapshot document = task.getResult();
-                        order = document.toObject(Order.class);
+
+        db.collection("Order").whereEqualTo("user_id", user_id).get()//先取沒完成的訂單.whereGreaterThan("order_status", 0)
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<Order> orders = new ArrayList<>();
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                orders.add(document.toObject(Order.class));
+                            }
+                            if (orders.size() != 0) {
+                                order = orders.get(0);
+                                order_id = order.getOrder_id();
+                            } else {
+                                order_id = "無訂單";
+                            }
+                            //＝＝＝＝＝判別該使用者有沒有進行中訂單＝＝＝＝＝＝//
+                            Log.e(TAG,order_id);
+                            if (order_id.equals("無訂單")) //判別有沒有order_id
+                            {
+                                btOrderQRCode_OrderList.setEnabled(false);
+                                btEmployeePosition_OrderList.setEnabled(false);
+                                btOrderDetail_OrderList.setEnabled(false);
+                                tvOrderStatus_OrderList.setText("無進行中訂單");
+                            } else {
+                                db.collection("Order").document(order_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.getResult() != null) {
+                                            DocumentSnapshot document = task.getResult();
+                                            order = document.toObject(Order.class);
+                                        }
+                                        tvOrderDate_OrderList.setText(sdf.format(order.getOrder_date()));
+                                        tvOrderTakeMealTime_OrderList.setText(sdf.format(order.getOrder_take_meal_time()));
+                                        int order_status = order.getOrder_status();
+                                        switch (order_status) {
+                                            case 0:
+                                                tvOrderStatus_OrderList.setText("已完成");
+                                                tvOrderStatus_OrderList.setTextColor(Color.BLUE);
+                                                break;
+                                            case 1:
+                                                tvOrderStatus_OrderList.setText("未出貨");
+                                                tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+                                                break;
+                                            case 2:
+                                                tvOrderStatus_OrderList.setText("送貨中");
+                                                tvOrderStatus_OrderList.setTextColor(Color.RED);
+                                                break;
+                                            default:
+                                                tvOrderStatus_OrderList.setText("");
+                                                tvOrderStatus_OrderList.setTextColor(Color.GRAY);
+                                                break;
+                                        }
+                                        tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
+                                        tvOrderTakeMeal_OrderList.setText(order.getOrder_take_meal());
+                                    }
+                                });
+                                showOrderDetailAll();
+                            }
+                            //＝＝＝＝＝判別該使用者有沒有進行中訂單＝＝＝＝＝＝//
+                        }
                     }
-                    tvOrderDate_OrderList.setText(sdf.format(order.getOrder_date()));
-                    tvOrderTakeMealTime_OrderList.setText(sdf.format(order.getOrder_take_meal_time()));
-                    int order_status = order.getOrder_status();
-                    switch (order_status) {
-                        case 0:
-                            tvOrderStatus_OrderList.setText("已完成");
-                            tvOrderStatus_OrderList.setTextColor(Color.BLUE);
-                            break;
-                        case 1:
-                            tvOrderStatus_OrderList.setText("未出貨");
-                            tvOrderStatus_OrderList.setTextColor(Color.GRAY);
-                            break;
-                        case 2:
-                            tvOrderStatus_OrderList.setText("送貨中");
-                            tvOrderStatus_OrderList.setTextColor(Color.RED);
-                            break;
-                        default:
-                            tvOrderStatus_OrderList.setText("");
-                            tvOrderStatus_OrderList.setTextColor(Color.GRAY);
-                            break;
-                    }
-                    tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
-                    tvOrderTakeMeal_OrderList.setText(order.getOrder_take_meal());
-                }
-            });
-            showOrderDetailAll();
-        }
+                });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 

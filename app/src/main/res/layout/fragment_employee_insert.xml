@@ -75,13 +75,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="男性" />
+            android:text="男" />
 
         <RadioButton
             android:id="@+id/rbFemale_EmployeeInsert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="女性" />
+            android:text="女" />
     </RadioGroup>
 
     <EditText

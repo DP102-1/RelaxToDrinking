@@ -6,6 +6,7 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.relaxtodrinking.data.Order;
+import com.example.relaxtodrinking.data.Employee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,27 +40,11 @@ public class IndexFragment extends Fragment {
     private FirebaseAuth auth;
 
     private Button btUser_Index,btProduct_Index,btOrder_Index,btStore_Index;
+    private ImageView ivNews_Index;
 
-    /*********/
-    private ImageView ivNews_Index,imageView;
-    private Boolean x = false;
-    /*********/
     private String user_id = "";
     private String order_id = "無訂單";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-            user_id = user.getUid();
-        }else{
-            user_id = "";
-        }
-        //＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝//
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,24 +57,65 @@ public class IndexFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("首頁");
+        activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_index, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            user_id = user.getUid();
+        }else{
+            user_id = "";
+        }
+        Log.e(TAG,user_id);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊會員專區＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btUser_Index = view.findViewById(R.id.btUser_Index);
         btUser_Index.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 if (user_id == null || user_id.equals("")) {
                     Common.showToast(activity,"請先登入");
                     Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_userLoginFragment);
                 }else
                 {
-                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_userManagementFragment);
+                    //判別使用者的身份
+                    db.collection("Employee").whereEqualTo("user_id",user_id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            List<Employee> employees = new ArrayList<>();
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    employees.add(document.toObject(Employee.class));
+                                }
+                                if (employees.size() == 0) { //沒有員工資料等於普通使用者
+                                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_userManagementFragment);
+                                }
+                                else
+                                {
+                                    Employee employee = employees.get(0);
+                                    if (employee.getEmp_status() == 0) //權限0是最高管理員,權限1是管理員,權限2是店員
+                                    {
+                                        /****************/
+                                    }else if (employee.getEmp_status() == 1)
+                                    {
+                                        //Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_ManagementListFragment);
+                                    }else
+                                    {
+                                        //Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_EmployeeListFragment);
+                                    }
+                                }
+                            } else {
+                                Log.e(TAG, "無法判別登入者身份");
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -101,14 +127,7 @@ public class IndexFragment extends Fragment {
         btProduct_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!x) {
                     Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_productListFragment);
-                }else{
-                    /*******/
-                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_productManagementFragment);
-                    x = false;
-                    /*******/
-                }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊商品瀏覽＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -119,47 +138,13 @@ public class IndexFragment extends Fragment {
         btOrder_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                /******/
-                if(x) {
-                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderManagementFragment);
-                    x = false;
-                    return;
-                }
-                /******/
-
-
                 if (user_id == null || user_id.equals(""))
                 {
                     Common.showToast(activity,"請先登入");
                     Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_userLoginFragment);
                 }else
                 {
-                    db.collection("Order").whereGreaterThan("order_status",0).whereEqualTo("user_id",user_id).get()//先取沒完成的訂單
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            List<Order> orders = new ArrayList<>();
-                            if (task.isSuccessful() && task.getResult() != null) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    orders.add(document.toObject(Order.class));
-                                }
-                                if  (orders.size() != 0) {
-                                    Order order = orders.get(0);
-                                    order_id = order.getOrder_id();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("order_id", order_id);
-                                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment, bundle);
-                                }
-                                else
-                                {
-                                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment);
-                                }
-                            }else
-                            {
-                                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment);
-                            }
-                        }
-                    });
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_orderListFragment);
                 }
             }
         });
@@ -171,52 +156,20 @@ public class IndexFragment extends Fragment {
         btStore_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!x) {
                     Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_storeInformationFragment);
-                }else
-                {
-                    /******/
-                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_storeManagementFragment);
-                    x = false;
-                    /*****/
-                }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        /*********/
         ivNews_Index = view.findViewById(R.id.ivNews_Index);
         ivNews_Index.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!x) {
                     Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsListFragment);
-                }else
-                {
-                    x = false;
-                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsManagementFragment);
-                }
             }
         });
-
-        imageView = view.findViewById(R.id.imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!x) {
-                    x = true;
-                    imageView.setImageResource(R.drawable.map_pin);
-                }
-                else
-                {
-                    x = false;
-                    imageView.setImageResource(R.mipmap.ic_launcher);
-                }
-            }
-        });
-        /*********/
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 }

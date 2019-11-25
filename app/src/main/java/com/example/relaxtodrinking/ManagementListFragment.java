@@ -13,6 +13,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,7 +28,7 @@ public class ManagementListFragment extends Fragment {
     private FirebaseStorage storage;
     private FirebaseAuth auth;
 
-    private Button btOrderList_ManagementList,btProductList_ManagementList,btEmployeeManagement_ManagementList,btNewsList_ManagementList,btStoreManagement_ManagementList,btLoginOut_ManagementList;
+    private Button btOrderList_ManagementList,btUserSearch_ManagementList,btProductList_ManagementList,btEmployeeManagement_ManagementList,btNewsList_ManagementList,btStoreManagement_ManagementList,btLoginOut_ManagementList;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,14 +51,25 @@ public class ManagementListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btUserSearch_ManagementList = view.findViewById(R.id.btUserSearch_ManagementList);
+        btUserSearch_ManagementList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_managementListFragment_to_userSearchFragment);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊會員查詢＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btOrderList_ManagementList = view.findViewById(R.id.btOrderList_ManagementList);
         btOrderList_ManagementList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.);
+                Navigation.findNavController(view).navigate(R.id.action_managementListFragment_to_orderManagementFragment);
             }
         });
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊會員查詢＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊商品管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -65,7 +77,7 @@ public class ManagementListFragment extends Fragment {
         btProductList_ManagementList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.);
+                Navigation.findNavController(view).navigate(R.id.action_managementListFragment_to_productManagementFragment);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊商品管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -76,7 +88,7 @@ public class ManagementListFragment extends Fragment {
         btEmployeeManagement_ManagementList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.);
+                Navigation.findNavController(view).navigate(R.id.action_managementListFragment_to_employeeManagementFragment);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊員工管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -87,7 +99,7 @@ public class ManagementListFragment extends Fragment {
         btNewsList_ManagementList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.);
+                Navigation.findNavController(view).navigate(R.id.action_managementListFragment_to_newsManagementFragment);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊最新消息管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -98,7 +110,7 @@ public class ManagementListFragment extends Fragment {
         btStoreManagement_ManagementList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.);
+                Navigation.findNavController(view).navigate(R.id.action_managementListFragment_to_storeManagementFragment);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊店家資訊管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -110,7 +122,7 @@ public class ManagementListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 auth.signOut();
-                //Navigation.findNavController(view).popBackStack();
+                Navigation.findNavController(view).popBackStack();
                 Common.showToast(activity,"後台管理已登出");
             }
         });

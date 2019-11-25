@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.user;
 /***************************************************************/
 //radiobutten的樣式更改
 //加入購物車要圓角
@@ -26,6 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.relaxtodrinking.Common;
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;

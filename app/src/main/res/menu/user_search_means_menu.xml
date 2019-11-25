@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nameItem_UserSearch"
+        android:title="用姓名搜尋" />
+    <item
+        android:id="@+id/phoneItem_UserSearch"
+        android:title="用手機號碼查詢" />
+    <item
+        android:id="@+id/addressItem_UserSearch"
+        android:title="用地址查詢" />
+</menu>
