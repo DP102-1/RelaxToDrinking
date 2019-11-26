@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".OrderManagementFragment">
+    tools:context=".admin.OrderManagementFragment">
 
     <Button
         android:id="@+id/btOrderHistory_OrderManagement"

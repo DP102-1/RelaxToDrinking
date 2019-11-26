@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.admin;
 
 /***************************************************************/
 //新增無法及時顯示
@@ -30,6 +30,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.relaxtodrinking.Common;
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.News;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserManagementFragment" >
+    tools:context=".user.UserManagementFragment" >
 
     <ImageView
         android:id="@+id/ivBack_UserManagement"
@@ -32,7 +32,7 @@
         android:id="@+id/btUserEditPassword_UserManagement"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="60dp"
         android:text="會員密碼修改"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

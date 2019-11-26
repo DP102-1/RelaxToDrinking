@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.user;
 /***************************************************************/
 //輸入資料edittext智慧驗證
 /***************************************************************/
@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.relaxtodrinking.Common;
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -224,7 +226,7 @@ public class UserSignInFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void signInUser(String email, String password) {
+    private void signInUser(final String email, String password) {
         /* 利用user輸入的email與password建立新的帳號 */
         auth.setLanguageCode("zh-TW");
         auth.createUserWithEmailAndPassword(email, password)
@@ -243,6 +245,7 @@ public class UserSignInFragment extends Fragment {
                                 user.setUser_name(name);
                                 user.setUser_address(address);
                                 user.setUser_phone(phone);
+                                user.setUser_email(email);
                                 db.collection("User").document(user.getUser_id()).set(user);
                             }
                         } else {

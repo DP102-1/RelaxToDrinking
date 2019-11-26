@@ -1,8 +1,6 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.admin;
 /***************************************************************/
-//
-//
-//
+//Edittext的鍵盤輸入格式
 /***************************************************************/
 
 import android.app.Activity;
@@ -23,6 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.relaxtodrinking.Common;
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,7 +66,7 @@ public class EmployeeInsertFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("員工新增");
+        activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_employee_insert, container, false);
     }
 
@@ -271,13 +271,14 @@ public class EmployeeInsertFragment extends Fragment {
                                 employee.setEmp_address(address);
                                 employee.setEmp_sex(sex);
                                 employee.setEmp_status(1);
-                                employee.setEmp_permission(1);
+                                employee.setEmp_permission(2);
                                 employee.setUser_id(firebaseUser.getUid());
 
                                 user.setUser_id(firebaseUser.getUid());
                                 user.setUser_name(name);
                                 user.setUser_address(address);
                                 user.setUser_phone(phone);
+                                user.setUser_email(email);
                                 insertEmployee(employee);
                                 insertUser(user);
                             }
@@ -323,11 +324,7 @@ public class EmployeeInsertFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private boolean isAllNotError() {
-        if (!isErrorEmail && !isErrorPassword && !isErrorPhone && !isErrorName && !isErrorAddress) {
-            return true;
-        } else {
-            return false;
-        }
+        return !isErrorEmail && !isErrorPassword && !isErrorPhone && !isErrorName && !isErrorAddress;
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 }

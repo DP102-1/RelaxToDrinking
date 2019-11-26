@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.user;
 /***************************************************************/
 //
 
@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Order;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,12 +70,17 @@ public class OrderHistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-            user_id = user.getUid();
-            Log.e(TAG,user.getUid());
-        }else{
-            user_id = "";
+        Bundle bundle = getArguments(); //如果是從管理者搜尋頁面看資料 就有值
+        if (bundle != null) {
+            user_id = bundle.getString("user_id");
+        }else {
+            FirebaseUser user = auth.getCurrentUser(); //從登入者帳號查看歷史訂單
+            if (user != null) {
+                user_id = user.getUid();
+                Log.e(TAG, user.getUid());
+            } else {
+                user_id = "";
+            }
         }
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 

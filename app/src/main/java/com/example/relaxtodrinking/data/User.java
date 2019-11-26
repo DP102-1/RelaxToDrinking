@@ -5,17 +5,26 @@ public class User {
     String user_name;
     String user_address;
     String user_phone;
+    String user_email;
 
     public User() { }
 
 
-    public User(String user_id, String user_name, String user_address, String user_phone) {
+    public User(String user_id, String user_name, String user_address, String user_phone, String user_email) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_address = user_address;
         this.user_phone = user_phone;
+        this.user_phone = user_phone;
+        this.user_email = user_email;
+    }
+    public String getUser_email() {
+        return user_email;
     }
 
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
+    }
     public String getUser_id() {
         return user_id;
     }

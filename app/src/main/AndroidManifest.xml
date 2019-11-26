@@ -41,7 +41,7 @@
         </activity>
         <activity
             android:theme="@style/Theme.AppCompat.Dialog"
-            android:name="com.example.relaxtodrinking.KindManagementActivity"
+            android:name="com.example.relaxtodrinking.admin.KindManagementActivity"
             android:launchMode="singleTop" />
         <activity
             android:theme="@style/Theme.AppCompat.Dialog"

@@ -1,9 +1,10 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.admin;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,9 +51,18 @@ public class UserSearchFragment extends Fragment {
     private ImageView ivBack_UserSearch;
 
     private int means = R.id.nameItem_UserSearch;
+    private List<User> users;
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        svSearchUser_UserSearch.setQuery("",false);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +101,7 @@ public class UserSearchFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         means = item.getItemId();
                         btSearchItem_UserSearch.setText(item.getTitle());
+                        svSearchUser_UserSearch.setQuery("",false);
                         return true;
                     }
                 });
@@ -99,12 +111,49 @@ public class UserSearchFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊用XXX搜尋＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-
-
-
-
-
-
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝搜尋使用者＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        svSearchUser_UserSearch = view.findViewById(R.id.svSearchUser_UserSearch);
+        svSearchUser_UserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                UserSearchFragment.UserAdapter adapter = (UserSearchFragment.UserAdapter) rvUserList_UserSearch.getAdapter();
+                if (adapter != null) {
+                    if (newText.isEmpty()) {
+                        adapter.setUsers(users);
+                    } else {
+                        List<User> searchUsers = new ArrayList<>();
+                        for (User user : users) {
+                            String text;
+                            switch (means) {
+                                case R.id.nameItem_UserSearch:
+                                    text = user.getUser_name();
+                                    break;
+                                case R.id.phoneItem_UserSearch:
+                                    text = user.getUser_phone();
+                                    break;
+                                case R.id.addressItem_UserSearch:
+                                    text = user.getUser_address();
+                                    break;
+                                default:
+                                    Log.e(TAG,"means參數錯誤");
+                                    return false;
+                            }
+                            if (text.toUpperCase().contains(newText.toUpperCase())) {
+                                searchUsers.add(user);
+                            }
+                        }
+                        adapter.setUsers(searchUsers);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+                return false;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝搜尋使用者＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -122,6 +171,10 @@ public class UserSearchFragment extends Fragment {
     private class UserAdapter extends RecyclerView.Adapter<UserSearchFragment.UserAdapter.MyViewHolder> {
         Context context;
         List<User> users;
+
+        public void setUsers(List<User> users){
+            this.users = users;
+        }
 
         public UserAdapter(Context context, List<User> users) {
             this.context = context;
@@ -141,7 +194,6 @@ public class UserSearchFragment extends Fragment {
                 tvPhone_UserSearch = NewsView.findViewById(R.id.tvPhone_UserSearch);
                 tvEmail_UserSearch = NewsView.findViewById(R.id.tvEmail_UserSearch);
                 tvAddress_UserSearch = NewsView.findViewById(R.id.tvAddress_UserSearch);
-                tvTime_UserSearch = NewsView.findViewById(R.id.tvTime_UserSearch);
             }
         }
         @NonNull
@@ -156,11 +208,17 @@ public class UserSearchFragment extends Fragment {
             final User user = users.get(position);
             holder.tvName_UserSearch.setText(user.getUser_name());
             holder.tvPhone_UserSearch.setText(user.getUser_phone());
-           // holder.tvEmail_UserSearch.setText();
+            holder.tvEmail_UserSearch.setText(user.getUser_email());
             holder.tvAddress_UserSearch.setText(user.getUser_address());
-            // holder.tvEmail_UserSearch.setText();
 
-
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user_id",user.getUser_id());
+                    Navigation.findNavController(view).navigate(R.id.action_userSearchFragment_to_orderHistoryFragment,bundle);
+                }
+            });
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示會員內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -173,7 +231,7 @@ public class UserSearchFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful() && task.getResult() != null) {
-                            List<User> users = new ArrayList<>();
+                            users = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 users.add(document.toObject(User.class));
                             }

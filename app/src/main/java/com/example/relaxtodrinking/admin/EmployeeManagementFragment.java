@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking;
+package com.example.relaxtodrinking.admin;
 
 
 import android.app.Activity;
@@ -11,15 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.relaxtodrinking.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 
 public class EmployeeManagementFragment extends Fragment {
+    private String TAG = "員工管理";
+
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class EmployeeManagementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("員工管理");
+        activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_employee_management, container, false);
     }
 

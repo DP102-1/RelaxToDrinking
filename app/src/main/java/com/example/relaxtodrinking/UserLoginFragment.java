@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,8 +30,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserLoginFragment extends Fragment {
@@ -126,6 +132,38 @@ public class UserLoginFragment extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     // 登入成功轉至下頁；失敗則顯示錯誤訊息
                                     if (task.isSuccessful()) {
+                                        //＝＝＝＝＝判別使用者的身份＝＝＝＝＝//
+                                        db.collection("Employee").whereEqualTo("user_id",auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                List<Employee> employees = new ArrayList<>();
+                                                if (task.isSuccessful() && task.getResult() != null) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        employees.add(document.toObject(Employee.class));
+                                                    }
+                                                    if (employees.size() == 0) { //沒有員工資料等於普通使用者
+                                                        Navigation.findNavController(view).popBackStack();
+                                                    }
+                                                    else
+                                                    {
+                                                        Employee employee = employees.get(0);
+                                                        if (employee.getEmp_status() == 0) //權限0是最高管理員,權限1是管理員,權限2是店員
+                                                        {
+                                                            /****************/
+                                                        }else if (employee.getEmp_status() == 1)
+                                                        {
+                                                            Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_managementListFragment);
+                                                        }else
+                                                        {
+                                                            /****************/
+                                                        }
+                                                    }
+                                                } else {
+                                                    Log.e(TAG, "無法判別登入者身份");
+                                                }
+                                            }
+                                        });
+                                        //＝＝＝＝＝判別使用者的身份＝＝＝＝＝//
                                         Common.showToast(activity, "登入成功");
                                         Navigation.findNavController(etAccount_UserLogin).popBackStack();
                                     } else {

@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/productManagementFragment"
-        android:name="com.example.relaxtodrinking.ProductManagementFragment"
+        android:name="com.example.relaxtodrinking.admin.ProductManagementFragment"
         android:label="fragment_product_management"
         tools:layout="@layout/fragment_product_management" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/productInsertFragment"
-        android:name="com.example.relaxtodrinking.ProductInsertFragment"
+        android:name="com.example.relaxtodrinking.admin.ProductInsertFragment"
         android:label="fragment_product_insert"
         tools:layout="@layout/fragment_product_insert" />
     <fragment
@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_news_list" />
     <fragment
         android:id="@+id/newsManagementFragment"
-        android:name="com.example.relaxtodrinking.NewsManagementFragment"
+        android:name="com.example.relaxtodrinking.admin.NewsManagementFragment"
         android:label="fragment_news_management"
         tools:layout="@layout/fragment_news_management" >
         <action
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderManagementFragment"
-        android:name="com.example.relaxtodrinking.OrderManagementFragment"
+        android:name="com.example.relaxtodrinking.admin.OrderManagementFragment"
         android:label="fragment_order_management"
         tools:layout="@layout/fragment_order_management" >
         <action
@@ -97,12 +97,12 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
-        android:name="com.example.relaxtodrinking.OrderDetailFragment"
+        android:name="com.example.relaxtodrinking.user.OrderDetailFragment"
         android:label="fragment_order_detail"
         tools:layout="@layout/fragment_order_detail" />
     <fragment
         android:id="@+id/orderHistoryFragment"
-        android:name="com.example.relaxtodrinking.OrderHistoryFragment"
+        android:name="com.example.relaxtodrinking.user.OrderHistoryFragment"
         android:label="fragment_order_history"
         tools:layout="@layout/fragment_order_history" >
         <action
@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderSearchFragment"
-        android:name="com.example.relaxtodrinking.OrderSearchFragment"
+        android:name="com.example.relaxtodrinking.admin.OrderSearchFragment"
         android:label="fragment_order_search"
         tools:layout="@layout/fragment_order_search" >
         <action
@@ -120,7 +120,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsInsertFragment"
-        android:name="com.example.relaxtodrinking.NewsInsertFragment"
+        android:name="com.example.relaxtodrinking.admin.NewsInsertFragment"
         android:label="fragment_news_insert"
         tools:layout="@layout/fragment_news_insert" />
     <fragment
@@ -146,15 +146,18 @@
         <action
             android:id="@+id/action_indexFragment_to_userManagementFragment"
             app:destination="@id/userManagementFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_managementListFragment"
+            app:destination="@id/managementListFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeManagementFragment"
-        android:name="com.example.relaxtodrinking.StoreManagementFragment"
+        android:name="com.example.relaxtodrinking.admin.StoreManagementFragment"
         android:label="fragment_store_management"
         tools:layout="@layout/fragment_store_management" />
     <fragment
         android:id="@+id/employeeManagementFragment"
-        android:name="com.example.relaxtodrinking.EmployeeManagementFragment"
+        android:name="com.example.relaxtodrinking.admin.EmployeeManagementFragment"
         android:label="fragment_employee_management"
         tools:layout="@layout/fragment_employee_management" >
         <action
@@ -163,7 +166,7 @@
     </fragment>
     <fragment
         android:id="@+id/employeeInsertFragment"
-        android:name="com.example.relaxtodrinking.EmployeeInsertFragment"
+        android:name="com.example.relaxtodrinking.admin.EmployeeInsertFragment"
         android:label="fragment_employee_insert"
         tools:layout="@layout/fragment_employee_insert" />
     <fragment
@@ -180,10 +183,13 @@
         <action
             android:id="@+id/action_userLoginFragment_to_userManagementFragment"
             app:destination="@id/userManagementFragment" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_managementListFragment"
+            app:destination="@id/managementListFragment" />
     </fragment>
     <fragment
         android:id="@+id/userManagementFragment"
-        android:name="com.example.relaxtodrinking.UserManagementFragment"
+        android:name="com.example.relaxtodrinking.user.UserManagementFragment"
         android:label="fragment_user_management"
         tools:layout="@layout/fragment_user_management" >
         <action
@@ -204,7 +210,7 @@
     </fragment>
     <fragment
         android:id="@+id/userSignInFragment"
-        android:name="com.example.relaxtodrinking.UserSignInFragment"
+        android:name="com.example.relaxtodrinking.user.UserSignInFragment"
         android:label="fragment_user_sign_in"
         tools:layout="@layout/fragment_user_sign_in" >
         <action
@@ -213,12 +219,16 @@
     </fragment>
     <fragment
         android:id="@+id/userSearchFragment"
-        android:name="com.example.relaxtodrinking.UserSearchFragment"
+        android:name="com.example.relaxtodrinking.admin.UserSearchFragment"
         android:label="fragment_user_search"
-        tools:layout="@layout/fragment_user_search" />
+        tools:layout="@layout/fragment_user_search" >
+        <action
+            android:id="@+id/action_userSearchFragment_to_orderHistoryFragment"
+            app:destination="@id/orderHistoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userForgetPasswordFragment"
-        android:name="com.example.relaxtodrinking.UserForgetPasswordFragment"
+        android:name="com.example.relaxtodrinking.user.UserForgetPasswordFragment"
         android:label="fragment_user_forget_password"
         tools:layout="@layout/fragment_user_forget_password" />
     <fragment
@@ -237,7 +247,7 @@
     </fragment>
     <fragment
         android:id="@+id/managementListFragment"
-        android:name="com.example.relaxtodrinking.ManagementListFragment"
+        android:name="com.example.relaxtodrinking.admin.ManagementListFragment"
         android:label="fragment_management_list"
         tools:layout="@layout/fragment_management_list" >
         <action
