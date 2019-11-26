@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="@+id/btInsert_EmployeeManagement" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btStatus_EmployeeManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -74,55 +74,189 @@
         app:layout_constraintTop_toTopOf="@+id/btEdit_EmployeeManagement" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvName_EmployeeManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="140dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:text="姓名"
+        app:layout_constraintStart_toEndOf="@+id/rvEmployeeList_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/btInsert_EmployeeManagement" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvEmail_EmployeeManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="191dp" />
+        android:layout_marginTop="32dp"
+        android:text="信箱"
+        app:layout_constraintStart_toStartOf="@+id/tvName_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvName_EmployeeManagement" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvPassword_EmployeeManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="244dp" />
+        android:layout_marginTop="32dp"
+        android:text="密碼"
+        app:layout_constraintStart_toStartOf="@+id/tvEmail_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail_EmployeeManagement" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvSex_EmployeeManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="291dp" />
+        android:layout_marginTop="32dp"
+        android:text="性別"
+        app:layout_constraintStart_toStartOf="@+id/tvPassword_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword_EmployeeManagement" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/etName_EmployeeManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:ems="10"
+        android:enabled="false"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="132dp" />
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvName_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvName_EmployeeManagement" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/etEmail_EmployeeManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:ems="10"
+        android:enabled="false"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="181dp" />
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEmail_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvEmail_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvEmail_EmployeeManagement" />
+
+    <EditText
+        android:id="@+id/etPassword_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPassword_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvPassword_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvPassword_EmployeeManagement" />
+
+    <EditText
+        android:id="@+id/etPhone_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPhone_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvPhone_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvPhone_EmployeeManagement" />
+
+    <EditText
+        android:id="@+id/etSex_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSex_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvSex_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvSex_EmployeeManagement" />
+
+    <EditText
+        android:id="@+id/etAddress_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPostalAddress"
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAddress_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvAddress_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvAddress_EmployeeManagement" />
+
+    <TextView
+        android:id="@+id/tvPhone_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="電話"
+        app:layout_constraintStart_toStartOf="@+id/tvSex_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvSex_EmployeeManagement" />
+
+    <TextView
+        android:id="@+id/tvAddress_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="地址"
+        app:layout_constraintStart_toStartOf="@+id/tvPhone_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvPhone_EmployeeManagement" />
+
+    <TextView
+        android:id="@+id/tvStatus_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="狀態"
+        app:layout_constraintStart_toStartOf="@+id/tvAddress_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress_EmployeeManagement" />
+
+    <TextView
+        android:id="@+id/tvPermission_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="身份"
+        app:layout_constraintStart_toStartOf="@+id/tvStatus_EmployeeManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus_EmployeeManagement" />
+
+    <EditText
+        android:id="@+id/etStatus_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvStatus_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvStatus_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvStatus_EmployeeManagement" />
+
+    <EditText
+        android:id="@+id/etPermission_EmployeeManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:textColor="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPermission_EmployeeManagement"
+        app:layout_constraintStart_toEndOf="@+id/tvPermission_EmployeeManagement"
+        app:layout_constraintTop_toTopOf="@+id/tvPermission_EmployeeManagement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
