@@ -120,7 +120,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvName_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvName_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvName_EmployeeManagement" />
@@ -134,7 +134,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvEmail_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvEmail_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvEmail_EmployeeManagement" />
@@ -148,7 +148,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvPassword_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvPassword_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvPassword_EmployeeManagement" />
@@ -162,7 +162,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvPhone_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvPhone_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvPhone_EmployeeManagement" />
@@ -176,7 +176,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvSex_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvSex_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvSex_EmployeeManagement" />
@@ -190,7 +190,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPostalAddress"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvAddress_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvAddress_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvAddress_EmployeeManagement" />
@@ -240,7 +240,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvStatus_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvStatus_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvStatus_EmployeeManagement" />
@@ -254,7 +254,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        android:textColor="#00000000"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/tvPermission_EmployeeManagement"
         app:layout_constraintStart_toEndOf="@+id/tvPermission_EmployeeManagement"
         app:layout_constraintTop_toTopOf="@+id/tvPermission_EmployeeManagement" />

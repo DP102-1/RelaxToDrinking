@@ -187,7 +187,7 @@ public class NewsManagementFragment extends Fragment {
         ivBack_NewsManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).popBackStack();
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

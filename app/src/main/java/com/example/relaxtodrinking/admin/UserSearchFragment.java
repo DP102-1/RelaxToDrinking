@@ -188,12 +188,12 @@ public class UserSearchFragment extends Fragment {
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
             private TextView tvName_UserSearch,tvPhone_UserSearch,tvEmail_UserSearch,tvAddress_UserSearch,tvTime_UserSearch;
-            public MyViewHolder(View NewsView) {
-                super(NewsView);
-                tvName_UserSearch = NewsView.findViewById(R.id.tvName_UserSearch);
-                tvPhone_UserSearch = NewsView.findViewById(R.id.tvPhone_UserSearch);
-                tvEmail_UserSearch = NewsView.findViewById(R.id.tvEmail_UserSearch);
-                tvAddress_UserSearch = NewsView.findViewById(R.id.tvAddress_UserSearch);
+            public MyViewHolder(View UserView) {
+                super(UserView);
+                tvName_UserSearch = UserView.findViewById(R.id.tvName_UserSearch);
+                tvPhone_UserSearch = UserView.findViewById(R.id.tvPhone_UserSearch);
+                tvEmail_UserSearch = UserView.findViewById(R.id.tvEmail_UserSearch);
+                tvAddress_UserSearch = UserView.findViewById(R.id.tvAddress_UserSearch);
             }
         }
         @NonNull

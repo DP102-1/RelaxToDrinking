@@ -46,7 +46,7 @@ public class EmployeeInsertFragment extends Fragment {
     private ImageView ivExit_EmployeeInsert;
     private ImageView ivEmail_EmployeeInsert, ivPassword_EmployeeInsert, ivName_EmployeeInsert, ivPhone_EmployeeInsert, ivAddress_EmployeeInsert;
     private EditText etEmail_EmployeeInsert, etPassword_EmployeeInsert, etName_EmployeeInsert, etPhone_EmployeeInsert, etAddress_EmployeeInsert;
-    private TextView tvErrorEmail_EmployeeInsert, tvErrorPassword_EmployeeInsert, tvErrorName_EmployeeInsert, tvErrorPhone_EmployeeInsert, tvErrorAddress_EmployeeInsert;
+    private TextView tvTitle_EmployeeInsert,tvErrorEmail_EmployeeInsert, tvErrorPassword_EmployeeInsert, tvErrorName_EmployeeInsert, tvErrorPhone_EmployeeInsert, tvErrorAddress_EmployeeInsert;
     private Button btSubmit_EmployeeInsert;
     private RadioGroup rgSex_EmployeeInsert;
 
@@ -73,6 +73,7 @@ public class EmployeeInsertFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvTitle_EmployeeInsert = view.findViewById(R.id.tvTitle_EmployeeInsert);
         ivEmail_EmployeeInsert = view.findViewById(R.id.ivEmail_EmployeeInsert);
         ivPassword_EmployeeInsert = view.findViewById(R.id.ivPassword_EmployeeInsert);
         ivName_EmployeeInsert = view.findViewById(R.id.ivName_EmployeeInsert);

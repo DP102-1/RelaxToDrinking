@@ -10,8 +10,6 @@ public class Employee {
     private String user_id;
     private String emp_email;
     private String emp_address;
-    private String emp_latitude;
-    private String emp_longitude;
 
     public String getEmp_id() {
         return emp_id;
@@ -69,7 +67,7 @@ public class Employee {
         this.user_id = user_id;
     }
 
-    public String getEmp_email(String s) {
+    public String getEmp_email() {
         return emp_email;
     }
 
@@ -85,25 +83,9 @@ public class Employee {
         this.emp_address = emp_address;
     }
 
-    public String getEmp_latitude() {
-        return emp_latitude;
-    }
-
-    public void setEmp_latitude(String emp_latitude) {
-        this.emp_latitude = emp_latitude;
-    }
-
-    public String getEmp_longitude() {
-        return emp_longitude;
-    }
-
-    public void setEmp_longitude(String emp_longitude) {
-        this.emp_longitude = emp_longitude;
-    }
-
     public Employee() {}
 
-    public Employee(String emp_id, String emp_name, int emp_permission, String emp_phone, String emp_sex, int emp_status, String user_id, String emp_email, String emp_address, String emp_latitude, String emp_longitude) {
+    public Employee(String emp_id, String emp_name, int emp_permission, String emp_phone, String emp_sex, int emp_status, String user_id, String emp_email, String emp_address) {
         this.emp_id = emp_id;
         this.emp_name = emp_name;
         this.emp_permission = emp_permission;
@@ -113,7 +95,5 @@ public class Employee {
         this.user_id = user_id;
         this.emp_email = emp_email;
         this.emp_address = emp_address;
-        this.emp_latitude = emp_latitude;
-        this.emp_longitude = emp_longitude;
     }
 }
