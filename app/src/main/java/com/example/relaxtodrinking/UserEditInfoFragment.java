@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.user;
+package com.example.relaxtodrinking;
 
 
 import android.app.Activity;

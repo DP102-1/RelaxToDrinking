@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.admin;
+package com.example.relaxtodrinking;
 
 /***************************************************************/
 
@@ -18,8 +18,6 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Product;
 import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;

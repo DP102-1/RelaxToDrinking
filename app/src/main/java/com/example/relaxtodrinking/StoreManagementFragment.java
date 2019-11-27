@@ -1,7 +1,6 @@
-package com.example.relaxtodrinking.admin;
-
+package com.example.relaxtodrinking;
 /***************************************************************/
-//新增無法及時顯示
+//
 /***************************************************************/
 
 import android.Manifest;
@@ -11,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,48 +32,39 @@ import androidx.navigation.Navigation;
 
 import com.example.relaxtodrinking.Common;
 import com.example.relaxtodrinking.R;
-import com.example.relaxtodrinking.data.News;
+import com.example.relaxtodrinking.data.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-
-public class NewsInsertFragment extends Fragment {
-    private String TAG = "消息新增";
+public class StoreManagementFragment extends Fragment {
     private static final int ACTION_AgreeUseAlbum = 200;
     private static final int ACTION_ChoiceFromAlbum = 102;
+    private final static String Store_ID = "DVemDPjkmPDEVjuBJwCQ";
+    private String TAG = "店家資訊管理";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
 
-    private TextView tvTitle_NewsInsert,tvNewsDate_NewsInsert;
-    private EditText etNewsMessage_NewsInsert;
-    private ImageView ivNewsPicture_NewsInsert,ivExit_NewsInsert;
-    private Button btChoiceFromAlbum_NewsInsert,btSubmit_NewsInsert;
+    ImageView ivBack_StoreManagement, ivStoreLogo_StoreManagement;
+    Button btChoiceFromAlbum_StoreManagement, btSubmit_StoreManagement;
+    EditText etStoreName_StoreManagement, etStorePhone_StoreManagement, etStoreAddress_StoreManagement;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
+    private Store store;
     private Boolean pictureTaken = false;
     private Uri pick_picture_uri;
-    private News news;
-    private String action = "";
-    private String news_id = "";
-    private String news_date = "";
-    private String news_message = "";
-    private String news_picture;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,85 +77,90 @@ public class NewsInsertFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("消息新增");
-        return inflater.inflate(R.layout.fragment_news_insert, container, false);
+        activity.setTitle("店家資訊管理");
+        return inflater.inflate(R.layout.fragment_store_management, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvTitle_NewsInsert = view.findViewById(R.id.tvTitle_NewsInsert);
-        btSubmit_NewsInsert = view.findViewById(R.id.btSubmit_NewsInsert);
-        tvNewsDate_NewsInsert = view.findViewById(R.id.tvNewsDate_NewsInsert);
-        etNewsMessage_NewsInsert = view.findViewById(R.id.etNewsMessage_NewsInsert);
-        ivNewsPicture_NewsInsert = view.findViewById(R.id.ivNewsPicture_NewsInsert);
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝抓取bundle的值並顯示在頁面＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            if (bundle.getString("action").equals("修改")) //判別是新增還是修改
-            {
-                news_id = bundle.getString("news_id");
-                news_date = bundle.getString("news_date");
-                news_message = bundle.getString("news_message");
-                news_picture = bundle.getString("news_picture");
-                tvTitle_NewsInsert.setText("消息修改");
-                btSubmit_NewsInsert.setText("確定修改");
+        etStoreName_StoreManagement = view.findViewById(R.id.etStoreName_StoreManagement);
+        etStorePhone_StoreManagement = view.findViewById(R.id.etStorePhone_StoreManagement);
+        etStoreAddress_StoreManagement = view.findViewById(R.id.etStoreAddress_StoreManagement);
+        ivStoreLogo_StoreManagement = view.findViewById(R.id.ivStoreLogo_StoreManagement);
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        db.collection("Store").document(Store_ID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                store = documentSnapshot.toObject(Store.class);
+                etStoreName_StoreManagement.setText(store.getStore_name());
+                etStoreAddress_StoreManagement.setText(store.getStore_address());
+                etStorePhone_StoreManagement.setText(store.getStore_phone());
+                if (store.getStore_picture() == null) { //抓商品圖片
+                    ivStoreLogo_StoreManagement.setImageResource(R.drawable.no_image);
+                } else {
+                    showImage(ivStoreLogo_StoreManagement, store.getStore_picture());
+                }
             }
-            else
-            {
-                tvTitle_NewsInsert.setText("消息新增");
-                btSubmit_NewsInsert.setText("確定新增");
-                news_date = sdf.format(new Date());
-            }
-        }
-        tvNewsDate_NewsInsert.setText(news_date);
-        etNewsMessage_NewsInsert.setText(news_message);
-        if (news_picture == null) { //抓商品圖片
-            ivNewsPicture_NewsInsert.setImageResource(R.drawable.no_image);
-        } else {
-            showImage(ivNewsPicture_NewsInsert, news_picture);
-        }
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝抓取bundle的值並顯示在頁面＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        });
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入店家資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        btSubmit_NewsInsert.setOnClickListener(new View.OnClickListener() {
+        btSubmit_StoreManagement = view.findViewById(R.id.btSubmit_StoreManagement);
+        btSubmit_StoreManagement.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                news = new News();
-                if (news_id.equals(""))
-                {
-                    news.setNews_id(db.collection("News").document().getId());
-                }else
-                {
-                    news.setNews_id(news_id);
+            public void onClick(final View view) {
+                store = new Store();
+                store.setStore_id(Store_ID);
+                String store_name = etStoreName_StoreManagement.getText().toString();
+                if (store_name.isEmpty()) {
+                    Common.showToast(activity, "尚未填寫店家名稱");
+                    return;
+                } else {
+                    store.setStore_name(store_name);
                 }
-                try {
-                    news.setNews_date(sdf.parse(news_date));
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                String store_phone = etStorePhone_StoreManagement.getText().toString();
+                if (store_phone.isEmpty()) {
+                    Common.showToast(activity, "尚未填寫店家電話");
+                    return;
+                } else {
+                    store.setStore_phone(store_phone);
                 }
-                news.setNews_message(etNewsMessage_NewsInsert.getText().toString());
+                String store_address = etStoreAddress_StoreManagement.getText().toString();
+                if (store_address.isEmpty()) {
+                    Common.showToast(activity, "尚未填寫店家地址");
+                } else {
+                    Address address = geocode(store_address);
+                    if (address == null) {
+                        Common.showToast(activity, "店家地址無法判別,請重新輸入");
+                        return;
+                    }
+                    store.setStore_address(store_address);
+                    store.setStore_latitude(address.getLatitude());
+                    store.setStore_longitude(address.getLongitude());
+                }
+                store.setStore_picture("image/store/logo");
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
                 if (pictureTaken) {
-                    final String imagePath = "image/news/"+news.getNews_id();
+                    final String imagePath = "image/store/logo";
                     storage.getReference().child(imagePath).putFile(pick_picture_uri)
                             .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                     if (task.isSuccessful()) {
-                                        Log.d(TAG, "上傳最新消息圖片成功");
-                                        news.setNews_picture(imagePath);
-                                        insertNews(news);
+                                        Log.d(TAG, "上傳店家LOGO成功");
+                                        insertStore(store);
                                     } else {
-                                        Log.e(TAG, "上傳最新消息圖片失敗");
-                                        Common.showToast(activity, "上傳最新消息圖片失敗");
+                                        Log.e(TAG, "上傳店家LOGO失敗");
+                                        Common.showToast(activity, "上傳店家LOGO失敗");
                                     }
                                 }
                             });
                 }else {
-                    news.setNews_picture(news_picture);
-                    insertNews(news);
+                    insertStore(store);
                 }
                 Navigation.findNavController(view).popBackStack();
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
@@ -174,8 +170,8 @@ public class NewsInsertFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊挑選相簿圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        btChoiceFromAlbum_NewsInsert = view.findViewById(R.id.btChoiceFromAlbum_NewsInsert);
-        btChoiceFromAlbum_NewsInsert.setOnClickListener(new View.OnClickListener() {
+        btChoiceFromAlbum_StoreManagement = view.findViewById(R.id.btChoiceFromAlbum_StoreManagement);
+        btChoiceFromAlbum_StoreManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK,
@@ -190,15 +186,15 @@ public class NewsInsertFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊挑選相簿圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        ivExit_NewsInsert = view.findViewById(R.id.ivExit_NewsInsert);
-        ivExit_NewsInsert.setOnClickListener(new View.OnClickListener() {
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivBack_StoreManagement = view.findViewById(R.id.ivBack_StoreManagement);
+        ivBack_StoreManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).popBackStack();
             }
         });
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -247,9 +243,9 @@ public class NewsInsertFragment extends Fragment {
         if (requestCode == ACTION_AgreeUseAlbum) {
             // 如果user不同意將資料儲存至外部儲存體的公開檔案，就將儲存按鈕設為disable
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                btSubmit_NewsInsert.setEnabled(false);
+                btChoiceFromAlbum_StoreManagement.setEnabled(false);
             } else {
-                btSubmit_NewsInsert.setEnabled(true);
+                btChoiceFromAlbum_StoreManagement.setEnabled(true);
             }
         }
     }
@@ -279,10 +275,10 @@ public class NewsInsertFragment extends Fragment {
                     }
                 }
                 if (bitmap != null) {
-                    ivNewsPicture_NewsInsert.setImageBitmap(bitmap);
+                    ivStoreLogo_StoreManagement.setImageBitmap(bitmap);
                     pictureTaken = true;
                 } else {
-                    ivNewsPicture_NewsInsert.setImageResource(R.drawable.no_image);
+                    ivStoreLogo_StoreManagement.setImageResource(R.drawable.no_image);
                 }
             }
         }
@@ -291,27 +287,41 @@ public class NewsInsertFragment extends Fragment {
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void insertNews(News news) {
-        db.collection("News").document(news.getNews_id()).set(news)
+    private void insertStore(Store store) {
+        db.collection("Store").document(Store_ID).set(store)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            if (action.equals("修改"))
-                            {
-                                Log.d(TAG, "店家訊息修改成功");
-                                Common.showToast(activity, "店家訊息修改成功");
-                            }else
-                            {
-                                Log.d(TAG, "店家訊息新增成功");
-                                Common.showToast(activity, "店家訊息新增成功");
-                            }
+                            Log.d(TAG, "店家訊息修改成功");
+                            Common.showToast(activity, "店家訊息修改成功");
                         } else {
-                            Log.d(TAG, "最新消息操作失敗");
-                            Common.showToast(activity, "最新消息操作失敗");
+                            Log.d(TAG, "店家訊息修改失敗");
+                            Common.showToast(activity, "店家訊息修改失敗");
                         }
                     }
                 });
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝地址轉經緯度＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private Address geocode(String locationName) {
+        Geocoder geocoder = new Geocoder(activity);
+        List<Address> addressList = null;
+        try {
+            addressList = geocoder.getFromLocationName(locationName, 1);
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
+        }
+
+        if (addressList == null || addressList.isEmpty()) {
+            return null;
+        } else {
+            return addressList.get(0);
+        }
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝地址轉經緯度＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
 }

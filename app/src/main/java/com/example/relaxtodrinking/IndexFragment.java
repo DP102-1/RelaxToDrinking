@@ -90,11 +90,7 @@ public class IndexFragment extends Fragment {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             employees.add(document.toObject(Employee.class));
                         }
-                        if (employees.size() == 0) { //沒有員工資料等於普通使用者
-                            Navigation.findNavController(view).popBackStack();
-                        }
-                        else
-                        {
+                        if (employees.size() != 0) { //沒有員工資料等於普通使用者
                             Employee employee = employees.get(0);
                             if (employee.getEmp_status() == 0) //權限0是最高管理員,權限1是管理員,權限2是店員
                             {

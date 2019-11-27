@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.admin;
+package com.example.relaxtodrinking;
 
 
 import android.app.Activity;
@@ -21,8 +21,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Employee;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -66,6 +64,12 @@ public class EmployeeManagementFragment extends Fragment {
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showEmployeeAll();
     }
 
     @Override

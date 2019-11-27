@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.admin;
+package com.example.relaxtodrinking;
 /***************************************************************/
 //Edittext的鍵盤輸入格式
 /***************************************************************/
@@ -21,8 +21,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,8 +47,12 @@ public class EmployeeInsertFragment extends Fragment {
     private TextView tvTitle_EmployeeInsert,tvErrorEmail_EmployeeInsert, tvErrorPassword_EmployeeInsert, tvErrorName_EmployeeInsert, tvErrorPhone_EmployeeInsert, tvErrorAddress_EmployeeInsert;
     private Button btSubmit_EmployeeInsert;
     private RadioGroup rgSex_EmployeeInsert;
+    private RadioButton rbMale_EmployeeInsert,rbFemale_EmployeeInsert;
 
-    private String sex = "男";
+    private String employee_sex = "男";
+    private String employee_id = "";
+    private String user_id = "";
+    private String action = "新增";
     private Boolean isErrorEmail = true, isErrorPassword = true, isErrorName = true, isErrorPhone = true, isErrorAddress = true;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
@@ -69,6 +71,8 @@ public class EmployeeInsertFragment extends Fragment {
         activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_employee_insert, container, false);
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -91,6 +95,47 @@ public class EmployeeInsertFragment extends Fragment {
         tvErrorAddress_EmployeeInsert = view.findViewById(R.id.tvErrorAddress_EmployeeInsert);
         rgSex_EmployeeInsert = view.findViewById(R.id.rgSex_EmployeeInsert);
         btSubmit_EmployeeInsert = view.findViewById(R.id.btSubmit_EmployeeInsert);
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝抓取bundle的值並顯示在頁面＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if (bundle.getString("action").equals("修改")) //判別是新增還是修改
+            {
+                action = "修改";
+                employee_id = bundle.getString("emp_id");
+                user_id = bundle.getString("user_id");
+                etEmail_EmployeeInsert.setText(bundle.getString("emp_email"));
+                etName_EmployeeInsert.setText(bundle.getString("emp_name"));
+                employee_sex = bundle.getString("emp_sex");
+                etPhone_EmployeeInsert.setText(bundle.getString("emp_phone"));
+                etAddress_EmployeeInsert.setText(bundle.getString("emp_address"));
+                tvTitle_EmployeeInsert.setText("員工修改");
+                btSubmit_EmployeeInsert.setText("確定修改");
+                isErrorEmail = false;
+                isErrorName = false;
+                isErrorPassword = false;
+                isErrorAddress = false;
+                isErrorPhone = false;
+                if (employee_sex.equals("女"))
+                {
+                    rbFemale_EmployeeInsert = view.findViewById(R.id.rbFemale_EmployeeInsert);
+                    rbFemale_EmployeeInsert.setChecked(true);
+                }else
+                {
+                    rbMale_EmployeeInsert = view.findViewById(R.id.rbMale_EmployeeInsert);
+                    rbMale_EmployeeInsert.setChecked(true);
+                }
+            }
+            else
+            {
+                tvTitle_EmployeeInsert.setText("員工新增");
+                btSubmit_EmployeeInsert.setText("確定新增");
+            }
+        }
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝抓取bundle的值並顯示在頁面＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證信箱＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         etEmail_EmployeeInsert = view.findViewById(R.id.etEmail_EmployeeInsert);
         etEmail_EmployeeInsert.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -162,7 +207,7 @@ public class EmployeeInsertFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton radioButton = radioGroup.findViewById(i);
-                sex = radioButton.getText().toString();
+                employee_sex = radioButton.getText().toString();
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證性別＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -215,23 +260,39 @@ public class EmployeeInsertFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證地址＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定新增＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btSubmit_EmployeeInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { //Auth新增帳號密碼 新增Employee 新增User
                 if(isAllNotError())
                 {
-                    String email = etEmail_EmployeeInsert.getText().toString().trim();
-                    String password = etPassword_EmployeeInsert.getText().toString().trim();
-                    signInEmployeeInsert(email,password);
-                    Common.showToast(activity, "員工新增成功");
+                    if (action.equals("新增")) {
+                        String email = etEmail_EmployeeInsert.getText().toString().trim();
+                        String password = etPassword_EmployeeInsert.getText().toString().trim();
+                        signInEmployeeInsert(email, password);
+                        Common.showToast(activity, "員工新增成功");
+
+                    }else if (action.equals("修改")){
+                        db.collection("Employee").document(employee_id).update("emp_name",etName_EmployeeInsert.getText().toString().trim());
+                        db.collection("Employee").document(employee_id).update("emp_sex",employee_sex);
+                        db.collection("Employee").document(employee_id).update("emp_phone",etPhone_EmployeeInsert.getText().toString().trim());
+                        db.collection("Employee").document(employee_id).update("emp_address",etAddress_EmployeeInsert.getText().toString().trim());
+                        db.collection("User").document(user_id).update("user_name",etName_EmployeeInsert.getText().toString().trim());
+                        db.collection("User").document(user_id).update("user_phone",etPhone_EmployeeInsert.getText().toString().trim());
+                        db.collection("User").document(user_id).update("user_address",etAddress_EmployeeInsert.getText().toString().trim());
+                        Common.showToast(activity, "員工修改成功");
+                    }else
+                    {
+                        Common.showToast(activity, "未進行操作,找不到執行動作指令");
+                        Log.e(TAG,"未進行操作,找不到執行動作指令");
+                    }
                     Navigation.findNavController(view).popBackStack();
                 }else{
                     Common.showToast(activity,"有資料欄位輸入不正確");
                 }
             }
         });
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定新增＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -270,7 +331,7 @@ public class EmployeeInsertFragment extends Fragment {
                                 employee.setEmp_name(name);
                                 employee.setEmp_phone(phone);
                                 employee.setEmp_address(address);
-                                employee.setEmp_sex(sex);
+                                employee.setEmp_sex(employee_sex);
                                 employee.setEmp_status(1);
                                 employee.setEmp_permission(2);
                                 employee.setUser_id(firebaseUser.getUid());

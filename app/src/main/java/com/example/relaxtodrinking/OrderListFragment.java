@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.user;
+package com.example.relaxtodrinking;
 /***************************************************************/
 
 
@@ -24,7 +24,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.google.android.gms.tasks.OnCompleteListener;

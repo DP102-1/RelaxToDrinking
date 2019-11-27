@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.user;
+package com.example.relaxtodrinking;
 /***************************************************************/
 //輸入資料edittext智慧驗證
 /***************************************************************/
@@ -18,8 +18,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

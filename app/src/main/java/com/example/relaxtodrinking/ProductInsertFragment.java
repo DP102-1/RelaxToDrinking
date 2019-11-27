@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.admin;
+package com.example.relaxtodrinking;
 /***************************************************************/
 //相機拍照驗證問題SecurityException
 //新增者的員工id
@@ -35,8 +35,6 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Product;
 import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;

@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.user;
+package com.example.relaxtodrinking;
 
 /***************************************************************/
 //清空購物車功能
@@ -30,8 +30,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.example.relaxtodrinking.data.User;

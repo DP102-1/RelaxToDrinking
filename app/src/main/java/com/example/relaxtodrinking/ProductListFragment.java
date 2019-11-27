@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.user;
+package com.example.relaxtodrinking;
 /***************************************************************/
 // 需要點擊類別按鈕改變文字顏色的功能
 // 外觀美化
@@ -24,7 +24,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Product;
 import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;

@@ -1,4 +1,4 @@
-package com.example.relaxtodrinking.admin;
+package com.example.relaxtodrinking;
 
 /***************************************************************/
 //相機功能
@@ -34,8 +34,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.Product;
 import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;

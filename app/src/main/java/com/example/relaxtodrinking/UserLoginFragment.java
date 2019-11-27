@@ -160,12 +160,11 @@ public class UserLoginFragment extends Fragment {
                                                     }
                                                 } else {
                                                     Log.e(TAG, "無法判別登入者身份");
+                                                    Common.showToast(activity, "登入成功");
                                                 }
                                             }
                                         });
                                         //＝＝＝＝＝判別使用者的身份＝＝＝＝＝//
-                                        Common.showToast(activity, "登入成功");
-                                        Navigation.findNavController(etAccount_UserLogin).popBackStack();
                                     } else {
                                         Exception exception = task.getException();
                                         String message = exception == null ? "登入失敗" : "帳號或密碼錯誤！";
