@@ -1,5 +1,9 @@
 package com.example.relaxtodrinking;
-
+/***************************************************************/
+//地址多行顯示
+//員工管理資料不更新
+//auth註冊後直接自動登入的問題...
+/***************************************************************/
 
 import android.app.Activity;
 import android.content.Context;
@@ -67,8 +71,8 @@ public class EmployeeManagementFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         showEmployeeAll();
     }
 

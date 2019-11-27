@@ -105,6 +105,9 @@ public class EmployeeInsertFragment extends Fragment {
                 employee_id = bundle.getString("emp_id");
                 user_id = bundle.getString("user_id");
                 etEmail_EmployeeInsert.setText(bundle.getString("emp_email"));
+                etEmail_EmployeeInsert.setEnabled(false);
+                etPassword_EmployeeInsert.setText("------------");
+                etPassword_EmployeeInsert.setEnabled(false);
                 etName_EmployeeInsert.setText(bundle.getString("emp_name"));
                 employee_sex = bundle.getString("emp_sex");
                 etPhone_EmployeeInsert.setText(bundle.getString("emp_phone"));

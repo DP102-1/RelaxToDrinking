@@ -92,14 +92,16 @@ public class IndexFragment extends Fragment {
                         }
                         if (employees.size() != 0) { //沒有員工資料等於普通使用者
                             Employee employee = employees.get(0);
-                            if (employee.getEmp_status() == 0) //權限0是最高管理員,權限1是管理員,權限2是店員
+                            if (employee.getEmp_permission() == 0) //權限0是最高管理員,權限1是管理員,權限2是店員
                             {
-                                /****************/
-                            }else if (employee.getEmp_status() == 1)
+                                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_managementListFragment);
+                            }else if (employee.getEmp_permission() == 1)
                             {
                                 Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_managementListFragment);
                             }else
                             {
+                                /****************/
+                                Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_userManagementFragment);
                                 /****************/
                             }
                         }

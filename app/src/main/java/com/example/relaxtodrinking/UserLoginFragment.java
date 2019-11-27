@@ -147,24 +147,26 @@ public class UserLoginFragment extends Fragment {
                                                     else
                                                     {
                                                         Employee employee = employees.get(0);
-                                                        if (employee.getEmp_status() == 0) //權限0是最高管理員,權限1是管理員,權限2是店員
+                                                        if (employee.getEmp_permission() == 0) //權限0是最高管理員,權限1是管理員,權限2是店員
                                                         {
-                                                            /****************/
-                                                        }else if (employee.getEmp_status() == 1)
+                                                            Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_managementListFragment);
+                                                        }else if (employee.getEmp_permission() == 1)
                                                         {
                                                             Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_managementListFragment);
                                                         }else
                                                         {
                                                             /****************/
+                                                            Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_userManagementFragment);
+                                                            /****************/
                                                         }
                                                     }
                                                 } else {
                                                     Log.e(TAG, "無法判別登入者身份");
-                                                    Common.showToast(activity, "登入成功");
+                                                    Common.showToast(activity, "無法判別登入者身份");
                                                 }
                                             }
                                         });
-                                        //＝＝＝＝＝判別使用者的身份＝＝＝＝＝//
+                                        //＝＝＝＝＝判別使用者的身份＝＝＝＝＝//`
                                     } else {
                                         Exception exception = task.getException();
                                         String message = exception == null ? "登入失敗" : "帳號或密碼錯誤！";
