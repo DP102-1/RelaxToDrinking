@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_productListFragment_to_productSpecificationFragment"
             app:destination="@id/productSpecificationFragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_userLoginFragment"
+            app:destination="@id/userLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/productSpecificationFragment"
@@ -82,6 +85,9 @@
         <action
             android:id="@+id/action_orderListFragment_to_indexFragment"
             app:destination="@id/indexFragment" />
+        <action
+            android:id="@+id/action_orderListFragment_to_deliveryPositionFragment"
+            app:destination="@id/deliveryPositionFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderManagementFragment"
@@ -149,6 +155,9 @@
         <action
             android:id="@+id/action_indexFragment_to_managementListFragment"
             app:destination="@id/managementListFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_deliveryManagementFragment"
+            app:destination="@id/deliveryManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeManagementFragment"
@@ -186,6 +195,9 @@
         <action
             android:id="@+id/action_userLoginFragment_to_managementListFragment"
             app:destination="@id/managementListFragment" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_deliveryManagementFragment"
+            app:destination="@id/deliveryManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/userManagementFragment"
@@ -269,4 +281,36 @@
             android:id="@+id/action_managementListFragment_to_userSearchFragment"
             app:destination="@id/userSearchFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/deliveryManagementFragment"
+        android:name="com.example.relaxtodrinking.DeliveryManagementFragment"
+        android:label="fragment_delivery_management"
+        tools:layout="@layout/fragment_delivery_management" >
+        <action
+            android:id="@+id/action_deliveryManagementFragment_to_deliveryOrderFragment"
+            app:destination="@id/deliveryOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deliveryOrderFragment"
+        android:name="com.example.relaxtodrinking.DeliveryOrderFragment"
+        android:label="fragment_delivery_order"
+        tools:layout="@layout/fragment_delivery_order" >
+        <action
+            android:id="@+id/action_deliveryOrderFragment_to_deliveryAddressFragment"
+            app:destination="@id/deliveryAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deliveryPositionFragment"
+        android:name="com.example.relaxtodrinking.DeliveryPositionFragment"
+        android:label="fragment_delivery_position"
+        tools:layout="@layout/fragment_delivery_position" >
+        <action
+            android:id="@+id/action_deliveryPositionFragment_to_deliveryManagementFragment"
+            app:destination="@id/deliveryManagementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deliveryAddressFragment"
+        android:name="com.example.relaxtodrinking.DeliveryAddressFragment"
+        android:label="fragment_delivery_address"
+        tools:layout="@layout/fragment_delivery_address" />
 </navigation>

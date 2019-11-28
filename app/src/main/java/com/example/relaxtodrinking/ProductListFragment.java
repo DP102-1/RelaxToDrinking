@@ -28,6 +28,8 @@ import com.example.relaxtodrinking.data.Product;
 import com.example.relaxtodrinking.data.ProductKind;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -43,11 +45,13 @@ public class ProductListFragment extends Fragment {
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
+    private FirebaseAuth auth;
 
     private RecyclerView rvKindList_ProductList, rvProductList_ProductList;
     private ImageView ivGoShoppingCart_ProductList, ivBack_ProductList;
 
     private String productKindId = "0"; //"0"代表全部的類別
+    private String user_id = "";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     @Override
@@ -56,6 +60,7 @@ public class ProductListFragment extends Fragment {
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -81,12 +86,27 @@ public class ProductListFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            user_id = user.getUid();
+        }
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊購物車＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         ivGoShoppingCart_ProductList = view.findViewById(R.id.ivGoShoppingCart_ProductList);
         ivGoShoppingCart_ProductList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_productListFragment_to_shoppingcartListFragment);
+                if (user_id == null || user_id.equals(""))
+                {
+                    Common.showToast(activity,"請先登入");
+                    Navigation.findNavController(view).navigate(R.id.action_productListFragment_to_userLoginFragment);
+                }else
+                {
+                    Navigation.findNavController(view).navigate(R.id.action_productListFragment_to_shoppingcartListFragment);
+                }
             }
         });
 

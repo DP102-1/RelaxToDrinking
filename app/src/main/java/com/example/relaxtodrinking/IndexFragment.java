@@ -100,9 +100,7 @@ public class IndexFragment extends Fragment {
                                 Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_managementListFragment);
                             }else
                             {
-                                /****************/
-                                Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_userManagementFragment);
-                                /****************/
+                                Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_deliveryManagementFragment);
                             }
                         }
                     } else {
