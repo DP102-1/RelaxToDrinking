@@ -1,5 +1,7 @@
 package com.example.relaxtodrinking.data;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class Employee {
     private String emp_id;
     private String emp_name;
@@ -10,6 +12,15 @@ public class Employee {
     private String user_id;
     private String emp_email;
     private String emp_address;
+    private GeoPoint emp_position;
+
+    public GeoPoint getEmp_position() {
+        return emp_position;
+    }
+
+    public void setEmp_position(GeoPoint emp_position) {
+        this.emp_position = emp_position;
+    }
 
     public String getEmp_id() {
         return emp_id;
@@ -85,7 +96,7 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(String emp_id, String emp_name, int emp_permission, String emp_phone, String emp_sex, int emp_status, String user_id, String emp_email, String emp_address) {
+    public Employee(String emp_id, String emp_name, int emp_permission, String emp_phone, String emp_sex, int emp_status, String user_id, String emp_email, String emp_address,GeoPoint emp_position) {
         this.emp_id = emp_id;
         this.emp_name = emp_name;
         this.emp_permission = emp_permission;
@@ -95,5 +106,6 @@ public class Employee {
         this.user_id = user_id;
         this.emp_email = emp_email;
         this.emp_address = emp_address;
+        this.emp_position = emp_position;
     }
 }
