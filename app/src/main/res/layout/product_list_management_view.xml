@@ -16,135 +16,147 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btUpdate_ProductManagement"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="儲存"
-        app:layout_constraintBottom_toBottomOf="@+id/spProductKind_ProductManagement"
-        app:layout_constraintStart_toEndOf="@+id/spProductKind_ProductManagement"
-        app:layout_constraintTop_toTopOf="@+id/spProductKind_ProductManagement" />
+        <Button
+            android:id="@+id/btUpdate_ProductManagement"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:background="@drawable/product_button"
+            android:text="儲存"
+            app:layout_constraintBottom_toBottomOf="@+id/spProductKind_ProductManagement"
+            app:layout_constraintStart_toEndOf="@+id/spProductKind_ProductManagement"
+            app:layout_constraintTop_toTopOf="@+id/spProductKind_ProductManagement" />
 
-    <Button
-        android:id="@+id/btProductStatus_ProductManagement"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="上下架"
-        app:layout_constraintBottom_toBottomOf="@+id/btUpdate_ProductManagement"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btUpdate_ProductManagement"
-        app:layout_constraintTop_toTopOf="@+id/btUpdate_ProductManagement" />
+        <Button
+            android:id="@+id/btProductStatus_ProductManagement"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:background="@drawable/product_button"
+            android:text="上下架"
+            app:layout_constraintBottom_toBottomOf="@+id/btUpdate_ProductManagement"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btUpdate_ProductManagement"
+            app:layout_constraintTop_toTopOf="@+id/btUpdate_ProductManagement" />
 
-    <EditText
-        android:id="@+id/etProductName_ProductManagement"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="商品名稱"
-        android:inputType="textPersonName"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvProductStatus_ProductManagement"
-        app:layout_constraintEnd_toEndOf="@+id/spProductKind_ProductManagement"
-        app:layout_constraintStart_toStartOf="@+id/spProductKind_ProductManagement"
-        app:layout_constraintTop_toBottomOf="@+id/spProductKind_ProductManagement" />
+        <EditText
+            android:id="@+id/etProductName_ProductManagement"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="商品名稱"
+            android:inputType="textPersonName"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvProductStatus_ProductManagement"
+            app:layout_constraintEnd_toEndOf="@+id/spProductKind_ProductManagement"
+            app:layout_constraintStart_toStartOf="@+id/spProductKind_ProductManagement"
+            app:layout_constraintTop_toBottomOf="@+id/spProductKind_ProductManagement" />
 
-    <EditText
-        android:id="@+id/etPriceL_ProductManagement"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:ems="10"
-        android:hint="大杯價格"
-        android:inputType="textPersonName"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivPriceL_ProductManagement"
-        app:layout_constraintStart_toEndOf="@+id/ivPriceL_ProductManagement"
-        app:layout_constraintTop_toTopOf="@+id/ivPriceL_ProductManagement"
-        app:layout_constraintVertical_bias="0.39" />
+        <EditText
+            android:id="@+id/etPriceL_ProductManagement"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:hint="大杯價格"
+            android:inputType="textPersonName"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPriceL_ProductManagement"
+            app:layout_constraintStart_toEndOf="@+id/ivPriceL_ProductManagement"
+            app:layout_constraintTop_toTopOf="@+id/ivPriceL_ProductManagement"
+            app:layout_constraintVertical_bias="0.39" />
 
-    <EditText
-        android:id="@+id/etPriceM_ProductManagement"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:ems="10"
-        android:hint="中杯價格"
-        android:inputType="textPersonName"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivPriceM_ProductManagement"
-        app:layout_constraintStart_toEndOf="@+id/ivPriceM_ProductManagement"
-        app:layout_constraintTop_toTopOf="@+id/ivPriceM_ProductManagement" />
+        <EditText
+            android:id="@+id/etPriceM_ProductManagement"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:hint="中杯價格"
+            android:inputType="textPersonName"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPriceM_ProductManagement"
+            app:layout_constraintStart_toEndOf="@+id/ivPriceM_ProductManagement"
+            app:layout_constraintTop_toTopOf="@+id/ivPriceM_ProductManagement" />
 
-    <ImageView
-        android:id="@+id/ivProduct_ProductManagement"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/product_noimage" />
+        <ImageView
+            android:id="@+id/ivProduct_ProductManagement"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/product_noimage" />
 
-    <ImageView
-        android:id="@+id/ivPriceM_ProductManagement"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="@+id/etPriceL_ProductManagement"
-        app:layout_constraintStart_toStartOf="@+id/btProductStatus_ProductManagement"
-        app:layout_constraintTop_toTopOf="@+id/etPriceL_ProductManagement"
-        app:srcCompat="@drawable/product_m" />
+        <ImageView
+            android:id="@+id/ivPriceM_ProductManagement"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etPriceL_ProductManagement"
+            app:layout_constraintStart_toStartOf="@+id/btProductStatus_ProductManagement"
+            app:layout_constraintTop_toTopOf="@+id/etPriceL_ProductManagement"
+            app:srcCompat="@drawable/product_m" />
 
-    <ImageView
-        android:id="@+id/ivPriceL_ProductManagement"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/btUpdate_ProductManagement"
-        app:layout_constraintTop_toBottomOf="@+id/spProductKind_ProductManagement"
-        app:srcCompat="@drawable/product_l" />
+        <ImageView
+            android:id="@+id/ivPriceL_ProductManagement"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/btUpdate_ProductManagement"
+            app:layout_constraintTop_toBottomOf="@+id/spProductKind_ProductManagement"
+            app:srcCompat="@drawable/product_l" />
 
-    <Spinner
-        android:id="@+id/spProductKind_ProductManagement"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivProduct_ProductManagement" />
+        <Spinner
+            android:id="@+id/spProductKind_ProductManagement"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivProduct_ProductManagement" />
 
-    <TextView
-        android:id="@+id/tvProductStatus_ProductManagement"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="商品狀態"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/etPriceL_ProductManagement"
-        app:layout_constraintStart_toStartOf="@+id/ivPriceL_ProductManagement"
-        app:layout_constraintTop_toBottomOf="@+id/ivPriceL_ProductManagement" />
+        <TextView
+            android:id="@+id/tvProductStatus_ProductManagement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="商品狀態"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/etPriceL_ProductManagement"
+            app:layout_constraintStart_toStartOf="@+id/ivPriceL_ProductManagement"
+            app:layout_constraintTop_toBottomOf="@+id/ivPriceL_ProductManagement" />
 
-    <TextView
-        android:id="@+id/tvTimeEdit_ProductManagement"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="最後修改時間"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvProductStatus_ProductManagement"
-        app:layout_constraintEnd_toEndOf="@+id/etPriceM_ProductManagement"
-        app:layout_constraintStart_toStartOf="@+id/ivPriceM_ProductManagement"
-        app:layout_constraintTop_toTopOf="@+id/tvProductStatus_ProductManagement" />
+        <TextView
+            android:id="@+id/tvTimeEdit_ProductManagement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="最後修改時間"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvProductStatus_ProductManagement"
+            app:layout_constraintEnd_toEndOf="@+id/etPriceM_ProductManagement"
+            app:layout_constraintStart_toStartOf="@+id/ivPriceM_ProductManagement"
+            app:layout_constraintTop_toTopOf="@+id/tvProductStatus_ProductManagement" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

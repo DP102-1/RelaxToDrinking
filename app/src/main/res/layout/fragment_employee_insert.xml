@@ -15,9 +15,10 @@
 
         <Button
             android:id="@+id/btSubmit_EmployeeInsert"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
             android:text="確定新增"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -169,13 +170,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="男" />
+                android:text="男"
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/rbFemale_EmployeeInsert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="女" />
+                android:text="女"
+                android:textSize="18sp" />
         </RadioGroup>
 
         <TextView

@@ -69,7 +69,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/index_button"
         android:drawableLeft="@android:drawable/arrow_down_float"
-        android:drawablePadding="10dp"
+        android:drawablePadding="8dp"
         android:text="用姓名搜尋"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,7 +6,9 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,7 +45,7 @@ public class OrderDetailFragment extends Fragment {
     private FirebaseStorage storage;
 
     private RecyclerView rvOrderDetailList_OrderDetail;
-    private TextView tvOrderDate_OrderDetail, tvOrderTakeMeal_OrderDetail, tvOrderStatus_OrderDetail, tvOrderUserName_OrderDetail, tvOrderUserPhone_OrderDetail, tvOrderUserAddress_OrderDetail, tvOrderTakeMealTime_OrderDetail, tvOrderTotalPrice_OrderDetail, tvOrderEmployeeName_OrderDetail,tvProductQuantity_OrderDetail;
+    private TextView tvOrderDate_OrderDetail, tvOrderTakeMeal_OrderDetail, tvOrderStatus_OrderDetail, tvOrderUserName_OrderDetail, tvOrderUserPhone_OrderDetail, tvOrderUserAddress_OrderDetail, tvOrderTakeMealTime_OrderDetail, tvOrderTotalPrice_OrderDetail, tvOrderEmployeeName_OrderDetail, tvProductQuantity_OrderDetail;
     private ImageView ivExit_OrderDetail;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
@@ -117,9 +120,24 @@ public class OrderDetailFragment extends Fragment {
                 tvOrderUserPhone_OrderDetail.setText(order.getUser_phone());
                 tvOrderUserAddress_OrderDetail.setText(order.getUser_address());
                 tvOrderTakeMealTime_OrderDetail.setText(sdf.format(order.getOrder_take_meal_time()));
-                tvOrderTotalPrice_OrderDetail.setText("$NT " + String.valueOf(order.getOrder_price()));
-                tvOrderEmployeeName_OrderDetail.setText(order.getEmp_id());
+                tvOrderTotalPrice_OrderDetail.setText("$NT " + order.getOrder_price());
+                if (order_status == 1) {
+                    tvOrderEmployeeName_OrderDetail.setText("無");
+                } else {
+                    db.collection("Employee").document(order.getEmp_id()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Employee employee = documentSnapshot.toObject(Employee.class);
+                            if (employee != null) {
+                                tvOrderEmployeeName_OrderDetail.setText(employee.getEmp_name());
+                            } else {
+                                Log.e(TAG, "找不到員工ID對應姓名");
+                            }
+                        }
+                    });
+                }
             }
+
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
@@ -182,7 +200,9 @@ public class OrderDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull OrderDetailFragment.OrderItemAdapter.MyViewHolder holder, int position) {
             final OrderItem orderItem = orderItems.get(position);
-
+            if (position % 2 == 0) {
+                holder.itemView.setBackgroundColor(Color.parseColor("#FFE4C9"));
+            }
             int proPrice = (orderItem.getPro_capacity().equals("M")) ? orderItem.getPro_price_M() : orderItem.getPro_price_L();
             int proQuantity = orderItem.getPro_quantity();
             int proTotal = proPrice * proQuantity;
@@ -207,7 +227,7 @@ public class OrderDetailFragment extends Fragment {
                 orderItems = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     orderItems.add(snapshot.toObject(OrderItem.class));
-                    tvProductQuantity_OrderDetail.setText("共 "+String.valueOf(orderItems.size())+" 項商品");
+                    tvProductQuantity_OrderDetail.setText("共 " + String.valueOf(orderItems.size()) + " 項商品");
                 }
                 rvOrderDetailList_OrderDetail.setAdapter(new OrderDetailFragment.OrderItemAdapter(activity, orderItems));
             }

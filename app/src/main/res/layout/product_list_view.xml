@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/tvProductName_ProductList"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
@@ -57,8 +57,8 @@
         android:id="@+id/ivProductM_ProductList"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/tvProductName_ProductList"
         app:layout_constraintTop_toTopOf="parent"

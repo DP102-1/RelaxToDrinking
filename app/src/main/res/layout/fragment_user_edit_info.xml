@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".user.UserEditInfoFragment" >
+    tools:context=".UserEditInfoFragment" >
 
     <TextView
         android:id="@+id/tvErrorAddress_UserEditInfo"
@@ -115,6 +115,9 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/kind_button"
         android:text="確定修改"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAddress_UserEditInfo" />

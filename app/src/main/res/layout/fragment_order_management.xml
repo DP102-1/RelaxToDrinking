@@ -11,26 +11,13 @@
         android:id="@+id/btOrderHistory_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/index_button"
         android:text="歷史訂單查詢"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate_OrderManagement"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderManagement" />
-
-    <Button
-        android:id="@+id/btRevenue_OrderManagement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/index_button"
-        android:text="今日營收瀏覽"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/btOrderHistory_OrderManagement"
-        app:layout_constraintTop_toBottomOf="@+id/btOrderHistory_OrderManagement" />
+        app:layout_constraintTop_toTopOf="@+id/tvOrderDate_OrderManagement" />
 
     <ImageView
         android:id="@+id/ivBack_OrderManagement"
@@ -68,15 +55,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderManagement" />
 
     <TextView
-        android:id="@+id/tvFinish_OrderManagement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="今日已完成訂單數"
-        app:layout_constraintStart_toStartOf="@+id/tvNotFinish_OrderManagement"
-        app:layout_constraintTop_toBottomOf="@+id/tvNotFinish_OrderManagement" />
-
-    <TextView
         android:id="@+id/tvNotFinish_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,17 +85,6 @@
         app:layout_constraintTop_toTopOf="@+id/tvNotFinish_OrderManagement"
         tools:text="0" />
 
-    <TextView
-        android:id="@+id/tvOrderFinish_OrderManagement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvFinish_OrderManagement"
-        app:layout_constraintStart_toEndOf="@+id/tvFinish_OrderManagement"
-        app:layout_constraintTop_toTopOf="@+id/tvFinish_OrderManagement"
-        tools:text="0" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderList_OrderManagement"
         android:layout_width="0dp"
@@ -131,6 +98,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFinish_OrderManagement" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNotFinish_OrderManagement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

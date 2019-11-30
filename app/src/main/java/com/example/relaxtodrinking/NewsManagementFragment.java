@@ -69,7 +69,7 @@ public class NewsManagementFragment extends Fragment {
     private Button btInsert_NewsManagement,btEdit_NewsManagement,btSend_NewsManagement;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月d日 HH點mm分", Locale.CHINESE);
-    private SimpleDateFormat sdf_list = new SimpleDateFormat("yyyy年MM月d日", Locale.CHINESE);
+    private SimpleDateFormat sdf_list = new SimpleDateFormat("yyyy/MM/d", Locale.CHINESE);
     private List<News> newses;
     private String news_id;
     private String news_date;
@@ -158,7 +158,7 @@ public class NewsManagementFragment extends Fragment {
                 }
 
                 Intent intent = new Intent(activity, NewsListFragment.class);
-                Bitmap icon = BitmapFactory.decodeResource(view.getResources(),R.drawable.add_drink);
+                Bitmap icon = BitmapFactory.decodeResource(view.getResources(),R.drawable.app_logo);
                 Bitmap largeIcon = ((BitmapDrawable)ivNewsPicture_NewsManagement.getDrawable()).getBitmap();
                 NotificationCompat.BigPictureStyle bitStyle = new NotificationCompat.BigPictureStyle();
                 bitStyle.bigPicture(largeIcon);

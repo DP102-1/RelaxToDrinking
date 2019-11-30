@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="#D8FFFF"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvOrderStatus_OrderManagement"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:textColor="#000000"
+        android:textStyle="bold"
         android:text="訂單狀態"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/tvOrderNumber_OrderManagement"
@@ -23,6 +32,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:textColor="#000000"
+        android:textStyle="bold"
         android:text="訂單時間"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,6 +46,7 @@
         android:text="客戶電話"
         android:textColor="#F44336"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvUserName_OrderManagement"
         app:layout_constraintStart_toEndOf="@+id/tvUserName_OrderManagement"
         app:layout_constraintTop_toTopOf="@+id/tvUserName_OrderManagement" />
@@ -48,6 +59,7 @@
         android:textColor="#000000"
         android:text="客戶姓名"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvOrderNumber_OrderManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber_OrderManagement" />
 
@@ -61,6 +73,7 @@
         android:textColor="#000000"
         android:text="訂單編號"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,6 +88,7 @@
         android:textColor="#000000"
         android:text="客戶地址"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/tvOrderDate_OrderManagement"
         app:layout_constraintStart_toStartOf="@+id/tvUserName_OrderManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvUserName_OrderManagement" />
@@ -88,10 +102,13 @@
         android:textColor="#000000"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:background="@drawable/kind_button"
+        android:background="@drawable/index_button"
         android:text="接收\n訂單"
         app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate_OrderManagement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvOrderNumber_OrderManagement" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
