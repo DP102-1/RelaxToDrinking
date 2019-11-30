@@ -5,7 +5,8 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserEditInfoFragment" >
+    android:background="@drawable/background"
+    tools:context=".user.UserEditInfoFragment" >
 
     <TextView
         android:id="@+id/tvErrorAddress_UserEditInfo"
@@ -42,10 +43,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="修改個人資料"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBack_UserEditInfo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -67,6 +70,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_UserEditInfo"
         tools:text="電子郵件" />
@@ -76,6 +80,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="地址"
         app:layout_constraintStart_toStartOf="@+id/etPhone_UserEditInfo"
         app:layout_constraintTop_toBottomOf="@+id/etPhone_UserEditInfo" />
@@ -85,6 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="姓名"
         app:layout_constraintStart_toStartOf="@+id/tvEmail_UserEditInfo"
         app:layout_constraintTop_toBottomOf="@+id/tvEmail_UserEditInfo" />
@@ -94,15 +102,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="手機號碼"
         app:layout_constraintStart_toStartOf="@+id/etName_UserEditInfo"
         app:layout_constraintTop_toBottomOf="@+id/etName_UserEditInfo" />
 
     <Button
         android:id="@+id/btSubmit_UserEditInfo"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:background="@drawable/kind_button"
         android:text="確定修改"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

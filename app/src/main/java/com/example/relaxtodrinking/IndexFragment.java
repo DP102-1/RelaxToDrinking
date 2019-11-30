@@ -1,6 +1,6 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
-//首頁最新消息輪播
+//首頁最新消息輪播紅點
 /***************************************************************/
 
 import android.app.Activity;
@@ -57,6 +57,7 @@ public class IndexFragment extends Fragment {
     private String user_id = "";
     private String order_id = "無訂單";
     private List<News> newses;
+    private ScheduledExecutorService scheduledExecutorService;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     @Override
@@ -112,7 +113,7 @@ public class IndexFragment extends Fragment {
         }else{
             user_id = "";
         }
-        Log.e(TAG,user_id);
+        Log.e(TAG,"user_id"+user_id);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
@@ -120,15 +121,16 @@ public class IndexFragment extends Fragment {
         rvNewsList_Index = view.findViewById(R.id.rvNewsList_Index);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvNewsList_Index.setLayoutManager(new LinearLayoutManager(activity));
+        rvNewsList_Index.setLayoutManager(linearLayoutManager);
         rvNewsList_Index.setHasFixedSize(true);
         showNewsAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入最新消息＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝輪播設定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rvNewsList_Index);
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService = Executors.newScheduledThreadPool(1);
         scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -216,7 +218,7 @@ public class IndexFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return newses.size();
+            return Integer.MAX_VALUE;
         }
 
         private class MyViewHolder extends RecyclerView.ViewHolder {
@@ -244,10 +246,15 @@ public class IndexFragment extends Fragment {
             if (news.getNews_picture() == null) { //抓消息圖片
                 holder.ivNewsPicture_NewsList.setImageResource(R.drawable.no_image);
             } else {
-                showImage(holder.ivNewsPicture_NewsList, news.getNews_picture());
+                   showImage(holder.ivNewsPicture_NewsList, news.getNews_picture());
             }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsListFragment);
+                }
+            });
         }
-
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝最新消息內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
@@ -291,4 +298,13 @@ public class IndexFragment extends Fragment {
                 });
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝離開頁面停止輪播＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    @Override
+    public void onStop() {
+        super.onStop();
+        scheduledExecutorService.shutdown();
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝離開頁面停止輪播＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 }

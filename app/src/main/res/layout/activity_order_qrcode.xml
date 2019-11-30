@@ -28,4 +28,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/exit" />
+
+    <TextView
+        android:id="@+id/tvTitle_OrderQRcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="訂單QRcode"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/ivOrderQRCode_OrderQRcode"
+        app:layout_constraintEnd_toStartOf="@+id/ivExit_OrderQRcode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

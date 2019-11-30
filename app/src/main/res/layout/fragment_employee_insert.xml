@@ -7,263 +7,267 @@
     android:layout_height="match_parent">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".EmployeeInsertFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        tools:context=".admin.EmployeeInsertFragment">
 
-    <EditText
-        android:id="@+id/etPhone_EmployeeInsert"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="請輸入電話"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/ivPhone_EmployeeInsert"
-        app:layout_constraintStart_toStartOf="@+id/rgSex_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/rgSex_EmployeeInsert" />
-
-    <TextView
-        android:id="@+id/tvDataTitle_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="64dp"
-        android:text="員工基本資料"
-        android:textColor="#F44336"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword_EmployeeInsert" />
-
-    <EditText
-        android:id="@+id/etName_EmployeeInsert"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="請輸入姓名"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/ivName_EmployeeInsert"
-        app:layout_constraintStart_toStartOf="@+id/tvDataTitle_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/tvDataTitle_EmployeeInsert" />
-
-    <EditText
-        android:id="@+id/etAddress_EmployeeInsert"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="請輸入地址"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toStartOf="@+id/ivAddress_EmployeeInsert"
-        app:layout_constraintStart_toStartOf="@+id/etPhone_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etPhone_EmployeeInsert" />
-
-    <RadioGroup
-        android:id="@+id/rgSex_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/etName_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etName_EmployeeInsert">
-
-        <RadioButton
-            android:id="@+id/rbMale_EmployeeInsert"
+        <Button
+            android:id="@+id/btSubmit_EmployeeInsert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="男" />
+            android:layout_marginTop="32dp"
+            android:text="確定新增"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAddress_EmployeeInsert" />
 
-        <RadioButton
-            android:id="@+id/rbFemale_EmployeeInsert"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/etPhone_EmployeeInsert"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="女" />
-    </RadioGroup>
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="請輸入電話"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toStartOf="@+id/ivPhone_EmployeeInsert"
+            app:layout_constraintStart_toStartOf="@+id/rgSex_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/rgSex_EmployeeInsert" />
 
-    <EditText
-        android:id="@+id/etEmail_EmployeeInsert"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="請輸入信箱"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toStartOf="@+id/ivEmail_EmployeeInsert"
-        app:layout_constraintStart_toStartOf="@+id/tvAdminTitle_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/tvAdminTitle_EmployeeInsert" />
+        <EditText
+            android:id="@+id/etName_EmployeeInsert"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="請輸入姓名"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toStartOf="@+id/ivName_EmployeeInsert"
+            app:layout_constraintStart_toStartOf="@+id/tvDataTitle_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/tvDataTitle_EmployeeInsert" />
 
-    <EditText
-        android:id="@+id/etPassword_EmployeeInsert"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="請輸入密碼"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toStartOf="@+id/ivPassword_EmployeeInsert"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/etEmail_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail_EmployeeInsert" />
+        <EditText
+            android:id="@+id/etAddress_EmployeeInsert"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="請輸入地址"
+            android:inputType="textPostalAddress"
+            app:layout_constraintEnd_toStartOf="@+id/ivAddress_EmployeeInsert"
+            app:layout_constraintStart_toStartOf="@+id/etPhone_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etPhone_EmployeeInsert" />
 
-    <TextView
-        android:id="@+id/tvAdminTitle_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="64dp"
-        android:text="員工帳號密碼"
-        android:textColor="#F44336"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle_EmployeeInsert" />
+        <EditText
+            android:id="@+id/etEmail_EmployeeInsert"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="請輸入信箱"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toStartOf="@+id/ivEmail_EmployeeInsert"
+            app:layout_constraintStart_toStartOf="@+id/tvAdminTitle_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/tvAdminTitle_EmployeeInsert" />
 
-    <ImageView
-        android:id="@+id/ivExit_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/exit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/etPassword_EmployeeInsert"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="請輸入密碼"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toStartOf="@+id/ivPassword_EmployeeInsert"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/etEmail_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail_EmployeeInsert" />
 
-    <TextView
-        android:id="@+id/tvTitle_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="員工新增"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/ivExit_EmployeeInsert"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ivExit_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/exit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btSubmit_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="確定新增"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddress_EmployeeInsert" />
+        <ImageView
+            android:id="@+id/ivEmail_EmployeeInsert"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etEmail_EmployeeInsert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etEmail_EmployeeInsert" />
 
-    <ImageView
-        android:id="@+id/ivEmail_EmployeeInsert"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/format_error_hint"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/etEmail_EmployeeInsert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etEmail_EmployeeInsert" />
+        <ImageView
+            android:id="@+id/ivPassword_EmployeeInsert"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etPassword_EmployeeInsert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etPassword_EmployeeInsert" />
 
-    <ImageView
-        android:id="@+id/ivPassword_EmployeeInsert"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/format_error_hint"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/etPassword_EmployeeInsert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etPassword_EmployeeInsert" />
+        <ImageView
+            android:id="@+id/ivName_EmployeeInsert"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etName_EmployeeInsert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etName_EmployeeInsert" />
 
-    <ImageView
-        android:id="@+id/ivName_EmployeeInsert"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/format_error_hint"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/etName_EmployeeInsert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etName_EmployeeInsert" />
+        <ImageView
+            android:id="@+id/ivPhone_EmployeeInsert"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etPhone_EmployeeInsert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etPhone_EmployeeInsert" />
 
-    <ImageView
-        android:id="@+id/ivPhone_EmployeeInsert"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/format_error_hint"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/etPhone_EmployeeInsert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etPhone_EmployeeInsert" />
+        <ImageView
+            android:id="@+id/ivAddress_EmployeeInsert"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/format_error_hint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/etAddress_EmployeeInsert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etAddress_EmployeeInsert" />
 
-    <ImageView
-        android:id="@+id/ivAddress_EmployeeInsert"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/format_error_hint"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/etAddress_EmployeeInsert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etAddress_EmployeeInsert" />
+        <RadioGroup
+            android:id="@+id/rgSex_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/etName_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etName_EmployeeInsert">
 
-    <TextView
-        android:id="@+id/tvErrorEmail_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="信箱尚未輸入"
-        android:textColor="#E91E63"
-        app:layout_constraintStart_toStartOf="@+id/etEmail_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail_EmployeeInsert"
-        android:visibility="gone" />
+            <RadioButton
+                android:id="@+id/rbMale_EmployeeInsert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="男" />
 
-    <TextView
-        android:id="@+id/tvErrorPassword_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="密碼尚未輸入"
-        android:textColor="#E91E63"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/etPassword_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword_EmployeeInsert" />
+            <RadioButton
+                android:id="@+id/rbFemale_EmployeeInsert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="女" />
+        </RadioGroup>
 
-    <TextView
-        android:id="@+id/tvErrorName_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="姓名尚未輸入"
-        android:textColor="#E91E63"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/etName_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etName_EmployeeInsert" />
+        <TextView
+            android:id="@+id/tvDataTitle_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="64dp"
+            android:textStyle="bold"
+            android:text="員工基本資料"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword_EmployeeInsert" />
 
-    <TextView
-        android:id="@+id/tvErrorPhone_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="電話尚未輸入"
-        android:textColor="#E91E63"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/etPhone_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etPhone_EmployeeInsert" />
+        <TextView
+            android:id="@+id/tvAdminTitle_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="64dp"
+            android:textStyle="bold"
+            android:text="員工帳號密碼"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle_EmployeeInsert" />
 
-    <TextView
-        android:id="@+id/tvErrorAddress_EmployeeInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="地址尚未輸入"
-        android:textColor="#E91E63"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/etAddress_EmployeeInsert"
-        app:layout_constraintTop_toBottomOf="@+id/etAddress_EmployeeInsert" />
+        <TextView
+            android:id="@+id/tvTitle_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:text="員工新增"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvErrorEmail_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="信箱尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etEmail_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail_EmployeeInsert" />
+
+        <TextView
+            android:id="@+id/tvErrorPassword_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密碼尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etPassword_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword_EmployeeInsert" />
+
+        <TextView
+            android:id="@+id/tvErrorName_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etName_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etName_EmployeeInsert" />
+
+        <TextView
+            android:id="@+id/tvErrorPhone_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="電話尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etPhone_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etPhone_EmployeeInsert" />
+
+        <TextView
+            android:id="@+id/tvErrorAddress_EmployeeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址尚未輸入"
+            android:textColor="#E91E63"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/etAddress_EmployeeInsert"
+            app:layout_constraintTop_toBottomOf="@+id/etAddress_EmployeeInsert" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

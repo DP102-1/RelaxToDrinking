@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background"
     android:layout_height="match_parent"
     tools:context=".UserLoginFragment" >
 
@@ -11,9 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="會員登入"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/ivExit_UserLogin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,9 +57,10 @@
 
     <Button
         android:id="@+id/btSubmit_UserLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:background="@drawable/kind_button"
         android:text="登入"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +73,8 @@
         android:layout_marginStart="150dp"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="32dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="註冊"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btSubmit_UserLogin" />
@@ -79,6 +85,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         android:text="忘記密碼"
         app:layout_constraintBottom_toBottomOf="@+id/tvSignIn_UserLogin"
         app:layout_constraintStart_toEndOf="@+id/tvSignIn_UserLogin"
@@ -91,6 +99,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
+        android:textStyle="bold"
         android:text="帳號(E-mail)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivLogo_UserLogin" />
@@ -100,6 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:textStyle="bold"
         android:text="密碼"
         app:layout_constraintStart_toStartOf="@+id/etAccount_UserLogin"
         app:layout_constraintTop_toBottomOf="@+id/etAccount_UserLogin" />
