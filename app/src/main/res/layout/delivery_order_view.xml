@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btQRCode_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="掃描QRCode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btOrderAddress_DeliveryOrder"
+        app:layout_constraintTop_toBottomOf="@+id/btOrderAddress_DeliveryOrder" />
+
+    <TextView
+        android:id="@+id/tvTakeMealTime_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="預計取餐時間"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btOrderDetail_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="訂單詳情"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvName_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/tvTakeMealTime_DeliveryOrder"
+        app:layout_constraintTop_toBottomOf="@+id/tvTakeMealTime_DeliveryOrder"
+        tools:text="姓名" />
+
+    <TextView
+        android:id="@+id/tvPhone_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName_DeliveryOrder"
+        app:layout_constraintStart_toEndOf="@+id/tvName_DeliveryOrder"
+        app:layout_constraintTop_toTopOf="@+id/tvName_DeliveryOrder"
+        tools:text="電話" />
+
+    <TextView
+        android:id="@+id/tvAddress_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/tvName_DeliveryOrder"
+        app:layout_constraintTop_toBottomOf="@+id/tvName_DeliveryOrder"
+        tools:text="地址" />
+
+    <TextView
+        android:id="@+id/tvOrderTime_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTakeMealTime_DeliveryOrder"
+        app:layout_constraintStart_toEndOf="@+id/tvTakeMealTime_DeliveryOrder"
+        app:layout_constraintTop_toTopOf="@+id/tvTakeMealTime_DeliveryOrder"
+        tools:text="時間" />
+
+    <Button
+        android:id="@+id/btOrderAddress_DeliveryOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="查看位置"
+        app:layout_constraintEnd_toEndOf="@+id/btOrderDetail_DeliveryOrder"
+        app:layout_constraintTop_toBottomOf="@+id/btOrderDetail_DeliveryOrder" />
+</androidx.constraintlayout.widget.ConstraintLayout>

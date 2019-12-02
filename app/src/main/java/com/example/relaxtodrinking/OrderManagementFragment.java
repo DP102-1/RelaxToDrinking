@@ -82,7 +82,7 @@ public class OrderManagementFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝取得今天日期＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         today = sdf_date.format(new Date());
         tvOrderDate_OrderManagement = view.findViewById(R.id.tvOrderDate_OrderManagement);
-        tvOrderDate_OrderManagement.setText(today);
+        tvOrderDate_OrderManagement.setText(sdf.format(new Date()));
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝取得今天日期＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

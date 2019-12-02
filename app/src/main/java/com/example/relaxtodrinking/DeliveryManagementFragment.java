@@ -63,6 +63,9 @@ public class DeliveryManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final Bundle bundle = new Bundle();
+        bundle.putString("emp_id",emp_id);
+        bundle.putString("action","外送員");
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入今日資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         etName_DeliveryManagement = view.findViewById(R.id.etName_DeliveryManagement);
         etTime_DeliveryManagement = view.findViewById(R.id.etTime_DeliveryManagement);
@@ -87,7 +90,7 @@ public class DeliveryManagementFragment extends Fragment {
         btOrderManagement_DeliveryManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_deliveryPositionFragment_to_deliveryManagementFragment);
+                Navigation.findNavController(view).navigate(R.id.action_deliveryPositionFragment_to_deliveryManagementFragment,bundle);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊訂單管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -98,9 +101,6 @@ public class DeliveryManagementFragment extends Fragment {
         btDeliveryPosition_DeliveryManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("emp_id",emp_id);
-                bundle.putString("action","外送員");
                 Navigation.findNavController(view).navigate(R.id.action_deliveryManagementFragment_to_deliveryOrderFragment,bundle);
             }
         });
