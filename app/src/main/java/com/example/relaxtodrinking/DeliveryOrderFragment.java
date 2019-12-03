@@ -1,12 +1,17 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
-//
+//導航中文化
+//起始位置定位
 /***************************************************************/
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +37,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -126,8 +132,8 @@ public class DeliveryOrderFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //設定格式
-                btNotFinish_DeliveryOrder.setBackgroundResource(R.drawable.kind_button);
-                btFinish_DeliveryOrder.setBackgroundResource(R.drawable.index_button);
+                btNotFinish_DeliveryOrder.setBackgroundResource(R.drawable.index_button);
+                btFinish_DeliveryOrder.setBackgroundResource(R.drawable.kind_button);
                 isOrderShowNotFinish = false;
                 //設定格式
                 showOrderFinishAll();
@@ -204,7 +210,9 @@ public class DeliveryOrderFragment extends Fragment {
             holder.tvName_DeliveryOrder.setText(order.getUser_name());
             holder.tvPhone_DeliveryOrder.setText(order.getUser_phone());
             holder.tvAddress_DeliveryOrder.setText(order.getUser_address());
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.btOrderDetail_DeliveryOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -213,19 +221,49 @@ public class DeliveryOrderFragment extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_deliveryOrderFragment_to_orderDetailFragment,bundle);
                 }
             });
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳情＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看訂單位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.btOrderAddress_DeliveryOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    /*************************/
+                    String startPoint = "台北市萬華區西園路一段306巷24號";  //你的位置
+                    /***********************/
+                    String endPoint = order.getUser_address();
+                    if (startPoint.isEmpty() || endPoint.isEmpty()) {
+                        Common.showToast(activity,"訂單地址為空");
+                        return;
+                    }
+                    Address addressStartPoint = getAddress(startPoint);
+                    Address addressEndPoint = getAddress(endPoint);
+                    boolean notFound = false;
+                    // 檢查是否可將起點、目的地轉成address
+                    if (addressStartPoint == null) {
+                        Common.showToast(activity,"找不到定位位置");
+                        notFound = true;
+                    }
+                    if (addressEndPoint == null) {
+                        Common.showToast(activity,"找不到該訂單地址");
+                        notFound = true;
+                    }
+                    if (notFound) {
+                        return;
+                    }
 
+                    double fromLat = addressStartPoint.getLatitude();
+                    double fromLng = addressStartPoint.getLongitude();
+                    double toLat = addressEndPoint.getLatitude();
+                    double toLng = addressEndPoint.getLongitude();
+
+                    direct(fromLat, fromLng, toLat, toLng);
                 }
             });
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看訂單位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝開啟QRCODE掃描＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊開啟QRCODE掃描＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.btQRCode_DeliveryOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -248,22 +286,41 @@ public class DeliveryOrderFragment extends Fragment {
                     integrator.initiateScan();
                 }
             });
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝開啟QRCODE掃描＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
-
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳細資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Bundle Orderbundle = new Bundle();
-                    Orderbundle.putString("order_id", order.getOrder_id());
-                    Navigation.findNavController(view).navigate(R.id.action_orderManagementFragment_to_orderDetailFragment, Orderbundle);
-                }
-            });
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單詳細資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊開啟QRCODE掃描＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝訂單列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝取得地址並開啟導航＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private Address getAddress(String locationName) {
+        Geocoder geocoder = new Geocoder(activity);
+        List<Address> addressList = null;
+        try {
+            addressList = geocoder.getFromLocationName(locationName, 1);
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
+        }
+        if (addressList == null || addressList.isEmpty()) {
+            return null;
+        } else {
+            return addressList.get(0);
+        }
+    }
+
+
+    private void direct(double fromLat, double fromLng, double toLat,
+                        double toLng) {
+        String uriStr = String.format(Locale.CHINESE,
+                "https://www.google.com/maps/dir/?api=1" +
+                        "&origin=%f,%f&destination=%f,%f&travelmode=driving&language=zh-TW",
+                fromLat, fromLng, toLat, toLng);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uriStr));
+        intent.setClassName("com.google.android.apps.maps",
+                "com.google.android.maps.MapsActivity");
+        startActivity(intent);
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝取得地址並開啟導航＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝掃描QRCode回傳的結果＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

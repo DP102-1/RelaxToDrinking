@@ -99,9 +99,9 @@ public class IndexFragment extends Fragment {
                             }else if (employee.getEmp_permission() == 1)
                             {
                                 Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_managementListFragment);
-                            }else
+                            }else if (employee.getEmp_permission() == 2)
                             {
-                                Navigation.findNavController(view).navigate(R.id.action_userLoginFragment_to_deliveryManagementFragment);
+                                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_deliveryManagementFragment);
                             }
                         }
                     } else {

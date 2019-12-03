@@ -141,8 +141,11 @@ public class DeliveryPositionFragment extends Fragment {
         if (bundle != null) {
             action = bundle.getString("action");
             emp_id = bundle.getString("emp_id");
-        }
+        }else
+        {
+            Log.e(TAG,"失敗");
 
+        }
         mvDeliveryPosition_DeliveryPosition.onStart();
         askAccessLocationPermission();
         if (fusedLocationClient == null) {
@@ -189,9 +192,13 @@ public class DeliveryPositionFragment extends Fragment {
                 Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             mapDeliveryPosition_DeliveryPosition.setMyLocationEnabled(true);
+        }else{
+            Log.e(TAG,"showMyLocation失敗");
+
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料庫儲存外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void updateLastLocationInfo(Location lastLocation) {
@@ -210,7 +217,7 @@ public class DeliveryPositionFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料庫儲存外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝移動到地圖上的店家位置並圖釘＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝移動到地圖上的外送員位置並圖釘＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void addMarker(LatLng latLng) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
         Address address = reverseGeocode(latLng.latitude, latLng.longitude);

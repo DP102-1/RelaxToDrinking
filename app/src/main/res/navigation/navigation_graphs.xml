@@ -289,15 +289,15 @@
         <action
             android:id="@+id/action_deliveryManagementFragment_to_deliveryOrderFragment"
             app:destination="@id/deliveryOrderFragment" />
+        <action
+            android:id="@+id/action_deliveryManagementFragment_to_deliveryPositionFragment"
+            app:destination="@id/deliveryPositionFragment" />
     </fragment>
     <fragment
         android:id="@+id/deliveryOrderFragment"
         android:name="com.example.relaxtodrinking.DeliveryOrderFragment"
         android:label="fragment_delivery_order"
         tools:layout="@layout/fragment_delivery_order" >
-        <action
-            android:id="@+id/action_deliveryOrderFragment_to_deliveryAddressFragment"
-            app:destination="@id/deliveryAddressFragment" />
         <action
             android:id="@+id/action_deliveryOrderFragment_to_orderDetailFragment"
             app:destination="@id/orderDetailFragment" />
@@ -306,14 +306,5 @@
         android:id="@+id/deliveryPositionFragment"
         android:name="com.example.relaxtodrinking.DeliveryPositionFragment"
         android:label="fragment_delivery_position"
-        tools:layout="@layout/fragment_delivery_position" >
-        <action
-            android:id="@+id/action_deliveryPositionFragment_to_deliveryManagementFragment"
-            app:destination="@id/deliveryManagementFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/deliveryAddressFragment"
-        android:name="com.example.relaxtodrinking.DeliveryAddressFragment"
-        android:label="fragment_delivery_address"
-        tools:layout="@layout/fragment_delivery_address" />
+        tools:layout="@layout/fragment_delivery_position" />
 </navigation>
