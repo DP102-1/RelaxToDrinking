@@ -67,6 +67,10 @@ public class OrderDetailFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             order_id = bundle.getString("order_id");
+            Log.e(TAG,order_id);
+
+        }else{
+            Log.e(TAG,"沒訂單id");
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋訂單資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -81,8 +85,6 @@ public class OrderDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        loadOrderData();
         tvOrderDate_OrderDetail = view.findViewById(R.id.tvOrderDate_OrderDetail);
         tvOrderTakeMeal_OrderDetail = view.findViewById(R.id.tvOrderTakeMeal_OrderDetail);
         tvOrderStatus_OrderDetail = view.findViewById(R.id.tvOrderStatus_OrderDetail);
@@ -93,7 +95,8 @@ public class OrderDetailFragment extends Fragment {
         tvOrderTotalPrice_OrderDetail = view.findViewById(R.id.tvOrderTotalPrice_OrderDetail);
         tvOrderEmployeeName_OrderDetail = view.findViewById(R.id.tvOrderEmployeeName_OrderDetail);
         tvProductQuantity_OrderDetail = view.findViewById(R.id.tvProductQuantity_OrderDetail);
-
+        loadOrderData();
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入訂單資訊＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         order = new Order();
         db.collection("Order").document(order_id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override

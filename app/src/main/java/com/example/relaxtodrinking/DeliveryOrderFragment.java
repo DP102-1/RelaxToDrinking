@@ -347,6 +347,7 @@ public class DeliveryOrderFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示未完成的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderNotFinishAll() { //該外送員 今天 狀態為2的訂單
+        Log.e(TAG,emp_id);
         db.collection("Order").whereEqualTo("emp_id",emp_id).whereEqualTo("order_status", 2).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -360,6 +361,7 @@ public class DeliveryOrderFragment extends Fragment {
                         orders.remove(i);
                     }
                 }
+                Log.e(TAG,"有"+orders.size());
                 rvDeliveryOrder_DeliveryOrder.setAdapter(new DeliveryOrderFragment.OrderAdapter(activity, orders));
             }
         });
@@ -369,6 +371,7 @@ public class DeliveryOrderFragment extends Fragment {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示已完成的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderFinishAll() { //該外送員 今天 狀態為0的訂單
+        Log.e(TAG,emp_id);
         db.collection("Order").whereEqualTo("emp_id",emp_id).whereEqualTo("order_status", 0).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -382,6 +385,7 @@ public class DeliveryOrderFragment extends Fragment {
                         orders.remove(i);
                     }
                 }
+                Log.e(TAG,"有"+orders.size());
                 rvDeliveryOrder_DeliveryOrder.setAdapter(new DeliveryOrderFragment.OrderAdapter(activity, orders));
             }
         });
