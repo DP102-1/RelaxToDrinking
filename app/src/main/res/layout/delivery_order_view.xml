@@ -8,52 +8,70 @@
 
     <Button
         android:id="@+id/btQRCode_DeliveryOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/index_button"
         android:text="掃描QRCode"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btOrderAddress_DeliveryOrder"
+        app:layout_constraintStart_toStartOf="@+id/btOrderAddress_DeliveryOrder"
         app:layout_constraintTop_toBottomOf="@+id/btOrderAddress_DeliveryOrder" />
 
     <TextView
         android:id="@+id/tvTakeMealTime_DeliveryOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="預計取餐時間"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btOrderDetail_DeliveryOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/index_button"
         android:text="訂單詳情"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvName_DeliveryOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvTakeMealTime_DeliveryOrder"
         app:layout_constraintTop_toBottomOf="@+id/tvTakeMealTime_DeliveryOrder"
         tools:text="姓名" />
 
     <TextView
         android:id="@+id/tvPhone_DeliveryOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvName_DeliveryOrder"
         app:layout_constraintStart_toEndOf="@+id/tvName_DeliveryOrder"
         app:layout_constraintTop_toTopOf="@+id/tvName_DeliveryOrder"
@@ -61,19 +79,25 @@
 
     <TextView
         android:id="@+id/tvAddress_DeliveryOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvName_DeliveryOrder"
         app:layout_constraintTop_toBottomOf="@+id/tvName_DeliveryOrder"
         tools:text="地址" />
 
     <TextView
         android:id="@+id/tvOrderTime_DeliveryOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvTakeMealTime_DeliveryOrder"
         app:layout_constraintStart_toEndOf="@+id/tvTakeMealTime_DeliveryOrder"
         app:layout_constraintTop_toTopOf="@+id/tvTakeMealTime_DeliveryOrder"
@@ -81,10 +105,15 @@
 
     <Button
         android:id="@+id/btOrderAddress_DeliveryOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@drawable/index_button"
         android:text="查看位置"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/btOrderDetail_DeliveryOrder"
+        app:layout_constraintStart_toStartOf="@+id/btOrderDetail_DeliveryOrder"
         app:layout_constraintTop_toBottomOf="@+id/btOrderDetail_DeliveryOrder" />
 </androidx.constraintlayout.widget.ConstraintLayout>

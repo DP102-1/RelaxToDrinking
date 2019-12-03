@@ -29,19 +29,21 @@
 
         <Button
             android:id="@+id/btChoiceFromAlbum_StoreManagement"
-            android:layout_width="120dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
             android:background="@drawable/index_button"
-            android:text="從相簿選擇..."
+            android:text="從相簿選擇店家LOGO"
+            android:textColor="#000000"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/ivStoreLogo_StoreManagement"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivStoreLogo_StoreManagement"
-            app:layout_constraintTop_toTopOf="@+id/ivStoreLogo_StoreManagement" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddress_StoreManagement" />
 
         <EditText
             android:id="@+id/etStoreName_StoreManagement"
@@ -99,10 +101,11 @@
             android:id="@+id/ivStoreLogo_StoreManagement"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/no_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvAddress_StoreManagement"
-            app:layout_constraintTop_toBottomOf="@+id/tvAddress_StoreManagement" />
+            app:layout_constraintTop_toBottomOf="@+id/btChoiceFromAlbum_StoreManagement" />
 
         <TextView
             android:id="@+id/tvTitle_StoreManagement"

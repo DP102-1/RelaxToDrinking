@@ -69,8 +69,6 @@ public class OrderDetailFragment extends Fragment {
             order_id = bundle.getString("order_id");
             Log.e(TAG,order_id);
 
-        }else{
-            Log.e(TAG,"沒訂單id");
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋訂單資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

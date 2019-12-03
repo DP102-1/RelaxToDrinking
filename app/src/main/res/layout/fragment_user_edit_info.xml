@@ -2,197 +2,168 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".UserEditInfoFragment" >
+    tools:context=".UserEditPasswordFragment" >
 
     <TextView
-        android:id="@+id/tvErrorAddress_UserEditInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="地址尚未輸入"
-        android:textColor="#E91E63"
-        app:layout_constraintStart_toStartOf="@+id/etAddress_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/etAddress_UserEditInfo"
-        tools:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/ivPhone_UserEditInfo"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/format_error_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/etPhone_UserEditInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etPhone_UserEditInfo"
-        tools:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/ivAddress_UserEditInfo"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/format_error_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/etAddress_UserEditInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etAddress_UserEditInfo"
-        tools:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tvTitle_UserEditInfo"
+        android:id="@+id/tvTitle_UserEditPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:text="修改個人資料"
+        android:text="修改密碼"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivBack_UserEditInfo"
+        android:id="@+id/ivExit_UserEditPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/back"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/exit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvEmail_UserEditInfo"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etNewPassword_UserEditPassword"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle_UserEditInfo"
-        tools:text="電子郵件" />
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/ivNewPassword_UserEditPassword"
+        app:layout_constraintStart_toStartOf="@+id/tvNewPassword_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewPassword_UserEditPassword" />
+
+    <EditText
+        android:id="@+id/etNewPasswordAgain_UserEditPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/ivNewPasswordAgain_UserEditPassword"
+        app:layout_constraintStart_toStartOf="@+id/tvNewPasswordAgain_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewPasswordAgain_UserEditPassword" />
+
+    <EditText
+        android:id="@+id/etOldPassword_UserEditPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvOldPassword_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvOldPassword_UserEditPassword" />
 
     <TextView
-        android:id="@+id/tvAddress_UserEditInfo"
+        android:id="@+id/tvOldPassword_UserEditPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="地址"
-        app:layout_constraintStart_toStartOf="@+id/etPhone_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/etPhone_UserEditInfo" />
+        android:textSize="18sp"
+        android:text="請輸入舊密碼"
+        app:layout_constraintStart_toStartOf="@+id/tvEmail_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail_UserEditPassword" />
 
     <TextView
-        android:id="@+id/tvName_UserEditInfo"
+        android:id="@+id/tvNewPassword_UserEditPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="姓名"
-        app:layout_constraintStart_toStartOf="@+id/tvEmail_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail_UserEditInfo" />
+        android:textSize="18sp"
+        android:text="請輸入新密碼"
+        app:layout_constraintStart_toStartOf="@+id/etOldPassword_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etOldPassword_UserEditPassword" />
 
     <TextView
-        android:id="@+id/tvPhone_UserEditInfo"
+        android:id="@+id/tvNewPasswordAgain_UserEditPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="手機號碼"
-        app:layout_constraintStart_toStartOf="@+id/etName_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/etName_UserEditInfo" />
+        android:textSize="18sp"
+        android:text="再次輸入新密碼"
+        app:layout_constraintStart_toStartOf="@+id/etNewPassword_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etNewPassword_UserEditPassword" />
 
     <Button
-        android:id="@+id/btSubmit_UserEditInfo"
+        android:id="@+id/btSubmit_UserEditPassword"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/kind_button"
         android:text="確定修改"
-        android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddress_UserEditInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/etNewPasswordAgain_UserEditPassword" />
 
-    <EditText
-        android:id="@+id/etName_UserEditInfo"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tvEmail_UserEditPassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:ems="10"
-        android:hint="請輸入姓名"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/ivName_UserEditInfo"
-        app:layout_constraintStart_toStartOf="@+id/tvName_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/tvName_UserEditInfo" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_UserEditPassword"
+        tools:text="電子郵件" />
 
-    <EditText
-        android:id="@+id/etPhone_UserEditInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:ems="10"
-        android:hint="請輸入手機號碼"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/ivPhone_UserEditInfo"
-        app:layout_constraintStart_toStartOf="@+id/tvPhone_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/tvPhone_UserEditInfo" />
-
-
-    <EditText
-        android:id="@+id/etAddress_UserEditInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:ems="10"
-        android:hint="請輸入地址"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/ivAddress_UserEditInfo"
-        app:layout_constraintStart_toStartOf="@+id/tvAddress_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddress_UserEditInfo" />
 
     <ImageView
-        android:id="@+id/ivName_UserEditInfo"
+        android:id="@+id/ivNewPasswordAgain_UserEditPassword"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:src="@drawable/format_error_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/etName_UserEditInfo"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/etNewPasswordAgain_UserEditPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etName_UserEditInfo"
-        tools:visibility="gone" />
+        app:layout_constraintTop_toTopOf="@+id/etNewPasswordAgain_UserEditPassword" />
+
+    <ImageView
+        android:id="@+id/ivNewPassword_UserEditPassword"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/format_error_hint"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/etNewPassword_UserEditPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etNewPassword_UserEditPassword" />
 
     <TextView
-        android:id="@+id/tvErrorName_UserEditInfo"
+        android:id="@+id/tvErrorPassword_UserEditPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="姓名尚未輸入"
+        android:text="密碼尚未輸入"
         android:textColor="#E91E63"
-        app:layout_constraintStart_toStartOf="@+id/etName_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/etName_UserEditInfo"
-        tools:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/etNewPassword_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etNewPassword_UserEditPassword" />
 
     <TextView
-        android:id="@+id/tvErrorPhone_UserEditInfo"
+        android:id="@+id/tvErrorPasswordAgain_UserEditPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="手機號碼尚未輸入"
+        android:text="輸入的密碼不一致"
         android:textColor="#E91E63"
-        app:layout_constraintStart_toStartOf="@+id/etPhone_UserEditInfo"
-        app:layout_constraintTop_toBottomOf="@+id/etPhone_UserEditInfo"
-        tools:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/etNewPasswordAgain_UserEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etNewPasswordAgain_UserEditPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

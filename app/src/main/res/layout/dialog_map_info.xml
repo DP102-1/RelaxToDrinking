@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
         android:text="Title"
         android:textColor="#FF0000"
         android:textSize="18sp"

@@ -64,13 +64,13 @@
     <Button
         android:id="@+id/btInsert_ProductManagement"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/index_button"
-        android:textColor="#000000"
-        android:textStyle="bold"
         android:text="新增商品"
-        android:textSize="18dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/svSearchProduct_ProductManagement"
         app:layout_constraintEnd_toEndOf="@+id/rvProductList_ProductManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_ProductManagement" />

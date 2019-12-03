@@ -15,10 +15,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/index_button"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:textSize="18sp"
         android:text="訂單QRCord"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderList" />
 
@@ -27,10 +27,10 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:background="@drawable/index_button"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:textSize="18sp"
         android:text="查看\n外送員位置"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/btOrderHistory_OrderList"
         app:layout_constraintStart_toEndOf="@+id/btOrderQRCode_OrderList"
         app:layout_constraintTop_toTopOf="@+id/btOrderQRCode_OrderList" />
@@ -40,26 +40,25 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:background="@drawable/index_button"
-        android:textStyle="bold"
+        android:text="查看\n歷史訂單"
         android:textColor="#000000"
-        android:textSize="18sp"
-        android:text="查看歷史訂單"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btEmployeePosition_OrderList"
         app:layout_constraintEnd_toEndOf="@+id/rvOrderDetailList_OrderList"
         app:layout_constraintTop_toTopOf="@+id/btEmployeePosition_OrderList" />
 
     <Button
         android:id="@+id/btOrderDetail_OrderList"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
         android:background="@drawable/product_button"
         android:text="訂單詳情..."
         android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvOrderStatus_OrderList"
-        app:layout_constraintEnd_toEndOf="@+id/btOrderHistory_OrderList"
-        app:layout_constraintTop_toTopOf="@+id/tvOrderStatus_OrderList" />
+        app:layout_constraintEnd_toEndOf="@+id/btOrderHistory_OrderList" />
 
     <ImageView
         android:id="@+id/ivBack_OrderList"

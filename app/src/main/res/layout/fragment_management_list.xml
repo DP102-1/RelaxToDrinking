@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/background"
     android:layout_height="match_parent"
-    tools:context=".admin.ManagementListFragment" >
+    tools:context=".ManagementListFragment" >
 
     <TextView
         android:id="@+id/tvTitle_ManagementList"
@@ -31,6 +31,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/index_button"
         android:textStyle="bold"
+        android:textSize="24sp"
         android:text="訂單管理"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +48,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/index_button"
         android:textStyle="bold"
+        android:textSize="24sp"
         android:text="商品管理"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -64,6 +66,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/index_button"
         android:textStyle="bold"
+        android:textSize="24sp"
         android:text="最新消息管理"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -81,6 +84,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/index_button"
         android:textStyle="bold"
+        android:textSize="24sp"
         android:text="店家資訊管理"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
@@ -98,6 +102,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/index_button"
         android:textStyle="bold"
+        android:textSize="24sp"
         android:text="員工管理"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -106,12 +111,13 @@
 
     <Button
         android:id="@+id/btLoginOut_ManagementList"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:background="@drawable/kind_button"
-        android:textStyle="bold"
         android:text="登出"
+        android:textStyle="bold"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btStoreManagement_ManagementList" />
@@ -127,6 +133,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/index_button"
         android:textStyle="bold"
+        android:textSize="24sp"
         android:text="會員查詢"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

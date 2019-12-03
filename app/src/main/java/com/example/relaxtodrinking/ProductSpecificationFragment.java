@@ -8,6 +8,7 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -191,8 +192,11 @@ public class ProductSpecificationFragment extends Fragment {
         rgTemperature_ProductSpecification.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+              //  RadioButton allRadioButton = radioGroup
                 RadioButton radioButton = radioGroup.findViewById(i);
                 temperature = radioButton.getText().toString();
+                radioButton.setBackgroundColor(Color.RED);
+
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝選擇冷熱飲＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

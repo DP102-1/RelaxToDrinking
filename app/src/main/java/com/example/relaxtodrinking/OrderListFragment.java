@@ -109,7 +109,7 @@ public class OrderListFragment extends Fragment {
         btEmployeePosition_OrderList = view.findViewById(R.id.btEmployeePosition_OrderList);
         btOrderDetail_OrderList = view.findViewById(R.id.btOrderDetail_OrderList);
 
-        db.collection("Order").whereEqualTo("user_id", user_id).get()//先取沒完成的訂單.whereGreaterThan("order_status", 0)
+        db.collection("Order").whereGreaterThan("order_status", 0).whereEqualTo("user_id", user_id).get()//先取沒完成的訂單.whereGreaterThan("order_status", 0)
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
