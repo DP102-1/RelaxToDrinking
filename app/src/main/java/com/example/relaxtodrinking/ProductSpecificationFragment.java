@@ -1,15 +1,14 @@
 package com.example.relaxtodrinking;
 /***************************************************************/
 //radiobutten的樣式更改
-//加入購物車要圓角
 //數量輸入框要小
 //數量輸入格式問題
 /***************************************************************/
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,22 +125,27 @@ public class ProductSpecificationFragment extends Fragment {
                 case "正常冰":
                     rbTemperature1_ProductSpecification = view.findViewById(R.id.rbTemperature1_ProductSpecification);
                     rbTemperature1_ProductSpecification.setChecked(true);
+                    rbTemperature1_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "少冰":
                     rbTemperature2_ProductSpecification = view.findViewById(R.id.rbTemperature2_ProductSpecification);
                     rbTemperature2_ProductSpecification.setChecked(true);
+                    rbTemperature2_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "去冰":
                     rbTemperature3_ProductSpecification = view.findViewById(R.id.rbTemperature3_ProductSpecification);
                     rbTemperature3_ProductSpecification.setChecked(true);
+                    rbTemperature3_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "常溫":
                     rbTemperature4_ProductSpecification = view.findViewById(R.id.rbTemperature4_ProductSpecification);
                     rbTemperature4_ProductSpecification.setChecked(true);
+                    rbTemperature4_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "熱飲":
                     rbTemperature5_ProductSpecification = view.findViewById(R.id.rbTemperature5_ProductSpecification);
                     rbTemperature5_ProductSpecification.setChecked(true);
+                    rbTemperature5_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 default:
                     break;
@@ -151,22 +155,27 @@ public class ProductSpecificationFragment extends Fragment {
                 case "正常甜":
                     rbSweetness1_ProductSpecification = view.findViewById(R.id.rbSweetness1_ProductSpecification);
                     rbSweetness1_ProductSpecification.setChecked(true);
+                    rbSweetness1_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "少糖":
                     rbSweetness2_ProductSpecification = view.findViewById(R.id.rbSweetness2_ProductSpecification);
                     rbSweetness2_ProductSpecification.setChecked(true);
+                    rbSweetness2_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "半糖":
                     rbSweetness3_ProductSpecification = view.findViewById(R.id.rbSweetness3_ProductSpecification);
                     rbSweetness3_ProductSpecification.setChecked(true);
+                    rbSweetness3_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "微糖":
                     rbSweetness4_ProductSpecification = view.findViewById(R.id.rbSweetness4_ProductSpecification);
                     rbSweetness4_ProductSpecification.setChecked(true);
+                    rbSweetness4_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 case "無糖":
                     rbSweetness5_ProductSpecification = view.findViewById(R.id.rbSweetness5_ProductSpecification);
                     rbSweetness5_ProductSpecification.setChecked(true);
+                    rbSweetness5_ProductSpecification.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     break;
                 default:
                     break;
@@ -191,12 +200,8 @@ public class ProductSpecificationFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝選擇冷熱飲＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rgTemperature_ProductSpecification.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-              //  RadioButton allRadioButton = radioGroup
-                RadioButton radioButton = radioGroup.findViewById(i);
-                temperature = radioButton.getText().toString();
-                radioButton.setBackgroundColor(Color.RED);
-
+            public void onCheckedChanged(RadioGroup radioGroup, int num) {
+                temperature = setTextAndChangeColor(radioGroup,num);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝選擇冷熱飲＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -223,9 +228,8 @@ public class ProductSpecificationFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝選擇甜度＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rgSweetness_ProductSpecification.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                RadioButton radioButton = radioGroup.findViewById(i);
-                sweetness = radioButton.getText().toString();
+            public void onCheckedChanged(RadioGroup radioGroup, int num) {
+                sweetness = setTextAndChangeColor(radioGroup,num);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝選擇甜度＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -322,8 +326,17 @@ public class ProductSpecificationFragment extends Fragment {
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證使用者是否都有填寫內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+    private String setTextAndChangeColor(RadioGroup radioGroup, int i) {
+        RadioButton radioButton = radioGroup.findViewById(i);
+        Log.e(TAG,temperature +" "+sweetness);
+        for (int num = 0; num < radioGroup.getChildCount(); num++) {
+            radioGroup.getChildAt(num).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
+        radioButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        return radioButton.getText().toString();
+    }
 
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料儲存至購物車偏好設定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料儲存至購物車偏好設定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void saveShoppingCartData(OrderItem orderItem) {
         preferences_shoppingCart = activity.getSharedPreferences("order_item", MODE_PRIVATE);
         String order_item_json = preferences_shoppingCart.getString("order_item_json", null);

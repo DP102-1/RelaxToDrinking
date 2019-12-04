@@ -14,6 +14,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +27,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="商品名稱"
+        android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ivProduct_ProductList"
@@ -69,26 +71,26 @@
 
     <TextView
         android:id="@+id/tvPriceL_ProductList"
-        android:layout_width="75dp"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="大杯價格"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivProductL_ProductList"
         app:layout_constraintEnd_toStartOf="@+id/ivGoProductSpecification_ProductList"
-        app:layout_constraintTop_toTopOf="@+id/ivProductL_ProductList" />
+        app:layout_constraintTop_toTopOf="@+id/ivProductL_ProductList"
+        tools:text="大" />
 
     <TextView
         android:id="@+id/tvPriceM_ProductList"
-        android:layout_width="75dp"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="中杯價格"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivProductM_ProductList"
         app:layout_constraintEnd_toStartOf="@+id/ivGoProductSpecification_ProductList"
-        app:layout_constraintTop_toTopOf="@+id/ivProductM_ProductList" />
+        app:layout_constraintTop_toTopOf="@+id/ivProductM_ProductList"
+        tools:text="小" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

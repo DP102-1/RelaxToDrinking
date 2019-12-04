@@ -69,6 +69,7 @@ public class DeliveryPositionFragment extends Fragment {
     private FusedLocationProviderClient fusedLocationClient;
     private String emp_id;
     private String action;
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class DeliveryPositionFragment extends Fragment {
                 mapDeliveryPosition_DeliveryPosition = googleMap;
                 if (action.equals("外送員")) {
                     showMyLocation();
-                }else if (action.equals("會員")) {
+                } else if (action.equals("會員")) {
                     db.collection("Employee").document(emp_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -109,10 +110,10 @@ public class DeliveryPositionFragment extends Fragment {
                                 GeoPoint geoPoint = employee.getEmp_position();
                                 LatLng emp_latlng = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
                                 // 一開始將地圖移動至指定點
-                                    moveMap(emp_latlng);
-                                    addMarker(emp_latlng);
-                                    // 自訂訊息視窗
-                                    mapDeliveryPosition_DeliveryPosition.setInfoWindowAdapter(new DeliveryPositionFragment.MyInfoWindowAdapter(activity));
+                                moveMap(emp_latlng);
+                                addMarker(emp_latlng);
+                                // 自訂訊息視窗
+                                mapDeliveryPosition_DeliveryPosition.setInfoWindowAdapter(new DeliveryPositionFragment.MyInfoWindowAdapter(activity));
                             }
                         }
                     });
@@ -141,9 +142,8 @@ public class DeliveryPositionFragment extends Fragment {
         if (bundle != null) {
             action = bundle.getString("action");
             emp_id = bundle.getString("emp_id");
-        }else
-        {
-            Log.e(TAG,"失敗");
+        } else {
+            Log.e(TAG, "失敗");
 
         }
         mvDeliveryPosition_DeliveryPosition.onStart();
@@ -192,8 +192,8 @@ public class DeliveryPositionFragment extends Fragment {
                 Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             mapDeliveryPosition_DeliveryPosition.setMyLocationEnabled(true);
-        }else{
-            Log.e(TAG,"showMyLocation失敗");
+        } else {
+            Log.e(TAG, "showMyLocation失敗");
 
         }
     }
@@ -203,16 +203,33 @@ public class DeliveryPositionFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料庫儲存外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void updateLastLocationInfo(Location lastLocation) {
         if (lastLocation == null) {
-            Common.showToast(activity,"遺失最後位置");
+            Common.showToast(activity, "遺失最後位置");
             return;
         }
         if (action.equals("外送員")) { //把外送員的目前位置存進資料庫
             GeoPoint emp_point = new GeoPoint(lastLocation.getLatitude(), lastLocation.getLongitude());
-            db.collection("Employee").document(emp_id).update("emp_position",emp_point);
-        }else if (action.equals("會員")) //查看該訂單所屬外送員的位置
-        {
-
+            db.collection("Employee").document(emp_id).update("emp_position", emp_point);
         }
+//        else if (action.equals("會員")) //查看該訂單所屬外送員的位置
+//        {
+//            db.collection("Employee").document(emp_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    if (task.getResult() != null) {
+//                        DocumentSnapshot document = task.getResult();
+//                        Employee employee = document.toObject(Employee.class);
+//                        if (employee.getEmp_position() != null)
+//                        {
+//                            GeoPoint emp_point = employee.getEmp_position();
+//
+//                        }else
+//                        {
+//                            Common.showToast(activity,"外送人員尚未開始進行定位,請稍後再嘗試");
+//                        }
+//                    }
+//                }
+//            });
+//        }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料庫儲存外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
@@ -220,6 +237,7 @@ public class DeliveryPositionFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝移動到地圖上的外送員位置並圖釘＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void addMarker(LatLng latLng) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
+        Log.e(TAG,latLng.latitude+" "+latLng.longitude);
         Address address = reverseGeocode(latLng.latitude, latLng.longitude);
         if (address == null) {
             Common.showToast(activity, "外送員無法判別,請重新輸入");
@@ -288,6 +306,7 @@ public class DeliveryPositionFragment extends Fragment {
 
             return view;
         }
+
         @Override
         public View getInfoContents(Marker marker) {
             return null;

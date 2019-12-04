@@ -57,8 +57,9 @@
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tvOrderStatus_OrderList"
-        app:layout_constraintEnd_toEndOf="@+id/btOrderHistory_OrderList" />
+        app:layout_constraintBottom_toTopOf="@+id/tvOrderTotalPrice_OrderDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderTakeMealTime_OrderList" />
 
     <ImageView
         android:id="@+id/ivBack_OrderList"

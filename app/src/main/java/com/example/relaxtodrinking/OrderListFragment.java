@@ -190,7 +190,13 @@ public class OrderListFragment extends Fragment {
         btEmployeePosition_OrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //外送員位置連結
+                if (order.getOrder_status() == 2)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("action","會員");
+                    bundle.putString("emp_id",order.getEmp_id());
+                    Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_deliveryPositionFragment,bundle);
+                }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
