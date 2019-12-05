@@ -1,7 +1,4 @@
 package com.example.relaxtodrinking;
-/***************************************************************/
-//輸入資料edittext智慧驗證
-/***************************************************************/
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -202,7 +199,6 @@ public class UserSignInFragment extends Fragment {
                     String email = etEmail_UserSignIn.getText().toString().trim();
                     String password = etPassword_UserSignIn.getText().toString().trim();
                     signInUser(email,password);
-                    Common.showToast(activity, "註冊成功");
                     Navigation.findNavController(view)
                             .navigate(R.id.action_userSignInFragment_to_indexFragment);
                 }
@@ -245,10 +241,12 @@ public class UserSignInFragment extends Fragment {
                                 user.setUser_phone(phone);
                                 user.setUser_email(email);
                                 db.collection("User").document(user.getUser_id()).set(user);
+                                Common.showToast(activity, "註冊成功,請進行登入");
+                                auth.signOut();
                             }
                         } else {
                             Exception exception = task.getException();
-                            String message = exception == null ? "註冊失敗" : exception.getLocalizedMessage();
+                            String message = exception == null ? "註冊失敗" : "帳號已有人使用,請重新註冊";
                             Common.showToast(activity, message);
                         }
                     }

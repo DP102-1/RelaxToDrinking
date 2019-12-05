@@ -259,7 +259,7 @@ public class DeliveryPositionFragment extends Fragment {
     private void moveMap(LatLng latLng) {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
-                .zoom(50)
+                .zoom(15)
                 .build();
         CameraUpdate cameraUpdate = CameraUpdateFactory
                 .newCameraPosition(cameraPosition);

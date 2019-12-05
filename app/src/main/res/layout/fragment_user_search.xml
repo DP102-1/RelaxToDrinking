@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".admin.UserSearchFragment" >
+    tools:context=".UserSearchFragment" >
 
     <TextView
         android:id="@+id/tvTitle_UserSearch"

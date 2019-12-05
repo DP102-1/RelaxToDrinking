@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +40,7 @@ import com.google.android.gms.wallet.AutoResolveHelper;
 import com.google.android.gms.wallet.PaymentData;
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -79,8 +79,8 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
+    private FirebaseAuth auth;
     private SharedPreferences preferences_shoppingCart;
-    private SharedPreferences preferences_user;
     private TPDGooglePay tpdGooglePay;
     private PaymentData paymentData;
 
@@ -109,6 +109,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
 //        prepareGooglePay();
 
     }
@@ -136,8 +137,9 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋使用者資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void loadUserData() {
-        preferences_user = activity.getSharedPreferences("user", MODE_PRIVATE);
-        user_id = preferences_user.getString("user","ALJVuIeu4UWRH4TSLghiz2gu7M32" );//假資料
+        if (auth != null) {
+            user_id = auth.getCurrentUser().getUid();
+        }
         db.collection("User").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -148,7 +150,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                     user_phone = user.getUser_phone();
                     user_address = user.getUser_address(); //取得使用者地址 但是點選了外送才顯示
                 } else {
-                    Toast.makeText(activity, "找不到使用者資料", Toast.LENGTH_SHORT).show();
+                    Common.showToast(activity, "找不到使用者資料");
                 }
             }
         });
@@ -215,9 +217,6 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         btOrderIn_ShoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user_address.equals("")) {
-                    //請使用者完善地址資料
-                } else {
                     showTakeMealMode("外送");
                     tvAddress_ShoppingCart.setText(user_address);
                     new TimePickerDialog(
@@ -225,7 +224,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                             ShoppingcartListFragment.this,
                             hour, minute, true)
                             .show();
-                }
+
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊外送按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -285,7 +284,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                 tpdGooglePay.requestPayment(TransactionInfo.newBuilder()
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
                         // 消費總金額
-                        .setTotalPrice(String.valueOf(order.getOrder_price()))
+                        .setTotalPrice("10")
                         // 設定幣別
                         .setCurrencyCode("TWD")
                         .build(), LOAD_PAYMENT_DATA_REQUEST_CODE);

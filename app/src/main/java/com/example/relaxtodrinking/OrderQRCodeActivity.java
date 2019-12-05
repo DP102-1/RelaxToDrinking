@@ -41,7 +41,6 @@ public class OrderQRCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_qrcode);
     //    getSupportActionBar().hide();
      //   getActionBar().hide();
-//        setTitle("訂單QRCode");
         setTitle("");
 
         loadOrderData();

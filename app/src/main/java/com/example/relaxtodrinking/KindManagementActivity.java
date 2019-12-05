@@ -52,7 +52,7 @@ public class KindManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kind_management);
-        setTitle("商品分類管理");
+        setTitle("");
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 

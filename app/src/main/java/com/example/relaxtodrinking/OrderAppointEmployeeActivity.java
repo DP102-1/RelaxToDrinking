@@ -44,7 +44,7 @@ public class OrderAppointEmployeeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_appoint_employee);
-        setTitle(TAG);
+        setTitle("");
         db = FirebaseFirestore.getInstance();
         loadOrderData();
         spEmployee_OrderAppointEmployee = findViewById(R.id.spEmployee_OrderAppointEmployee);

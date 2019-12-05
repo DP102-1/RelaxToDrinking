@@ -1,16 +1,19 @@
 package com.example.relaxtodrinking;
 
 /***************************************************************/
-//地圖框框美化
-//點電話撥打
+
 /***************************************************************/
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +24,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -48,6 +53,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class StoreInformationFragment extends Fragment {
+    private static final int PERMISSION_REQUEST_CODE = 1;
     private final static String Store_ID = "DVemDPjkmPDEVjuBJwCQ";
     private String TAG = "店家資訊";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -58,7 +64,7 @@ public class StoreInformationFragment extends Fragment {
     private TextView tvStoreName_StoreInformation, tvStoreAddress_StoreInformation, tvStorePhone_StoreInformation;
     private MapView mvStoreAddress_StoreInformation;
     private GoogleMap mapStoreAddress_StoreInformation;
-    private ImageView ivBack_StoreInformation, ivStoreLogo_StoreInformation;
+    private ImageView ivBack_StoreInformation,ivCallOut_StoreInformation,ivStoreLogo_StoreInformation;
 
     private Store store = new Store();
     private double store_latitude;
@@ -88,6 +94,7 @@ public class StoreInformationFragment extends Fragment {
         tvStoreAddress_StoreInformation = view.findViewById(R.id.tvStoreAddress_StoreInformation);
         tvStorePhone_StoreInformation = view.findViewById(R.id.tvStorePhone_StoreInformation);
         ivStoreLogo_StoreInformation = view.findViewById(R.id.ivStoreLogo_StoreInformation);
+        ivCallOut_StoreInformation = view.findViewById(R.id.ivCallOut_StoreInformation);
 
         mvStoreAddress_StoreInformation = view.findViewById(R.id.mvStoreAddress_StoreInformation);
         mvStoreAddress_StoreInformation.onCreate(savedInstanceState);
@@ -133,13 +140,25 @@ public class StoreInformationFragment extends Fragment {
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊撥打電話＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
-//        tvStorePhone_StoreInformation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent call = new Intent("android.intent.action.CALL", Uri.parse("tel:" + store.getStore_phone()));
-//                startActivity(call);
-//            }
-//        });
+        ivCallOut_StoreInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent call = new Intent("android.intent.action.CALL", Uri.parse("tel:" + store.getStore_phone()));
+                if (ContextCompat.checkSelfPermission(activity,
+                        Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            PERMISSION_REQUEST_CODE);
+                } else {
+                    try {
+                        startActivity(call);
+                    } catch(SecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊撥打電話＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
@@ -153,6 +172,24 @@ public class StoreInformationFragment extends Fragment {
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝詢問使用者是否可以打電話＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                }
+                return;
+            }
+        }
+    }
+
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝詢問使用者是否可以打電話＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝移動到地圖上的店家位置並圖釘＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void addMarker(LatLng latLng) {
@@ -178,7 +215,7 @@ public class StoreInformationFragment extends Fragment {
     private void moveMap(LatLng latLng) {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
-                .zoom(10)
+                .zoom(17)
                 .build();
         CameraUpdate cameraUpdate = CameraUpdateFactory
                 .newCameraPosition(cameraPosition);

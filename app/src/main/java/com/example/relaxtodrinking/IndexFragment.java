@@ -113,7 +113,7 @@ public class IndexFragment extends Fragment {
         }else{
             user_id = "";
         }
-        Log.e(TAG,"user_id"+user_id);
+        Log.e(TAG,"user_id:"+user_id);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷使用者有無登入 有的話取得ID＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
