@@ -149,6 +149,7 @@ public class DeliveryPositionFragment extends Fragment {
         mvDeliveryPosition_DeliveryPosition.onStart();
         askAccessLocationPermission();
         if (fusedLocationClient == null) {
+
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
             if (ActivityCompat.checkSelfPermission(activity,
                     Manifest.permission.ACCESS_FINE_LOCATION) ==
@@ -156,8 +157,11 @@ public class DeliveryPositionFragment extends Fragment {
                 fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
+                        Log.e(TAG,"03");
                         lastLocation = location;
                         updateLastLocationInfo(lastLocation);
+                        LatLng emp_latlng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                        moveMap(emp_latlng);
                     }
                 });
             }
@@ -194,7 +198,6 @@ public class DeliveryPositionFragment extends Fragment {
             mapDeliveryPosition_DeliveryPosition.setMyLocationEnabled(true);
         } else {
             Log.e(TAG, "showMyLocation失敗");
-
         }
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -237,7 +240,7 @@ public class DeliveryPositionFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝移動到地圖上的外送員位置並圖釘＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void addMarker(LatLng latLng) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
-        Log.e(TAG,latLng.latitude+" "+latLng.longitude);
+        Log.e(TAG, latLng.latitude + " " + latLng.longitude);
         Address address = reverseGeocode(latLng.latitude, latLng.longitude);
         if (address == null) {
             Common.showToast(activity, "外送員無法判別,請重新輸入");
@@ -259,7 +262,7 @@ public class DeliveryPositionFragment extends Fragment {
     private void moveMap(LatLng latLng) {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
-                .zoom(15)
+                .zoom(19)
                 .build();
         CameraUpdate cameraUpdate = CameraUpdateFactory
                 .newCameraPosition(cameraPosition);

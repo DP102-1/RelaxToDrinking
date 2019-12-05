@@ -57,7 +57,7 @@
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvOrderTotalPrice_OrderDetail"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOrderTotalPrice_OrderDetail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOrderTakeMealTime_OrderList" />
 
