@@ -33,7 +33,6 @@ public class OrderQRCodeActivity extends AppCompatActivity {
         order_id = QRcodeIntent.getStringExtra("order_id");
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝找尋訂單資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

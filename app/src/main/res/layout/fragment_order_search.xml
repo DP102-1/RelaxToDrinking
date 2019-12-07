@@ -11,9 +11,9 @@
         android:id="@+id/ivBack_OrderSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,91 +22,53 @@
         android:id="@+id/tvTitle_OrderSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
+        android:layout_marginTop="16dp"
         android:text="訂單歷史紀錄查詢"
+        android:textColor="#000000"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="120dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderSearch" />
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/product_search"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
-        app:layout_constraintTop_toTopOf="@+id/spinner" />
-
     <Button
-        android:id="@+id/btEndDate_OrderSearch"
-        android:layout_width="100dp"
+        android:id="@+id/btDate_OrderSearch"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:textSize="18dp"
-        android:textColor="#000000"
         android:background="@drawable/index_button"
-        android:text="最終日期"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTo_OrderSearch"
-        app:layout_constraintStart_toEndOf="@+id/tvTo_OrderSearch"
-        app:layout_constraintTop_toTopOf="@+id/tvTo_OrderSearch" />
-
-    <TextView
-        android:id="@+id/tvTo_OrderSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:text="全部"
         android:textColor="#000000"
-        android:textStyle="bold"
-        android:text="至"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btStartDate_OrderSearch"
-        app:layout_constraintStart_toEndOf="@+id/btStartDate_OrderSearch"
-        app:layout_constraintTop_toTopOf="@+id/btStartDate_OrderSearch" />
-
-    <Button
-        android:id="@+id/btStartDate_OrderSearch"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:textSize="18dp"
-        android:textColor="#000000"
-        android:background="@drawable/index_button"
-        android:text="起始日期"
         app:layout_constraintBottom_toBottomOf="@+id/tvDate_OrderSearch"
         app:layout_constraintStart_toEndOf="@+id/tvDate_OrderSearch"
         app:layout_constraintTop_toTopOf="@+id/tvDate_OrderSearch" />
+
+    <Button
+        android:id="@+id/btShowNow_OrderSearch"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/index_button"
+        android:text="顯示全部訂單"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btDate_OrderSearch"
+        app:layout_constraintStart_toEndOf="@+id/btDate_OrderSearch"
+        app:layout_constraintTop_toTopOf="@+id/btDate_OrderSearch" />
 
     <TextView
         android:id="@+id/tvDate_OrderSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textColor="#000000"
+        android:layout_marginTop="32dp"
         android:text="訂單日期:"
+        android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintStart_toStartOf="@+id/ivBack_OrderSearch"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle_OrderSearch" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderHistory_OrderSearch"
@@ -114,7 +76,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"

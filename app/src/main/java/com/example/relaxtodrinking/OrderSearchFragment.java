@@ -8,14 +8,13 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,6 @@ import com.example.relaxtodrinking.data.Order;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -43,27 +41,22 @@ import java.util.Locale;
 
 public class OrderSearchFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private String TAG = "歷史訂單查詢";
-    private final static int STATUS_Order = 0;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private Activity activity;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
 
     private RecyclerView rvOrderHistory_OrderSearch;
-    private SearchView rvSearch_OrderSearch;
-    private Spinner spSearchMeans_OrderSearch;
     private ImageView ivBack_OrderSearch;
-    private Button btStartDate_OrderSearch, btEndDate_OrderSearch;
+    private Button btDate_OrderSearch, btShowAll_OrderSearch;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINESE);
     private List<Order> orders;
-    private List<Order> orders_scearch;
-    private Date start_date, end_date;
-    Calendar calendar = Calendar.getInstance();
-    private int year, month, day, hour, minute;
+    private Date date;
+    private Calendar calendar = Calendar.getInstance();
+    private String action = "顯示全部";
+    private int year, month, day;
 
-
-    //  private String search_means = "用電話搜尋";
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,7 +69,7 @@ public class OrderSearchFragment extends Fragment implements DatePickerDialog.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("歷史訂單查詢");
+        activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_order_search, container, false);
     }
 
@@ -84,23 +77,18 @@ public class OrderSearchFragment extends Fragment implements DatePickerDialog.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btDate_OrderSearch = view.findViewById(R.id.btDate_OrderSearch);
         rvOrderHistory_OrderSearch = view.findViewById(R.id.rvOrderHistory_OrderSearch);
         rvOrderHistory_OrderSearch.setLayoutManager(new LinearLayoutManager(activity));
+        showNow();
+        action = "顯示全部";
+        btDate_OrderSearch.setText("全部");
         showOrderAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入顯示日期＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        btStartDate_OrderSearch = view.findViewById(R.id.btStartDate_OrderSearch);
-        btEndDate_OrderSearch = view.findViewById(R.id.btEndDate_OrderSearch);
-        end_date = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, -365);
-        start_date = calendar.getTime();
-
-        btStartDate_OrderSearch.setText(sdf.format(start_date));
-        btEndDate_OrderSearch.setText(sdf.format(end_date));
-        //＝＝＝＝＝設定開始日期＝＝＝＝＝//
-        btStartDate_OrderSearch.setOnClickListener(new View.OnClickListener() {
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點選顯示日期＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btDate_OrderSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new DatePickerDialog(
@@ -108,55 +96,22 @@ public class OrderSearchFragment extends Fragment implements DatePickerDialog.On
                         OrderSearchFragment.this,
                         year, month, day)
                         .show();
-                Date new_start_date = null;
-                try {
-                    new_start_date = sdf.parse(year +"年"+pad(month)+"月"+day);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (new_start_date.before(end_date))//如果日期比end大
-
-                {
-                    start_date = new_start_date;
-                }else
-                {
-                    Common.showToast(activity,"起始日期大於結束日期,無法查詢");
-                }
-                btStartDate_OrderSearch.setText(sdf.format(start_date));
             }
         });
-        //＝＝＝＝＝設定開始日期＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點選顯示日期＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-        //＝＝＝＝＝設定結束日期＝＝＝＝＝//
-        btEndDate_OrderSearch.setOnClickListener(new View.OnClickListener() {
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點選顯示全部＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btShowAll_OrderSearch = view.findViewById(R.id.btShowNow_OrderSearch);
+        btShowAll_OrderSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(
-                        activity,
-                        OrderSearchFragment.this,
-                        year, month, day)
-                        .show();
-                Date new_end_date = null;
-                try {
-                    new_end_date = sdf.parse(year +"年"+pad(month)+"月"+day);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (new_end_date.before(start_date))//如果日期比start小
-
-                {
-                    end_date = new_end_date;
-                }else
-                {
-                    Common.showToast(activity,"結束日期小於起始日期,無法查詢");
-                }
-                btEndDate_OrderSearch.setText(sdf.format(end_date));
+                action = "顯示全部";
+                btDate_OrderSearch.setText("全部");
+                showOrderAll();
             }
         });
-        //＝＝＝＝＝設定結束日期＝＝＝＝＝//
-
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入顯示日期＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點選顯示全部＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊回上一頁＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -226,12 +181,20 @@ public class OrderSearchFragment extends Fragment implements DatePickerDialog.On
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示已完成的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderAll() {
-        db.collection("Order").orderBy("order_date", Query.Direction.DESCENDING).whereEqualTo("order_status", STATUS_Order).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("Order").whereEqualTo("order_status", 0).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 orders = new ArrayList<>();
-                for (DocumentSnapshot snapshot : queryDocumentSnapshots)
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     orders.add(snapshot.toObject(Order.class));
+                }
+                if (action.equals("顯示查詢結果")) {
+                    for (int i = orders.size() - 1; i >= 0; i--) {
+                        if (!sdf.format(orders.get(i).getOrder_date()).equals(sdf.format(date))) {
+                            orders.remove(i);
+                        }
+                    }
+                }
                 rvOrderHistory_OrderSearch.setAdapter(new OrderSearchFragment.OrderAdapter(activity, orders));
             }
         });
@@ -239,19 +202,31 @@ public class OrderSearchFragment extends Fragment implements DatePickerDialog.On
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示已完成的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示經過日期搜尋後的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void showSearchAll() {
-
-    }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示經過日期搜尋後的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-
-
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝設定查詢時間＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private void showNow() { //取得現在的時間
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        updateDisplay();
+    }
+
+    private void updateDisplay() {
+        try {
+            date = sdf.parse(year + "年" + pad(month+1) + "月" + day + "日");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        btDate_OrderSearch.setText(sdf.format(date));
+    }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
         this.year = year;
         this.month = month;
         this.day = day;
+        updateDisplay();
+        action = "顯示查詢結果";
+        showOrderAll();
     }
 
     /* 若數字有十位數，直接顯示；

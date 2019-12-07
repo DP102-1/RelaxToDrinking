@@ -69,25 +69,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="18sp"
         android:text="今日未完成訂單數"
-        app:layout_constraintStart_toStartOf="@+id/tvDate_OrderManagement"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate_OrderManagement" />
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderDate_OrderManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderDate_OrderManagement" />
 
     <TextView
         android:id="@+id/tvOrderDate_OrderManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#673AB7"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDate_OrderManagement"
-        app:layout_constraintStart_toEndOf="@+id/tvDate_OrderManagement"
-        app:layout_constraintTop_toTopOf="@+id/tvDate_OrderManagement"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvDate_OrderManagement"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate_OrderManagement"
         tools:text="日期" />
 
     <TextView

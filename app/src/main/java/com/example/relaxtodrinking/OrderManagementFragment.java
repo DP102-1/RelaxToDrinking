@@ -101,7 +101,7 @@ public class OrderManagementFragment extends Fragment {
         btOrderHistory_OrderManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.action_orderManagementFragment_to_orderSearchFragment);
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊歷史訂單查詢＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
