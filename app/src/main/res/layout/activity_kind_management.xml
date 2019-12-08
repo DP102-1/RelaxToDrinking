@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <Button
         android:id="@+id/btSubmit_KindManagement"
         android:layout_width="150dp"
@@ -14,11 +14,11 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
-        android:textSize="24dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
         android:background="@drawable/kind_button"
         android:text="確定"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNewKindName_KindManagement" />
@@ -27,15 +27,14 @@
         android:id="@+id/btExit_KindManagement"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:textSize="24dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
         android:background="@drawable/kind_button"
         android:text="離開"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btSubmit_KindManagement"
-        app:layout_constraintEnd_toEndOf="@+id/etNewKindName_KindManagement"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btSubmit_KindManagement"
         app:layout_constraintTop_toTopOf="@+id/btSubmit_KindManagement" />
 
     <EditText
@@ -53,14 +52,14 @@
 
     <RadioGroup
         android:id="@+id/rgKindAction_KindManagement"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvKindAction_KindManagement">
@@ -70,28 +69,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="新增分類"
+            android:text="新增飲料分類"
             android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/rbEditKind_KindManagement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="修改分類"
+            android:text="修改飲料分類"
             android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/rbDeleteKind_KindManagement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="刪除分類"
+            android:text="刪除飲料分類"
             android:textSize="24sp" />
     </RadioGroup>
 
     <Spinner
         android:id="@+id/spOldKindName_KindManagement"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvOldKindName_KindManagement"
@@ -104,8 +103,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textColor="#000000"
         android:text="新類別名稱"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/tvOldKindName_KindManagement"
         app:layout_constraintTop_toBottomOf="@+id/tvOldKindName_KindManagement" />
@@ -115,8 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:textColor="#000000"
         android:text="原類別名稱"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/rgKindAction_KindManagement"
         app:layout_constraintTop_toBottomOf="@+id/rgKindAction_KindManagement" />
@@ -125,11 +124,12 @@
         android:id="@+id/tvKindAction_KindManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:text="飲料分類管理："
+        android:layout_marginTop="16dp"
+        android:text="飲料分類管理"
+        android:textColor="#FFFFFF"
         android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/rgKindAction_KindManagement"
         app:layout_constraintTop_toTopOf="parent" />
 

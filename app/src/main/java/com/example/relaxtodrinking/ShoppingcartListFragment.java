@@ -280,6 +280,16 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
 
 
                 //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
+                Log.d(TAG, "SDK version is " + TPDSetup.getVersion());
+
+                // 使用TPDSetup設定環境。每個設定值出處參看strings.xml
+                TPDSetup.initInstance(activity,
+                        15088,
+                        "app_OdeBd5uyUTuFEHy0USYnck36UD1UrXfamS42X3VFBb8rLiNHkabO9aqmraM0",
+                        TPDServerType.Sandbox);
+
+                prepareGooglePay();
+
                 // 跳出user資訊視窗讓user確認，確認後會呼叫onActivityResult()
                 tpdGooglePay.requestPayment(TransactionInfo.newBuilder()
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
@@ -291,14 +301,6 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
 
                         getPrimeFromTapPay(paymentData);
 
-
-                Log.d(TAG, "SDK version is " + TPDSetup.getVersion());
-
-                // 使用TPDSetup設定環境。每個設定值出處參看strings.xml
-                TPDSetup.initInstance(activity,
-                        15088,
-                        "app_OdeBd5uyUTuFEHy0USYnck36UD1UrXfamS42X3VFBb8rLiNHkabO9aqmraM0",
-                        TPDServerType.Sandbox);
                 db.collection("Order").document(order.getOrder_id()).set(order);
                 //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
 

@@ -15,7 +15,7 @@ public class Product {
 
     public Product(){}
 
-    public Product(String pro_id, String pro_kind_id, String pro_kind_name, String pro_name, int pro_price_M, int pro_price_L, String pro_picture, int pro_status, String pro_empid, Date pro_time) {
+    public Product(String pro_id, String pro_kind_id, String pro_kind_name, String pro_name, int pro_price_M, int pro_price_L, String pro_picture, int pro_status, Date pro_time) {
         this.pro_id = pro_id;
         this.pro_kind_id = pro_kind_id;
         this.pro_kind_name = pro_kind_name;
@@ -24,11 +24,8 @@ public class Product {
         this.pro_price_L = pro_price_L;
         this.pro_picture = pro_picture;
         this.pro_status = pro_status;
-        this.pro_empid = pro_empid;
         this.pro_time = pro_time;
     }
-
-    private String pro_empid; //新增者的員工id
 
     public String getPro_id() {
         return pro_id;
@@ -92,14 +89,6 @@ public class Product {
 
     public void setPro_status(int pro_status) {
         this.pro_status = pro_status;
-    }
-
-    public String getPro_empid() {
-        return pro_empid;
-    }
-
-    public void setPro_empid(String pro_empid) {
-        this.pro_empid = pro_empid;
     }
 
     public Date getPro_time() {
