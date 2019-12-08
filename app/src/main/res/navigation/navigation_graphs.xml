@@ -100,6 +100,9 @@
         <action
             android:id="@+id/action_orderManagementFragment_to_orderDetailFragment"
             app:destination="@id/orderDetailFragment" />
+        <action
+            android:id="@+id/action_orderManagementFragment_to_deliveryPositionFragment"
+            app:destination="@id/deliveryPositionFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"

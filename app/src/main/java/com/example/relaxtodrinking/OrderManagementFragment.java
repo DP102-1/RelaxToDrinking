@@ -168,31 +168,31 @@ public class OrderManagementFragment extends Fragment {
                 case 0:
                     holder.tvOrderStatus_OrderManagement.setText("已完成");
                     holder.tvOrderStatus_OrderManagement.setTextColor(Color.BLUE);
-                case 1:
-                    holder.tvOrderStatus_OrderManagement.setText("未出貨");
-                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.GRAY);
-                case 2:
-                    holder.tvOrderStatus_OrderManagement.setText("送貨中");
-                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.RED);
-                default:
-                    holder.tvOrderStatus_OrderManagement.setText("");
-                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.GRAY);
-            }
-            switch (order.getOrder_status()) {
-                case 0:
                     holder.btOrderAccept_OrderManagement.setText("已經\n完成");
                     holder.btOrderAccept_OrderManagement.setEnabled(false);
                     holder.itemView.setBackgroundColor(Color.parseColor("#AAAAAA"));
 
                     break;
                 case 1:
-                    holder.btOrderAccept_OrderManagement.setText("接收\n訂單");
+                    if (order.getOrder_take_meal().equals("自取")) {
+                        holder.tvOrderStatus_OrderManagement.setText("待取貨");
+                        holder.btOrderAccept_OrderManagement.setText("完成\n訂單");
+                        holder.tvOrderStatus_OrderManagement.setTextColor(Color.RED);
+                    } else {
+                        holder.tvOrderStatus_OrderManagement.setText("未出貨");
+                        holder.tvOrderStatus_OrderManagement.setTextColor(Color.GRAY);
+                        holder.btOrderAccept_OrderManagement.setText("接收\n訂單");
+                    }
                     break;
                 case 2:
+                    holder.tvOrderStatus_OrderManagement.setText("送貨中");
+                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.RED);
                     holder.btOrderAccept_OrderManagement.setText("查看\n位置");
                     holder.itemView.setBackgroundColor(Color.parseColor("#FFC9D7"));
                     break;
                 default:
+                    holder.tvOrderStatus_OrderManagement.setText("");
+                    holder.tvOrderStatus_OrderManagement.setTextColor(Color.GRAY);
                     break;
             }
             //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝接受訂單和查看外送人員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -205,21 +205,28 @@ public class OrderManagementFragment extends Fragment {
                             break;
                         //＝＝＝＝＝接收訂單＝＝＝＝＝//
                         case 1:
-                            Intent appointIntent = new Intent(activity, OrderAppointEmployeeActivity.class);
-                            appointIntent.putExtra("order_id", order.getOrder_id());
-                            startActivity(appointIntent);
-                            holder.tvOrderStatus_OrderManagement.setText("送貨中");
-                            holder.tvOrderStatus_OrderManagement.setTextColor(Color.RED);
-                            holder.btOrderAccept_OrderManagement.setText("查看\n位置");
+                            if (order.getOrder_take_meal().equals("自取")) {
+                                db.collection("Order").document(order.getOrder_id()).update("emp_id", "3XDrJYEpiKzaxPhP0tLL");
+                                db.collection("Order").document(order.getOrder_id()).update("order_status", 0);
+                                showOrderAll();
+                            } else {
+                                Intent appointIntent = new Intent(activity, OrderAppointEmployeeActivity.class);
+                                appointIntent.putExtra("order_id", order.getOrder_id());
+                                startActivity(appointIntent);
+                                holder.tvOrderStatus_OrderManagement.setText("送貨中");
+                                holder.tvOrderStatus_OrderManagement.setTextColor(Color.RED);
+                                holder.btOrderAccept_OrderManagement.setText("查看\n位置");
+                            }
                             break;
                         //＝＝＝＝＝接收訂單＝＝＝＝＝//
                         //＝＝＝＝＝查看外送員位置＝＝＝＝＝//
                         case 2:
-
+                            Bundle bundle = new Bundle();
+                            bundle.putString("action","會員");
+                            bundle.putString("emp_id",order.getEmp_id());
+                            Navigation.findNavController(view).navigate(R.id.action_orderManagementFragment_to_deliveryPositionFragment,bundle);
                             break;
                         //＝＝＝＝＝查看外送員位置＝＝＝＝＝//
-                        default:
-                            break;
                     }
                 }
             });

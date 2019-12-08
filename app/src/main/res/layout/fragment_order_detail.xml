@@ -146,13 +146,13 @@
 
     <TextView
         android:id="@+id/tvOrderDate_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvDate_OrderDetail"
         app:layout_constraintStart_toEndOf="@+id/tvDate_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvDate_OrderDetail"
@@ -160,99 +160,84 @@
 
     <TextView
         android:id="@+id/tvOrderTakeMeal_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvTakeMeal_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvTakeMeal_OrderDetail"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderDate_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvTakeMeal_OrderDetail"
         tools:text="方式" />
 
     <TextView
         android:id="@+id/tvOrderStatus_OrderDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_width="279dp"
+        android:layout_height="18dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvStatus_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvStatus_OrderDetail"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderTakeMeal_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvStatus_OrderDetail"
         tools:text="狀態" />
 
     <TextView
         android:id="@+id/tvOrderUserName_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvName_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvName_OrderDetail"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderStatus_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvName_OrderDetail"
         tools:text="姓名" />
 
     <TextView
         android:id="@+id/tvOrderUserPhone_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvPhone_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvPhone_OrderDetail"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderUserName_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvPhone_OrderDetail"
         tools:text="電話" />
 
     <TextView
         android:id="@+id/tvOrderUserAddress_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvAddress_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvAddress_OrderDetail"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderUserPhone_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvAddress_OrderDetail"
         tools:text="地址" />
 
     <TextView
         android:id="@+id/tvOrderTakeMealTime_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvTime_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvTime_OrderDetail"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderUserAddress_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvTime_OrderDetail"
         tools:text="時間" />
 
     <TextView
         android:id="@+id/tvOrderEmployeeName_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvEmployee_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvEmployee_OrderDetail"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderTotalPrice_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvEmployee_OrderDetail"
         tools:text="員工" />
 
@@ -270,16 +255,14 @@
 
     <TextView
         android:id="@+id/tvOrderTotalPrice_OrderDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="18sp"
         android:text="總價"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvTotal_OrderDetail"
-        app:layout_constraintStart_toEndOf="@+id/tvTotal_OrderDetail"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderTakeMealTime_OrderDetail"
         app:layout_constraintTop_toTopOf="@+id/tvTotal_OrderDetail" />
 
     <TextView
