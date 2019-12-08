@@ -17,8 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.relaxtodrinking.Common;
-import com.example.relaxtodrinking.R;
 import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -201,6 +199,8 @@ public class UserEditInfoFragment extends Fragment {
                     user.setUser_name(etName_UserEditInfo.getText().toString().trim());
                     user.setUser_phone(etPhone_UserEditInfo.getText().toString().trim());
                     user.setUser_address(etAddress_UserEditInfo.getText().toString().trim());
+                    user.setUser_email(auth.getCurrentUser().getEmail());
+
                     db.collection("User").document(user.getUser_id()).set(user);
                     Common.showToast(activity,"個人資料修改成功");
                     Navigation.findNavController(view).popBackStack();

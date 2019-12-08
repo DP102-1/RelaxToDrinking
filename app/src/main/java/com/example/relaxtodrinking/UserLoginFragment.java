@@ -50,7 +50,7 @@ public class UserLoginFragment extends Fragment {
     private SharedPreferences preferences_user;
 
     private ImageView ivLogo_UserLogin, ivExit_UserLogin;
-    private TextView tvSignIn_UserLogin, tvForgetPassword_UserLogin;
+    private TextView tvSignIn_UserLogin, tvForgetPassword_UserLogin,tvTitle_UserLogin,tvAccount_UserLogin,tvPassword_UserLogin;
     private EditText etAccount_UserLogin, etPassword_UserLogin;
     private Button btSubmit_UserLogin;
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -188,6 +188,38 @@ public class UserLoginFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+        /****************************************************************************/
+        tvTitle_UserLogin = view.findViewById(R.id.tvTitle_UserLogin);
+        tvAccount_UserLogin = view.findViewById(R.id.tvAccount_UserLogin);
+        tvPassword_UserLogin = view.findViewById(R.id.tvPassword_UserLogin);
+        tvTitle_UserLogin.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                etAccount_UserLogin.setText("admin@gmail.com");
+                etPassword_UserLogin.setText("000000");
+                return false;
+            }
+        });
+        tvAccount_UserLogin.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                etAccount_UserLogin.setText("emp01@gmail.com");
+                etPassword_UserLogin.setText("123456");
+                return false;
+            }
+        });
+        tvPassword_UserLogin.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                etAccount_UserLogin.setText("user01@gmail.com");
+                etPassword_UserLogin.setText("123456");
+                return false;
+            }
+        });
+        /****************************************************************************/
+
+
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

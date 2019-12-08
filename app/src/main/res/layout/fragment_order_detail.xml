@@ -172,8 +172,8 @@
 
     <TextView
         android:id="@+id/tvOrderStatus_OrderDetail"
-        android:layout_width="279dp"
-        android:layout_height="18dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"

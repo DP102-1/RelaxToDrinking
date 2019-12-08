@@ -2,6 +2,7 @@ package com.example.relaxtodrinking;
 
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -76,7 +77,23 @@ public class DeliveryManagementFragment extends Fragment {
                 }
                 Employee employee = employees.get(0);
                 etName_DeliveryManagement.setText(employee.getEmp_name());
+                if(employee.getEmp_status() == 0) //員工離職就全部鎖起來
+                {
+                    btOrderManagement_DeliveryManagement.setEnabled(false);
+                    btOrderManagement_DeliveryManagement.setTextColor(Color.GRAY);
+                    btDeliveryPosition_DeliveryManagement.setEnabled(false);
+                    btDeliveryPosition_DeliveryManagement.setTextColor(Color.GRAY);
+
+                }
+                else
+                {
+                    btOrderManagement_DeliveryManagement.setEnabled(true);
+                    btOrderManagement_DeliveryManagement.setTextColor(Color.BLACK);
+                    btDeliveryPosition_DeliveryManagement.setEnabled(true);
+                    btDeliveryPosition_DeliveryManagement.setTextColor(Color.BLACK);
+                }
                 emp_id = employee.getEmp_id();
+
                 Log.e(TAG,emp_id);
             }
         });
