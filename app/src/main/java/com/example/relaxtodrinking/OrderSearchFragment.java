@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ import com.example.relaxtodrinking.data.Order;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -181,14 +181,19 @@ public class OrderSearchFragment extends Fragment implements DatePickerDialog.On
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示已完成的訂單列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showOrderAll() {
-        db.collection("Order").whereEqualTo("order_status", 0).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("Order").orderBy("order_date", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 orders = new ArrayList<>();
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     orders.add(snapshot.toObject(Order.class));
                 }
-                if (action.equals("顯示查詢結果")) {
+                for (int i = orders.size() - 1; i >= 0; i--) { //剔除狀態不為0的訂單
+                    if (orders.get(i).getOrder_status() != 0) {
+                        orders.remove(i);
+                    }
+                }
+                if (action.equals("顯示查詢結果")) { //如果是查詢狀態 剔除日期不符合的訂單
                     for (int i = orders.size() - 1; i >= 0; i--) {
                         if (!sdf.format(orders.get(i).getOrder_date()).equals(sdf.format(date))) {
                             orders.remove(i);

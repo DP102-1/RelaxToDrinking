@@ -79,7 +79,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
     public static PaymentData paymentData;
 
     private RecyclerView rvShoppingCartList_ShoppingCart;
-    private TextView tvTotal_ShoppingCart, tvCup_ShoppingCart, tvShoppingCartCount_ShoppingCart, tvAddress_ShoppingCart, tvTime_ShoppingCart, tvArrived_ShoppingCart, tvTakeMeal_ShoppingCart;
+    private TextView tvTotal_ShoppingCart, tvCup_ShoppingCart, tvShoppingCartCount_ShoppingCart, tvAddress_ShoppingCart, tvTime_ShoppingCart, tvArrived_ShoppingCart, tvTakeMeal_ShoppingCart,tvTitle_ShoppingCart;
     private ImageView ivExit_ShoppingCart;
     private Button btYourSelfPickUp_ShoppingCart, btOrderIn_ShoppingCart, btCheckOut_ShoppingCart;
     public static Button btGooglePay_ShoppingCart;
@@ -97,6 +97,10 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
     private User user;
     Calendar calendar = Calendar.getInstance();
     private int year, month, day, hour, minute;
+
+    /******************/
+    private boolean NoTappay = false;
+    /******************/
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -182,16 +186,6 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         showTakeMealMode("");
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
-
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        ivExit_ShoppingCart = view.findViewById(R.id.ivExit_ShoppingCart);
-        ivExit_ShoppingCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).popBackStack();
-            }
-        });
-        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊自取按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -294,7 +288,9 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
 
 
                 //＝＝＝＝＝＝發送googlepay請求＝＝＝＝＝//
-                getPrimeFromTapPay(paymentData,order,auth.getCurrentUser().getEmail(),orderItems);
+                if (!NoTappay) {
+                    getPrimeFromTapPay(paymentData, order, auth.getCurrentUser().getEmail(), orderItems);
+                }
                 db.collection("Order").document(order.getOrder_id()).set(order);
                 //＝＝＝＝＝＝發送googlepay請求＝＝＝＝＝//
 
@@ -314,6 +310,39 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊結帳按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        ivExit_ShoppingCart = view.findViewById(R.id.ivExit_ShoppingCart);
+        ivExit_ShoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+
+        /****************************************************************************/
+        tvTitle_ShoppingCart= view.findViewById(R.id.tvTitle_ShoppingCart);
+        tvTitle_ShoppingCart.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (NoTappay)
+                {
+                    btGooglePay_ShoppingCart.setVisibility(View.VISIBLE);
+                    NoTappay = false;
+                }
+                else {
+                    btGooglePay_ShoppingCart.setVisibility(View.GONE);
+                    NoTappay = true;
+                }
+                return false;
+            }
+        });
+
+        /****************************************************************************/
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝GooglePay內容設定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
