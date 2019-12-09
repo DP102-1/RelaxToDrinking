@@ -7,6 +7,7 @@ package com.example.relaxtodrinking;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -27,11 +28,15 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.Order;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -194,7 +199,10 @@ public class DeliveryOrderFragment extends Fragment {
         public void onBindViewHolder(@NonNull final DeliveryOrderFragment.OrderAdapter.MyViewHolder holder, int position) {
             final Order order = orders.get(position);
             order_id = order.getOrder_id();
-
+            if (position % 2 != 0) //顏色交互
+            {
+                holder.itemView.setBackgroundColor(Color.parseColor("#F1F7D5"));
+            }
             //＝＝＝＝＝如果訂單列表是已完成 全部按鈕不能點＝＝＝＝＝//
             if (isOrderShowNotFinish)
             {
@@ -228,36 +236,38 @@ public class DeliveryOrderFragment extends Fragment {
             holder.btOrderAddress_DeliveryOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*************************/
-                    String startPoint = "台北市萬華區西園路一段306巷24號";  //你的位置
-                    /***********************/
-                    String endPoint = order.getUser_address();
-                    if (startPoint.isEmpty() || endPoint.isEmpty()) {
-                        Common.showToast(activity,"訂單地址為空");
+                    final String endPoint = order.getUser_address();
+                    if (endPoint.isEmpty()) {
+                        Common.showToast(activity, "訂單地址為空");
                         return;
                     }
-                    Address addressStartPoint = getAddress(startPoint);
-                    Address addressEndPoint = getAddress(endPoint);
-                    boolean notFound = false;
-                    // 檢查是否可將起點、目的地轉成address
-                    if (addressStartPoint == null) {
-                        Common.showToast(activity,"找不到定位位置");
-                        notFound = true;
-                    }
-                    if (addressEndPoint == null) {
-                        Common.showToast(activity,"找不到該訂單地址");
-                        notFound = true;
-                    }
-                    if (notFound) {
-                        return;
-                    }
-
-                    double fromLat = addressStartPoint.getLatitude();
-                    double fromLng = addressStartPoint.getLongitude();
-                    double toLat = addressEndPoint.getLatitude();
-                    double toLng = addressEndPoint.getLongitude();
-
-                    direct(fromLat, fromLng, toLat, toLng);
+                    db.collection("Employee").document(emp_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            Employee employee = new Employee();
+                            if (task.getResult() != null) {
+                                employee = task.getResult().toObject(Employee.class);
+                                if (employee.getEmp_position() == null)
+                                {
+                                    Common.showToast(activity,"找不到定位資料,請先至外送員管理點選『查看定位』");
+                                }
+                                else
+                                {
+                                    GeoPoint addressStartPoint = employee.getEmp_position();
+                                    double fromLat = addressStartPoint.getLatitude();
+                                    double fromLng = addressStartPoint.getLongitude();
+                                    Address addressEndPoint = getAddress(endPoint);
+                                    if (addressEndPoint == null) {
+                                        Common.showToast(activity,"找不到該訂單地址");
+                                        return;
+                                    }
+                                    double toLat = addressEndPoint.getLatitude();
+                                    double toLng = addressEndPoint.getLongitude();
+                                    direct(fromLat, fromLng, toLat, toLng);
+                                }
+                            }
+                        }
+                    });
                 }
             });
             //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看訂單位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

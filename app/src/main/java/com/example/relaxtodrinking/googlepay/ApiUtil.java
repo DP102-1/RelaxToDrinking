@@ -22,9 +22,9 @@ public class ApiUtil {
             paymentJO.put("partner_key", partnerKey);
             paymentJO.put("prime", prime);
             paymentJO.put("merchant_id", merchantId);
-            paymentJO.put("amount", 10);
+            paymentJO.put("amount", order.getOrder_price());
             paymentJO.put("currency", "TWD");
-            paymentJO.put("order_number", "SN0001");
+            paymentJO.put("order_number", order.getOrder_id());
 
             String details = "";
             for (OrderItem orderItem : orderItems)

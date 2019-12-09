@@ -23,8 +23,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.Order;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -198,7 +201,7 @@ public class OrderManagementFragment extends Fragment {
             //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝接受訂單和查看外送人員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
             holder.btOrderAccept_OrderManagement.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(final View view) {
                     switch (order.getOrder_status()) {
                         case 0:
                             Common.showToast(activity, "該訂單已完成");
@@ -221,10 +224,23 @@ public class OrderManagementFragment extends Fragment {
                         //＝＝＝＝＝接收訂單＝＝＝＝＝//
                         //＝＝＝＝＝查看外送員位置＝＝＝＝＝//
                         case 2:
-                            Bundle bundle = new Bundle();
-                            bundle.putString("action","會員");
-                            bundle.putString("emp_id",order.getEmp_id());
-                            Navigation.findNavController(view).navigate(R.id.action_orderManagementFragment_to_deliveryPositionFragment,bundle);
+                            db.collection("Employee").document(order.getEmp_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    Employee employee = new Employee();
+                                    if (task.getResult() != null) {
+                                        employee = task.getResult().toObject(Employee.class);
+                                        if (employee.getEmp_position() == null) {
+                                            Common.showToast(activity,"該外送員尚未開啟定位");
+                                        } else {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("action", "會員");
+                                            bundle.putString("emp_id", order.getEmp_id());
+                                            Navigation.findNavController(view).navigate(R.id.action_orderManagementFragment_to_deliveryPositionFragment, bundle);
+                                        }
+                                    }
+                                }
+                            });
                             break;
                         //＝＝＝＝＝查看外送員位置＝＝＝＝＝//
                     }

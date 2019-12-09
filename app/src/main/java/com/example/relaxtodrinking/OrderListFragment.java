@@ -24,6 +24,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.relaxtodrinking.data.Employee;
 import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -189,13 +190,26 @@ public class OrderListFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊查看外送員位置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btEmployeePosition_OrderList.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 if (order.getOrder_status() == 2)
                 {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("action","會員");
-                    bundle.putString("emp_id",order.getEmp_id());
-                    Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_deliveryPositionFragment,bundle);
+                    db.collection("Employee").document(order.getEmp_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            Employee employee = new Employee();
+                            if (task.getResult() != null) {
+                                employee = task.getResult().toObject(Employee.class);
+                                if (employee.getEmp_position() == null) {
+                                    Common.showToast(activity,"該外送員尚未開啟定位");
+                                } else {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("action","會員");
+                                    bundle.putString("emp_id",order.getEmp_id());
+                                    Navigation.findNavController(view).navigate(R.id.action_orderListFragment_to_deliveryPositionFragment,bundle);
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });
