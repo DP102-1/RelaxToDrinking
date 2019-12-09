@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -33,10 +32,8 @@ import com.example.relaxtodrinking.data.Order;
 import com.example.relaxtodrinking.data.OrderItem;
 import com.example.relaxtodrinking.data.User;
 import com.example.relaxtodrinking.googlepay.ApiUtil;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.wallet.AutoResolveHelper;
 import com.google.android.gms.wallet.PaymentData;
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
@@ -46,9 +43,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -82,12 +76,13 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
     private FirebaseAuth auth;
     private SharedPreferences preferences_shoppingCart;
     private TPDGooglePay tpdGooglePay;
-    private PaymentData paymentData;
+    public static PaymentData paymentData;
 
     private RecyclerView rvShoppingCartList_ShoppingCart;
-    private TextView tvTotal_ShoppingCart, tvCup_ShoppingCart, tvShoppingCartCount_ShoppingCart, tvAddress_ShoppingCart, tvTime_ShoppingCart, tvArrived_ShoppingCart, tvTakeMeal_ShoppingCart,tvCheckOutInfo_ShoppingCart;
+    private TextView tvTotal_ShoppingCart, tvCup_ShoppingCart, tvShoppingCartCount_ShoppingCart, tvAddress_ShoppingCart, tvTime_ShoppingCart, tvArrived_ShoppingCart, tvTakeMeal_ShoppingCart;
     private ImageView ivExit_ShoppingCart;
     private Button btYourSelfPickUp_ShoppingCart, btOrderIn_ShoppingCart, btCheckOut_ShoppingCart;
+    public static Button btGooglePay_ShoppingCart;
 
     private List<OrderItem> orderItems;
     private int count = 0; //購物車裡面的品項數
@@ -110,7 +105,6 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
-//        prepareGooglePay();
 
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝偏好設定載入使用者資料＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -176,6 +170,8 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         tvShoppingCartCount_ShoppingCart = view.findViewById(R.id.tvShoppingCartCount_ShoppingCart);
         tvTotal_ShoppingCart = view.findViewById(R.id.tvTotal_ShoppingCart);
         tvCup_ShoppingCart = view.findViewById(R.id.tvCup_ShoppingCart);
+        prepareGooglePay();
+
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -229,8 +225,26 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊外送按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
+
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊使用googlepay付款按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        btGooglePay_ShoppingCart = view.findViewById(R.id.btGooglePay_ShoppingCart);
+        btGooglePay_ShoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 跳出user資訊視窗讓user確認，確認後會呼叫onActivityResult()
+                tpdGooglePay.requestPayment(TransactionInfo.newBuilder()
+                        .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
+                        // 消費總金額
+                        .setTotalPrice("10")
+                        // 設定幣別
+                        .setCurrencyCode("TWD")
+                        .build(), LOAD_PAYMENT_DATA_REQUEST_CODE);
+            }
+        });
+        //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊使用googlepay付款按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊結帳按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        tvCheckOutInfo_ShoppingCart = view.findViewById(R.id.tvCheckOutInfo_ShoppingCart);
         btCheckOut_ShoppingCart = view.findViewById(R.id.btCheckOut_ShoppingCart);
         btCheckOut_ShoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,30 +293,11 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                 //＝＝＝＝＝＝處理訂單資訊＝＝＝＝＝//
 
 
-                //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
-                Log.d(TAG, "SDK version is " + TPDSetup.getVersion());
-
-                // 使用TPDSetup設定環境。每個設定值出處參看strings.xml
-                TPDSetup.initInstance(activity,
-                        15088,
-                        "app_OdeBd5uyUTuFEHy0USYnck36UD1UrXfamS42X3VFBb8rLiNHkabO9aqmraM0",
-                        TPDServerType.Sandbox);
-
-                prepareGooglePay();
-
-                // 跳出user資訊視窗讓user確認，確認後會呼叫onActivityResult()
-                tpdGooglePay.requestPayment(TransactionInfo.newBuilder()
-                        .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
-                        // 消費總金額
-                        .setTotalPrice("10")
-                        // 設定幣別
-                        .setCurrencyCode("TWD")
-                        .build(), LOAD_PAYMENT_DATA_REQUEST_CODE);
-
-                        getPrimeFromTapPay(paymentData);
-
+                //＝＝＝＝＝＝發送googlepay請求＝＝＝＝＝//
+                getPrimeFromTapPay(paymentData,order,auth.getCurrentUser().getEmail(),orderItems);
                 db.collection("Order").document(order.getOrder_id()).set(order);
-                //＝＝＝＝＝＝連結結帳系統＝＝＝＝＝//
+                //＝＝＝＝＝＝發送googlepay請求＝＝＝＝＝//
+
 
                 //＝＝＝＝＝＝處理訂單明細＝＝＝＝＝//
                 for (OrderItem orderItem : orderItems)
@@ -321,11 +316,19 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊結帳按鈕＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
 
-    /**************************************************************************************/
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝GooglePay內容設定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
     public void prepareGooglePay() {
+
+        Log.d(TAG, "SDK version is " + TPDSetup.getVersion());
+
+        // 使用TPDSetup設定環境。每個設定值出處參看strings.xml
+        TPDSetup.initInstance(activity,
+                15088,
+                "app_OdeBd5uyUTuFEHy0USYnck36UD1UrXfamS42X3VFBb8rLiNHkabO9aqmraM0",
+                TPDServerType.Sandbox);
+
         TPDMerchant tpdMerchant = new TPDMerchant();
         // 設定商店名稱
         tpdMerchant.setMerchantName(getString(R.string.TapPay_MerchantName));
@@ -355,49 +358,8 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LOAD_PAYMENT_DATA_REQUEST_CODE) {
-            switch (resultCode) {
-                case Activity.RESULT_OK:
-                    // 取得支付資訊
-                    paymentData = PaymentData.getFromIntent(data);
-                    if (paymentData != null) {
-                        showPaymentInfo(paymentData);
-                    }
-                    break;
-                case Activity.RESULT_CANCELED:
 
-                    tvCheckOutInfo_ShoppingCart.setText(R.string.textCanceled);
-                    break;
-                case AutoResolveHelper.RESULT_ERROR:
-                    Status status = AutoResolveHelper.getStatusFromIntent(data);
-                    if (status != null) {
-                        String text = "status code: " + status.getStatusCode() +
-                                " , message: " + status.getStatusMessage();
-                        Log.d(TAG, text);
-                        tvCheckOutInfo_ShoppingCart.setText(text);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    private void showPaymentInfo(PaymentData paymentData) {
-        try {
-            JSONObject paymentDataJO = new JSONObject(paymentData.toJson());
-            String cardDescription = paymentDataJO.getJSONObject("paymentMethodData").getString
-                    ("description");
-            tvCheckOutInfo_ShoppingCart.setText(cardDescription);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getPrimeFromTapPay(PaymentData paymentData) {
+    private void getPrimeFromTapPay(PaymentData paymentData, final Order order, final String email, final List<OrderItem> orderItems) {
         showProgressDialog();
         tpdGooglePay.getPrime(
                 paymentData,
@@ -409,9 +371,8 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                                 + "\n\nUse below cURL to proceed the payment : \n"
                                 + ApiUtil.generatePayByPrimeCURLForSandBox(prime,
                                 getString(R.string.TapPay_PartnerKey),
-                                getString(R.string.TapPay_MerchantID));
-                        Log.d(TAG, text);
-                        tvCheckOutInfo_ShoppingCart.setText(text);
+                                getString(R.string.TapPay_MerchantID),order,email,orderItems);
+                        Log.e(TAG, text);
                     }
                 },
                 new TPDTokenFailureCallback() {
@@ -419,8 +380,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
                     public void onFailure(int status, String reportMsg) {
                         hideProgressDialog();
                         String text = "TapPay getPrime failed. status: " + status + ", message: " + reportMsg;
-                        Log.d(TAG, text);
-                        tvCheckOutInfo_ShoppingCart.setText(text);
+                        Log.e(TAG, text);
                     }
                 });
     }
@@ -446,7 +406,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝GooglePay內容設定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    /**************************************************************************************/
+
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝購物車列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingcartListFragment.ShoppingCartAdapter.MyViewHolder> {

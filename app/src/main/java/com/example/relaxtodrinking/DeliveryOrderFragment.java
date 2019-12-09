@@ -361,7 +361,6 @@ public class DeliveryOrderFragment extends Fragment {
                         orders.remove(i);
                     }
                 }
-                Log.e(TAG,"有"+orders.size());
                 rvDeliveryOrder_DeliveryOrder.setAdapter(new DeliveryOrderFragment.OrderAdapter(activity, orders));
             }
         });

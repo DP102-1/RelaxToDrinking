@@ -105,7 +105,6 @@ public class ProductInsertFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ivProductPicture_ProductInsert = view.findViewById(R.id.ivProductPicture_ProductInsert);
         spProductKind_ProductInsert = view.findViewById(R.id.spProductKind_ProductInsert);
-//        showKindAll();
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊拍照＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btTakePicture_ProductInsert = view.findViewById(R.id.btTakePicture_ProductInsert);
         btTakePicture_ProductInsert.setOnClickListener(new View.OnClickListener() {
