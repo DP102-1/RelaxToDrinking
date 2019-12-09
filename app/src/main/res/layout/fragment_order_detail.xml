@@ -109,13 +109,15 @@
         android:id="@+id/tvTime_OrderDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:text="取餐時間"
-        app:layout_constraintStart_toStartOf="@+id/tvAddress_OrderDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddress_OrderDetail" />
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOrderTakeMealTime_OrderDetail"
+        app:layout_constraintEnd_toStartOf="@+id/tvOrderTakeMealTime_OrderDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvOrderTakeMealTime_OrderDetail" />
 
     <TextView
         android:id="@+id/tvEmployee_OrderDetail"
@@ -221,12 +223,13 @@
         android:id="@+id/tvOrderTakeMealTime_OrderDetail"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTime_OrderDetail"
+        app:layout_constraintEnd_toEndOf="@+id/tvOrderUserAddress_OrderDetail"
         app:layout_constraintStart_toStartOf="@+id/tvOrderUserAddress_OrderDetail"
-        app:layout_constraintTop_toTopOf="@+id/tvTime_OrderDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderUserAddress_OrderDetail"
         tools:text="時間" />
 
     <TextView
