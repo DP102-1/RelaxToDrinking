@@ -52,6 +52,7 @@ public class ProductListFragment extends Fragment {
 
     private String productKindId = "0"; //"0"代表全部的類別
     private String user_id = "";
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     @Override
@@ -186,31 +187,6 @@ public class ProductListFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品列表內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void showProductAll() {
-        db.collection("Product").whereEqualTo("pro_status",1).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            List<Product> products = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                products.add(document.toObject(Product.class));
-                            }
-                            if (!productKindId.equals("0")) { //如果為顯示全部就不執行這段
-                                for (int i = products.size() - 1; i >= 0; i--) { //刪除products集合不是"該類別id"的商品
-                                    Product product = products.get(i);
-                                    if (!productKindId.equals(product.getPro_kind_id())) {
-                                        products.remove(i);
-                                    }
-                                }
-                            }
-                            rvProductList_ProductList.setAdapter(new ProductAdapter(activity, products));
-                        }
-                    }
-                });
-    }
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品種類內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -243,12 +219,13 @@ public class ProductListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final KindAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final KindAdapter.MyViewHolder holder, final int position) {
             final ProductKind kind = kinds.get(position);
             holder.tvKindName_ProductList.setText(kind.getKind_name()); //抓商品種類名稱
             holder.itemView.setOnClickListener(new View.OnClickListener() { //點擊商品類別來分類
                 @Override
                 public void onClick(View view) {
+
                     productKindId = kind.getKind_id();
                     showProductAll();
                 }
@@ -259,10 +236,36 @@ public class ProductListFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝商品種類內容＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
 
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+    private void showProductAll() {
+        db.collection("Product").whereEqualTo("pro_status",1).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            List<Product> products = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                products.add(document.toObject(Product.class));
+                            }
+                            if (!productKindId.equals("0")) { //如果為顯示全部就不執行這段
+                                for (int i = products.size() - 1; i >= 0; i--) { //刪除products集合不是"該類別id"的商品
+                                    Product product = products.get(i);
+                                    if (!productKindId.equals(product.getPro_kind_id())) {
+                                        products.remove(i);
+                                    }
+                                }
+                            }
+                            rvProductList_ProductList.setAdapter(new ProductAdapter(activity, products));
+                        }
+                    }
+                });
+    }
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示商品種類＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void showKindAll() {
-        db.collection("ProductKind").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("ProductKind").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful() && task.getResult() != null) {

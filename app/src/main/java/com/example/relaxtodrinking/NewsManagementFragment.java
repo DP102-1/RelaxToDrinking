@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +98,7 @@ public class NewsManagementFragment extends Fragment {
         ivNewsPicture_NewsManagement = view.findViewById(R.id.ivNewsPicture_NewsManagement);
         tvNewsDate_NewsManagement = view.findViewById(R.id.tvNewsDate_NewsManagement);
         tvNewsMessage_NewsManagement = view.findViewById(R.id.tvNewsMessage_NewsManagement);
+        tvNewsMessage_NewsManagement.setMovementMethod(ScrollingMovementMethod.getInstance());
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝載入所有列表＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         rvNewsList_NewsManagement = view.findViewById(R.id.rvNewsList_NewsManagement);
         rvNewsList_NewsManagement.setLayoutManager(new LinearLayoutManager(activity));

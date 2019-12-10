@@ -5,6 +5,7 @@ package com.example.relaxtodrinking;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -134,12 +137,21 @@ public class UserEditPasswordFragment extends Fragment {
         btSubmit_UserEditPassword = view.findViewById(R.id.btSubmit_UserEditPassword);
         btSubmit_UserEditPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 if (isAllNotError()) {
-                    auth.getCurrentUser().updatePassword(etNewPassword_UserEditPassword.getText().toString().trim());
-                    auth.signOut();
-                    Navigation.findNavController(view).navigate(R.id.action_userEditPasswordFragment_to_indexFragment);
-                    Common.showToast(activity, "密碼修改成功,請重新登入");
+                    auth.getCurrentUser().updatePassword(etNewPassword_UserEditPassword.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                auth.signOut();
+                                Common.showToast(activity, "密碼修改成功,請重新登入");
+                                Navigation.findNavController(view).navigate(R.id.action_userEditPasswordFragment_to_indexFragment);
+                            }else
+                            {
+                                Log.e(TAG,"修改密碼失敗");
+                            }
+                        }
+                    });
                 }else
                 {
                     Common.showToast(activity, "有資料欄位輸入不正確");
