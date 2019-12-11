@@ -19,8 +19,6 @@ import static com.example.relaxtodrinking.ShoppingcartListFragment.paymentData;
 public class MainActivity extends AppCompatActivity {
 
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 101;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -49,14 +49,11 @@
         android:id="@+id/btStore_Index"
         android:layout_width="98dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="@drawable/index_button"
         android:text="店家\n資訊"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btOrder_Index"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btOrder_Index"
         app:layout_constraintTop_toTopOf="@+id/btOrder_Index" />
 

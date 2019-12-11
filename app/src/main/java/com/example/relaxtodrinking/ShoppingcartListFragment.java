@@ -244,7 +244,7 @@ public class ShoppingcartListFragment extends Fragment implements TimePickerDial
             @Override
             public void onClick(View view) {
                 //＝＝＝＝＝＝處理訂單資訊＝＝＝＝＝//
-                if (orderItems == null)
+                if (orderItems == null || total == 0)
                 {
                     Common.showToast(activity,"購物車裡沒有商品");
                     return;
