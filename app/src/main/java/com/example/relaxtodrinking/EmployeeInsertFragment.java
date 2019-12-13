@@ -272,9 +272,8 @@ public class EmployeeInsertFragment extends Fragment {
                     if (action.equals("新增")) {
                         String email = etEmail_EmployeeInsert.getText().toString().trim();
                         String password = etPassword_EmployeeInsert.getText().toString().trim();
-                        signInEmployeeInsert(email, password);
+                        signInEmployeeInsert(email, password,view);
                         Common.showToast(activity, "員工新增成功");
-
                     }else if (action.equals("修改")){
                         db.collection("Employee").document(employee_id).update("emp_name",etName_EmployeeInsert.getText().toString().trim());
                         db.collection("Employee").document(employee_id).update("emp_sex",employee_sex);
@@ -284,12 +283,12 @@ public class EmployeeInsertFragment extends Fragment {
                         db.collection("User").document(user_id).update("user_phone",etPhone_EmployeeInsert.getText().toString().trim());
                         db.collection("User").document(user_id).update("user_address",etAddress_EmployeeInsert.getText().toString().trim());
                         Common.showToast(activity, "員工修改成功");
+                        Navigation.findNavController(view).popBackStack();
                     }else
                     {
                         Common.showToast(activity, "未進行操作,找不到執行動作指令");
-                        Log.e(TAG,"未進行操作,找不到執行動作指令");
+                        Navigation.findNavController(view).popBackStack();
                     }
-                    Navigation.findNavController(view).popBackStack();
                 }else{
                     Common.showToast(activity,"有資料欄位輸入不正確");
                 }
@@ -310,7 +309,7 @@ public class EmployeeInsertFragment extends Fragment {
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void signInEmployeeInsert(String email, String password) {
+    private void signInEmployeeInsert(String email, String password, final View view) {
         /* 利用user輸入的email與password建立新的帳號 */
         auth.setLanguageCode("zh-Hant");
         auth.createUserWithEmailAndPassword(email, password)
@@ -346,6 +345,7 @@ public class EmployeeInsertFragment extends Fragment {
                                 user.setUser_email(email);
                                 insertEmployee(employee);
                                 insertUser(user);
+                                Navigation.findNavController(view).popBackStack();
                             }
                         } else {
                             Exception exception = task.getException();

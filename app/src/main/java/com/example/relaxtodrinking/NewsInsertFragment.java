@@ -128,7 +128,7 @@ public class NewsInsertFragment extends Fragment {
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btSubmit_NewsInsert.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 news = new News();
                 if (news_id.equals(""))
                 {
@@ -153,7 +153,7 @@ public class NewsInsertFragment extends Fragment {
                                     if (task.isSuccessful()) {
                                         Log.d(TAG, "上傳最新消息圖片成功");
                                         news.setNews_picture(imagePath);
-                                        insertNews(news);
+                                        insertNews(news,view);
                                     } else {
                                         Log.e(TAG, "上傳最新消息圖片失敗");
                                         Common.showToast(activity, "上傳最新消息圖片失敗");
@@ -162,9 +162,8 @@ public class NewsInsertFragment extends Fragment {
                             });
                 }else {
                     news.setNews_picture(news_picture);
-                    insertNews(news);
+                    insertNews(news,view);
                 }
-                Navigation.findNavController(view).popBackStack();
                 //＝＝＝＝＝如果有拍照上傳至storage＝＝＝＝＝//
             }
         });
@@ -289,7 +288,7 @@ public class NewsInsertFragment extends Fragment {
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private void insertNews(News news) {
+    private void insertNews(News news, final View view) {
         db.collection("News").document(news.getNews_id()).set(news)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -308,6 +307,7 @@ public class NewsInsertFragment extends Fragment {
                             Log.d(TAG, "最新消息操作失敗");
                             Common.showToast(activity, "最新消息操作失敗");
                         }
+                        Navigation.findNavController(view).popBackStack();
                     }
                 });
     }
