@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 
 import com.example.relaxtodrinking.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,12 +36,13 @@ public class UserSignInFragment extends Fragment {
     private FirebaseStorage storage;
     private FirebaseAuth auth;
 
-    private ImageView ivEmail_UserSignIn,ivPassword_UserSignIn,ivName_UserSignIn,ivPhone_UserSignIn,ivAddress_UserSignIn,ivExit_UserSignIn;
-    private TextView tvErrorEmail_UserSignIn,tvErrorPassword_UserSignIn,tvErrorName_UserSignIn,tvErrorPhone_UserSignIn,tvErrorAddress_UserSignIn;
-    private EditText etEmail_UserSignIn,etPassword_UserSignIn,etName_UserSignIn,etPhone_UserSignIn,etAddress_UserSignIn;
+    private ImageView ivEmail_UserSignIn, ivPassword_UserSignIn, ivName_UserSignIn, ivPhone_UserSignIn, ivAddress_UserSignIn, ivExit_UserSignIn;
+    private TextView tvErrorEmail_UserSignIn, tvErrorPassword_UserSignIn, tvErrorName_UserSignIn, tvErrorPhone_UserSignIn, tvErrorAddress_UserSignIn;
+    private EditText etEmail_UserSignIn, etPassword_UserSignIn, etName_UserSignIn, etPhone_UserSignIn, etAddress_UserSignIn;
     private Button btSubmit_UserSignIn;
 
-    private Boolean isErrorEmail = true,isErrorPassword = true,isErrorPhone = true,isErrorName = true,isErrorAddress = true;
+    private Boolean isErrorEmail = true, isErrorPassword = true, isErrorPhone = true, isErrorName = true, isErrorAddress = true;
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝宣告＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class UserSignInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("會員註冊");
+        activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_user_sign_in, container, false);
     }
 
@@ -77,6 +79,13 @@ public class UserSignInFragment extends Fragment {
         tvErrorPhone_UserSignIn = view.findViewById(R.id.tvErrorPhone_UserSignIn);
         tvErrorAddress_UserSignIn = view.findViewById(R.id.tvErrorAddress_UserSignIn);
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證信箱＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etEmail_UserSignIn.addTextChangedListener(new Common.TextValidator(etEmail_UserSignIn) {
+            @Override
+            public void validate(TextView textView, String text) {
+                String pattern = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+                isErrorEmail = !(Pattern.compile(pattern).matcher(text).matches());
+            }
+        });
         etEmail_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -86,11 +95,9 @@ public class UserSignInFragment extends Fragment {
                         tvErrorEmail_UserSignIn.setVisibility(View.VISIBLE);
                         tvErrorEmail_UserSignIn.setText("不正確的信箱格式");
                         ivEmail_UserSignIn.setVisibility(View.VISIBLE);
-                        isErrorEmail = true;
                     } else {
                         tvErrorEmail_UserSignIn.setVisibility(View.GONE);
                         ivEmail_UserSignIn.setVisibility(View.GONE);
-                        isErrorEmail = false;
                     }
                 }
             }
@@ -99,6 +106,13 @@ public class UserSignInFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證密碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etPassword_UserSignIn.addTextChangedListener(new Common.TextValidator(etPassword_UserSignIn) {
+            @Override
+            public void validate(TextView textView, String text) {
+                String pattern = "([a-zA-Z]|\\d){6,16}";
+                isErrorPassword = !(Pattern.compile(pattern).matcher(etPassword_UserSignIn.getText().toString().trim()).matches());
+            }
+        });
         etPassword_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -108,11 +122,9 @@ public class UserSignInFragment extends Fragment {
                         tvErrorPassword_UserSignIn.setVisibility(View.VISIBLE);
                         tvErrorPassword_UserSignIn.setText("密碼必須為英文大小寫數字,6~16個字元");
                         ivPassword_UserSignIn.setVisibility(View.VISIBLE);
-                        isErrorPassword = true;
                     } else {
                         tvErrorPassword_UserSignIn.setVisibility(View.GONE);
                         ivPassword_UserSignIn.setVisibility(View.GONE);
-                        isErrorPassword = false;
                     }
                 }
             }
@@ -121,6 +133,12 @@ public class UserSignInFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證姓名＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etName_UserSignIn.addTextChangedListener(new Common.TextValidator(etName_UserSignIn) {
+            @Override
+            public void validate(TextView textView, String text) {
+                isErrorName = etName_UserSignIn.getText().toString().isEmpty();
+            }
+        });
         etName_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -129,11 +147,9 @@ public class UserSignInFragment extends Fragment {
                         tvErrorName_UserSignIn.setVisibility(View.VISIBLE);
                         tvErrorName_UserSignIn.setText("姓名不得為空");
                         ivName_UserSignIn.setVisibility(View.VISIBLE);
-                        isErrorName = true;
                     } else {
                         tvErrorName_UserSignIn.setVisibility(View.GONE);
                         ivName_UserSignIn.setVisibility(View.GONE);
-                        isErrorName = false;
                     }
                 }
             }
@@ -142,25 +158,29 @@ public class UserSignInFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證電話＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etPhone_UserSignIn.addTextChangedListener(new Common.TextValidator(etPhone_UserSignIn) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (etPhone_UserSignIn.getText().toString().isEmpty()) {
+                    isErrorPhone = false;
+                } else {
+                    String pattern = "09[0-9]{8}";
+                    isErrorPhone = !(Pattern.compile(pattern).matcher(etPhone_UserSignIn.getText().toString().trim()).matches());
+                }
+            }
+        });
         etPhone_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (etPhone_UserSignIn.getText().toString().isEmpty())
-                {
-                    isErrorPhone = false;
-                    return;
-                }
                 if (!b) {
                     String pattern = "09[0-9]{8}";
                     if (!(Pattern.compile(pattern).matcher(etPhone_UserSignIn.getText().toString().trim()).matches())) {
                         tvErrorPhone_UserSignIn.setVisibility(View.VISIBLE);
                         tvErrorPhone_UserSignIn.setText("手機號碼格式不正確");
                         ivPhone_UserSignIn.setVisibility(View.VISIBLE);
-                        isErrorPhone = true;
                     } else {
                         tvErrorPhone_UserSignIn.setVisibility(View.GONE);
                         ivPhone_UserSignIn.setVisibility(View.GONE);
-                        isErrorPhone = false;
                     }
                 }
             }
@@ -169,6 +189,12 @@ public class UserSignInFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證地址＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etAddress_UserSignIn.addTextChangedListener(new Common.TextValidator(etAddress_UserSignIn) {
+            @Override
+            public void validate(TextView textView, String text) {
+                isErrorAddress = etAddress_UserSignIn.getText().toString().isEmpty();
+            }
+        });
         etAddress_UserSignIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -177,11 +203,9 @@ public class UserSignInFragment extends Fragment {
                         tvErrorAddress_UserSignIn.setVisibility(View.VISIBLE);
                         tvErrorAddress_UserSignIn.setText("地址不得為空");
                         ivAddress_UserSignIn.setVisibility(View.VISIBLE);
-                        isErrorAddress = true;
                     } else {
                         tvErrorAddress_UserSignIn.setVisibility(View.GONE);
                         ivAddress_UserSignIn.setVisibility(View.GONE);
-                        isErrorAddress = false;
                     }
                 }
             }
@@ -194,16 +218,14 @@ public class UserSignInFragment extends Fragment {
         btSubmit_UserSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isAllNotError())
-                {
+                if (isAllNotError()) {
                     String email = etEmail_UserSignIn.getText().toString().trim();
                     String password = etPassword_UserSignIn.getText().toString().trim();
-                    signInUser(email,password);
+                    signInUser(email, password);
                     Navigation.findNavController(view)
                             .navigate(R.id.action_userSignInFragment_to_indexFragment);
-                }
-                else{
-                    Common.showToast(activity,"有資料欄位輸入不正確");
+                } else {
+                    Common.showToast(activity, "有資料欄位輸入不正確");
                 }
             }
         });
@@ -219,6 +241,7 @@ public class UserSignInFragment extends Fragment {
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     }
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
     private void signInUser(final String email, String password) {
         /* 利用user輸入的email與password建立新的帳號 */
@@ -240,9 +263,13 @@ public class UserSignInFragment extends Fragment {
                                 user.setUser_address(address);
                                 user.setUser_phone(phone);
                                 user.setUser_email(email);
-                                db.collection("User").document(user.getUser_id()).set(user);
-                                Common.showToast(activity, "註冊成功,請進行登入");
-                                auth.signOut();
+                                db.collection("User").document(user.getUser_id()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Common.showToast(activity, "註冊成功,請進行登入");
+                                        auth.signOut();
+                                    }
+                                });
                             }
                         } else {
                             Exception exception = task.getException();
@@ -255,7 +282,7 @@ public class UserSignInFragment extends Fragment {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-    private boolean isAllNotError(){
+    private boolean isAllNotError() {
         return !isErrorEmail && !isErrorPassword && !isErrorPhone && !isErrorName && !isErrorAddress;
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝判斷資料格式是否正確＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

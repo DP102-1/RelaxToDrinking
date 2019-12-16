@@ -140,7 +140,13 @@ public class EmployeeInsertFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證信箱＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
-        etEmail_EmployeeInsert = view.findViewById(R.id.etEmail_EmployeeInsert);
+        etEmail_EmployeeInsert.addTextChangedListener(new Common.TextValidator(etEmail_EmployeeInsert) {
+            @Override
+            public void validate(TextView textView, String text) {
+                String pattern = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+                isErrorEmail = !(Pattern.compile(pattern).matcher(text).matches());
+            }
+        });
         etEmail_EmployeeInsert.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -150,11 +156,9 @@ public class EmployeeInsertFragment extends Fragment {
                         tvErrorEmail_EmployeeInsert.setVisibility(View.VISIBLE);
                         tvErrorEmail_EmployeeInsert.setText("不正確的信箱格式");
                         ivEmail_EmployeeInsert.setVisibility(View.VISIBLE);
-                        isErrorEmail = true;
                     } else {
                         tvErrorEmail_EmployeeInsert.setVisibility(View.GONE);
                         ivEmail_EmployeeInsert.setVisibility(View.GONE);
-                        isErrorEmail = false;
                     }
                 }
             }
@@ -163,6 +167,13 @@ public class EmployeeInsertFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證密碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etPassword_EmployeeInsert.addTextChangedListener(new Common.TextValidator(etPassword_EmployeeInsert) {
+            @Override
+            public void validate(TextView textView, String text) {
+                String pattern = "([a-zA-Z]|\\d){6,16}";
+                isErrorPassword = !(Pattern.compile(pattern).matcher(etPassword_EmployeeInsert.getText().toString().trim()).matches());
+            }
+        });
         etPassword_EmployeeInsert.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -172,11 +183,9 @@ public class EmployeeInsertFragment extends Fragment {
                         tvErrorPassword_EmployeeInsert.setVisibility(View.VISIBLE);
                         tvErrorPassword_EmployeeInsert.setText("密碼必須為英文大小寫數字,6~16個字元");
                         ivPassword_EmployeeInsert.setVisibility(View.VISIBLE);
-                        isErrorPassword = true;
                     } else {
                         tvErrorPassword_EmployeeInsert.setVisibility(View.GONE);
                         ivPassword_EmployeeInsert.setVisibility(View.GONE);
-                        isErrorPassword = false;
                     }
                 }
             }
@@ -185,6 +194,12 @@ public class EmployeeInsertFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證姓名＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etName_EmployeeInsert.addTextChangedListener(new Common.TextValidator(etName_EmployeeInsert) {
+            @Override
+            public void validate(TextView textView, String text) {
+                isErrorName = etName_EmployeeInsert.getText().toString().isEmpty();
+            }
+        });
         etName_EmployeeInsert.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -193,11 +208,9 @@ public class EmployeeInsertFragment extends Fragment {
                         tvErrorName_EmployeeInsert.setVisibility(View.VISIBLE);
                         tvErrorName_EmployeeInsert.setText("姓名不得為空");
                         ivName_EmployeeInsert.setVisibility(View.VISIBLE);
-                        isErrorName = true;
                     } else {
                         tvErrorName_EmployeeInsert.setVisibility(View.GONE);
                         ivName_EmployeeInsert.setVisibility(View.GONE);
-                        isErrorName = false;
                     }
                 }
             }
@@ -217,6 +230,17 @@ public class EmployeeInsertFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證手機號碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etPhone_EmployeeInsert.addTextChangedListener(new Common.TextValidator(etPhone_EmployeeInsert) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (etPhone_EmployeeInsert.getText().toString().isEmpty()) {
+                    isErrorPhone = false;
+                } else {
+                    String pattern = "09[0-9]{8}";
+                    isErrorPhone = !(Pattern.compile(pattern).matcher(etPhone_EmployeeInsert.getText().toString().trim()).matches());
+                }
+            }
+        });
         etPhone_EmployeeInsert.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -230,11 +254,9 @@ public class EmployeeInsertFragment extends Fragment {
                         tvErrorPhone_EmployeeInsert.setVisibility(View.VISIBLE);
                         tvErrorPhone_EmployeeInsert.setText("手機號碼格式不正確");
                         ivPhone_EmployeeInsert.setVisibility(View.VISIBLE);
-                        isErrorPhone = true;
                     } else {
                         tvErrorPhone_EmployeeInsert.setVisibility(View.GONE);
                         ivPhone_EmployeeInsert.setVisibility(View.GONE);
-                        isErrorPhone = false;
                     }
                 }
             }
@@ -243,6 +265,12 @@ public class EmployeeInsertFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證地址＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etAddress_EmployeeInsert.addTextChangedListener(new Common.TextValidator(etAddress_EmployeeInsert) {
+            @Override
+            public void validate(TextView textView, String text) {
+                isErrorAddress = etAddress_EmployeeInsert.getText().toString().isEmpty();
+            }
+        });
         etAddress_EmployeeInsert.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -251,11 +279,9 @@ public class EmployeeInsertFragment extends Fragment {
                         tvErrorAddress_EmployeeInsert.setVisibility(View.VISIBLE);
                         tvErrorAddress_EmployeeInsert.setText("地址不得為空");
                         ivAddress_EmployeeInsert.setVisibility(View.VISIBLE);
-                        isErrorAddress = true;
                     } else {
                         tvErrorAddress_EmployeeInsert.setVisibility(View.GONE);
                         ivAddress_EmployeeInsert.setVisibility(View.GONE);
-                        isErrorAddress = false;
                     }
                 }
             }

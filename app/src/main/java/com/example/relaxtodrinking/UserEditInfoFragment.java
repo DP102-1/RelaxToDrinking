@@ -120,6 +120,12 @@ public class UserEditInfoFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證姓名＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etName_UserEditInfo.addTextChangedListener(new Common.TextValidator(etName_UserEditInfo) {
+            @Override
+            public void validate(TextView textView, String text) {
+                isErrorName = etName_UserEditInfo.getText().toString().isEmpty();
+            }
+        });
         etName_UserEditInfo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -128,11 +134,9 @@ public class UserEditInfoFragment extends Fragment {
                         tvErrorName_UserEditInfo.setVisibility(View.VISIBLE);
                         tvErrorName_UserEditInfo.setText("姓名不得為空");
                         ivName_UserEditInfo.setVisibility(View.VISIBLE);
-                        isErrorName = true;
                     } else {
                         tvErrorName_UserEditInfo.setVisibility(View.GONE);
                         ivName_UserEditInfo.setVisibility(View.GONE);
-                        isErrorName = false;
                     }
                 }
             }
@@ -141,6 +145,17 @@ public class UserEditInfoFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證手機號碼＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etPhone_UserEditInfo.addTextChangedListener(new Common.TextValidator(etPhone_UserEditInfo) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (etPhone_UserEditInfo.getText().toString().isEmpty()) {
+                    isErrorPhone = false;
+                } else {
+                    String pattern = "09[0-9]{8}";
+                    isErrorPhone = !(Pattern.compile(pattern).matcher(etPhone_UserEditInfo.getText().toString().trim()).matches());
+                }
+            }
+        });
         etPhone_UserEditInfo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -154,11 +169,9 @@ public class UserEditInfoFragment extends Fragment {
                         tvErrorPhone_UserEditInfo.setVisibility(View.VISIBLE);
                         tvErrorPhone_UserEditInfo.setText("手機號碼格式不正確");
                         ivPhone_UserEditInfo.setVisibility(View.VISIBLE);
-                        isErrorPhone = true;
                     } else {
                         tvErrorPhone_UserEditInfo.setVisibility(View.GONE);
                         ivPhone_UserEditInfo.setVisibility(View.GONE);
-                        isErrorPhone = false;
                     }
                 }
             }
@@ -167,6 +180,12 @@ public class UserEditInfoFragment extends Fragment {
 
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證地址＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+        etAddress_UserEditInfo.addTextChangedListener(new Common.TextValidator(etAddress_UserEditInfo) {
+            @Override
+            public void validate(TextView textView, String text) {
+                isErrorAddress = etAddress_UserEditInfo.getText().toString().isEmpty();
+            }
+        });
         etAddress_UserEditInfo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -175,16 +194,15 @@ public class UserEditInfoFragment extends Fragment {
                         tvErrorAddress_UserEditInfo.setVisibility(View.VISIBLE);
                         tvErrorAddress_UserEditInfo.setText("地址不得為空");
                         ivAddress_UserEditInfo.setVisibility(View.VISIBLE);
-                        isErrorAddress = true;
                     } else {
                         tvErrorAddress_UserEditInfo.setVisibility(View.GONE);
                         ivAddress_UserEditInfo.setVisibility(View.GONE);
-                        isErrorAddress = false;
                     }
                 }
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝驗證地址＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊確定修改＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btSubmit_UserEditInfo = view.findViewById(R.id.btSubmit_UserEditInfo);

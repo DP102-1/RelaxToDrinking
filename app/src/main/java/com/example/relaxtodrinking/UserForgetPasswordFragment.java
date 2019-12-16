@@ -71,6 +71,13 @@ public class UserForgetPasswordFragment extends Fragment {
         etEmail_UserForgetPassword = view.findViewById(R.id.etEmail_UserForgetPassword);
         tvErrorEmail_UserForgetPassword = view.findViewById(R.id.tvErrorEmail_UserForgetPassword);
         ivErrorEmail_UserForgetPassword = view.findViewById(R.id.ivErrorEmail_UserForgetPassword);
+        etEmail_UserForgetPassword.addTextChangedListener(new Common.TextValidator(etEmail_UserForgetPassword) {
+            @Override
+            public void validate(TextView textView, String text) {
+                String pattern = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+                isErrorEmail = !(Pattern.compile(pattern).matcher(etEmail_UserForgetPassword.getText().toString().trim()).matches());
+            }
+        });
         etEmail_UserForgetPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -80,11 +87,9 @@ public class UserForgetPasswordFragment extends Fragment {
                         tvErrorEmail_UserForgetPassword.setVisibility(View.VISIBLE);
                         tvErrorEmail_UserForgetPassword.setText("不正確的信箱格式");
                         ivErrorEmail_UserForgetPassword.setVisibility(View.VISIBLE);
-                        isErrorEmail = true;
                     } else {
                         tvErrorEmail_UserForgetPassword.setVisibility(View.GONE);
                         ivErrorEmail_UserForgetPassword.setVisibility(View.GONE);
-                        isErrorEmail = false;
                     }
                 }
             }

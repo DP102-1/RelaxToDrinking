@@ -66,7 +66,7 @@ public class UserEditPasswordFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        activity.setTitle("修改密碼");
+        activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_user_edit_password, container, false);
     }
 
@@ -89,6 +89,13 @@ public class UserEditPasswordFragment extends Fragment {
         etNewPassword_UserEditPassword = view.findViewById(R.id.etNewPassword_UserEditPassword);
         tvErrorPassword_UserEditPassword = view.findViewById(R.id.tvErrorPassword_UserEditPassword);
         ivNewPassword_UserEditPassword = view.findViewById(R.id.ivNewPassword_UserEditPassword);
+        etNewPassword_UserEditPassword.addTextChangedListener(new Common.TextValidator(etNewPassword_UserEditPassword) {
+            @Override
+            public void validate(TextView textView, String text) {
+                String pattern = "([a-zA-Z]|\\d){6,16}";
+                isErrorPassword = !(Pattern.compile(pattern).matcher(etNewPassword_UserEditPassword.getText().toString().trim()).matches());
+            }
+        });
         etNewPassword_UserEditPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -98,11 +105,9 @@ public class UserEditPasswordFragment extends Fragment {
                         tvErrorPassword_UserEditPassword.setVisibility(View.VISIBLE);
                         tvErrorPassword_UserEditPassword.setText("密碼必須為英文大小寫數字,6~16個字元");
                         ivNewPassword_UserEditPassword.setVisibility(View.VISIBLE);
-                        isErrorPassword = true;
                     } else {
                         tvErrorPassword_UserEditPassword.setVisibility(View.GONE);
                         ivNewPassword_UserEditPassword.setVisibility(View.GONE);
-                        isErrorPassword = false;
                     }
                 }
             }
@@ -114,6 +119,12 @@ public class UserEditPasswordFragment extends Fragment {
         tvErrorPasswordAgain_UserEditPassword = view.findViewById(R.id.tvErrorPasswordAgain_UserEditPassword);
         etNewPasswordAgain_UserEditPassword = view.findViewById(R.id.etNewPasswordAgain_UserEditPassword);
         ivNewPasswordAgain_UserEditPassword = view.findViewById(R.id.ivNewPasswordAgain_UserEditPassword);
+        etNewPasswordAgain_UserEditPassword.addTextChangedListener(new Common.TextValidator(etNewPasswordAgain_UserEditPassword) {
+            @Override
+            public void validate(TextView textView, String text) {
+                isErrorPasswordAgain = !etNewPassword_UserEditPassword.getText().toString().trim().equals(etNewPasswordAgain_UserEditPassword.getText().toString().trim());
+            }
+        });
         etNewPasswordAgain_UserEditPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
