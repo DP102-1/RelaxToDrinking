@@ -70,7 +70,10 @@
         android:background="@drawable/index_button"
         android:drawableLeft="@android:drawable/arrow_down_float"
         android:drawablePadding="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="用姓名搜尋"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle_UserSearch" />
