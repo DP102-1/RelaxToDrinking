@@ -332,6 +332,20 @@ public class EmployeeInsertFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+        /****************************************************************************/
+        tvTitle_EmployeeInsert.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                etEmail_EmployeeInsert.setText("emp10@gmail.com");
+                etPassword_EmployeeInsert.setText("123456");
+                etName_EmployeeInsert.setText("鄭宏承");
+                etPhone_EmployeeInsert.setText("0988337235");
+                etAddress_EmployeeInsert.setText("桃園市平鎮區延平路二段157號");
+                return false;
+            }
+        });
+        /****************************************************************************/
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

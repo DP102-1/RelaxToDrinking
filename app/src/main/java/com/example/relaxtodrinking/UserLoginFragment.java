@@ -212,7 +212,7 @@ public class UserLoginFragment extends Fragment {
         tvPassword_UserLogin.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                etAccount_UserLogin.setText("user01@gmail.com");
+                etAccount_UserLogin.setText("dp102user@gmail.com");
                 etPassword_UserLogin.setText("123456");
                 return false;
             }

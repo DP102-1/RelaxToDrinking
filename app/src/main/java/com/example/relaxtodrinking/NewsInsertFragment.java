@@ -196,6 +196,22 @@ public class NewsInsertFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        /****************************************************************************/
+        tvTitle_NewsInsert = view.findViewById(R.id.tvTitle_NewsInsert);
+        tvTitle_NewsInsert.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                etNewsMessage_NewsInsert.setText("＊＊免爽飲最新單品＊＊\n" +
+                        "全新的夏日冰沙、繽紛飲料,一字排開顏值超高,\n" +
+                        "天然無添加的超美漸層,口感清香自然,拍照打卡十分吸睛\n" +
+                        "立馬嚐嚐不同的果汁果泥碰撞在一起後是什麼滋味,\n" +
+                        "飲用前建議先搖晃均勻再喝");
+                return false;
+            }
+        });
+        /****************************************************************************/
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝顯示圖片＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//

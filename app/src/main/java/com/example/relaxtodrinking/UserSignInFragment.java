@@ -37,7 +37,7 @@ public class UserSignInFragment extends Fragment {
     private FirebaseAuth auth;
 
     private ImageView ivEmail_UserSignIn, ivPassword_UserSignIn, ivName_UserSignIn, ivPhone_UserSignIn, ivAddress_UserSignIn, ivExit_UserSignIn;
-    private TextView tvErrorEmail_UserSignIn, tvErrorPassword_UserSignIn, tvErrorName_UserSignIn, tvErrorPhone_UserSignIn, tvErrorAddress_UserSignIn;
+    private TextView tvTitle_UserSignIn,tvErrorEmail_UserSignIn, tvErrorPassword_UserSignIn, tvErrorName_UserSignIn, tvErrorPhone_UserSignIn, tvErrorAddress_UserSignIn;
     private EditText etEmail_UserSignIn, etPassword_UserSignIn, etName_UserSignIn, etPhone_UserSignIn, etAddress_UserSignIn;
     private Button btSubmit_UserSignIn;
 
@@ -240,6 +240,22 @@ public class UserSignInFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊離開＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
+
+        /****************************************************************************/
+        tvTitle_UserSignIn = view.findViewById(R.id.tvTitle_UserSignIn);
+        tvTitle_UserSignIn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                etEmail_UserSignIn.setText("dp102user@gmail.com");
+                etPassword_UserSignIn.setText("123456");
+                etName_UserSignIn.setText("陳政秀");
+                etPhone_UserSignIn.setText("0927674993");
+                etAddress_UserSignIn.setText("桃園市中壢區仁德二街52號");
+                return false;
+            }
+        });
+        /****************************************************************************/
     }
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
@@ -278,6 +294,7 @@ public class UserSignInFragment extends Fragment {
                         }
                     }
                 });
+
     }
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝資料上傳至firebase＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
 

@@ -29,7 +29,7 @@ public class ApiUtil {
             String details = "";
             for (OrderItem orderItem : orderItems)
             {
-                details += String.format("『%s %d杯 %s %s %s』 ",orderItem.getPro_name(),orderItem.getPro_quantity(),orderItem.getPro_capacity(),orderItem.getPro_temperature(),orderItem.getPro_sweetness());
+                details += String.format( "『%s %d杯 %s %s %s』 ",orderItem.getPro_name(),orderItem.getPro_quantity(),orderItem.getPro_capacity(),orderItem.getPro_temperature(),orderItem.getPro_sweetness());
             }
 
             paymentJO.put("details",details );

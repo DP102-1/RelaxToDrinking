@@ -97,7 +97,7 @@ public class ProductInsertFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("商品新增");
+        activity.setTitle(TAG);
         return inflater.inflate(R.layout.fragment_product_insert, container, false);
     }
     @Override
@@ -130,6 +130,7 @@ public class ProductInsertFragment extends Fragment {
             }
         });
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊拍照＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
+
 
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝點擊加入相簿＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝//
         btChoiceFromAlbum_ProductInsert = view.findViewById(R.id.btChoiceFromAlbum_ProductInsert);

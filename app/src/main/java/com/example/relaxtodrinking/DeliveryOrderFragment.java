@@ -198,7 +198,6 @@ public class DeliveryOrderFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final DeliveryOrderFragment.OrderAdapter.MyViewHolder holder, int position) {
             final Order order = orders.get(position);
-            order_id = order.getOrder_id();
             if (position % 2 != 0) //顏色交互
             {
                 holder.itemView.setBackgroundColor(Color.parseColor("#F1F7D5"));
@@ -277,6 +276,8 @@ public class DeliveryOrderFragment extends Fragment {
             holder.btQRCode_DeliveryOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    order_id = order.getOrder_id();
+                    Log.e(TAG,order.getOrder_id());
                     /* 若在Activity內需要呼叫IntentIntegrator(Activity)建構式建立IntentIntegrator物件；
                      * 而在Fragment內需要呼叫IntentIntegrator.forSupportFragment(Fragment)建立物件，
                      * 掃瞄完畢時，Fragment.onActivityResult()才會被呼叫 */
@@ -346,6 +347,7 @@ public class DeliveryOrderFragment extends Fragment {
                 Common.showToast(activity,"完成訂單！");
             }else
             {
+                Log.e(TAG,order_id+"不等於"+intentResult.getContents());
                 Common.showToast(activity,"訂單不正確,請重新掃描");
             }
         } else {
